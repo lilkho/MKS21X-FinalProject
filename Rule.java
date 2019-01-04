@@ -1,6 +1,6 @@
 public class Rule {
-  String name;
-  String description;
+  private String name;
+  private String description;
 
   public Rule(String name, String description) {
     this.name = name;

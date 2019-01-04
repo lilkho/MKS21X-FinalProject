@@ -1,7 +1,7 @@
 public class Player {
-  String name;
-  ArrayList<Card> cards;
-  int numCards;
+  private String name;
+  private ArrayList<Card> cards;
+  private int numCards;
 
   public Player(String name, int numCards) {
     this.name = name;
