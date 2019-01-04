@@ -4,7 +4,8 @@ public class Player {
   int numCards;
 
   public Player(String name, int numCards) {
-
+    this.name = name;
+    this.numCards = numCards;
   }
 
   public String getName() {
@@ -12,14 +13,14 @@ public class Player {
   }
 
   public int getNumCards() {
-
+    return numCards;
   }
 
   public ArrayList<Card> getCards() {
-
+    return cards;
   }
 
   public String toString() {
-
+    return name+": "+numCards;
   }
 }
