@@ -1,4 +1,5 @@
 # MKS21X-FinalProject
+**Instructions**\\
 **Development Log**\
 **1/4/19**
 - Completed basic methods for Player, Rule, and UNO class
