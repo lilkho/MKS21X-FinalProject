@@ -5,7 +5,7 @@ public class Game{
   private boolean order;
   private Player turn;
   private ArrayList<Player> players;
-  private Card card;
+  private Card topCard;
   private ArrayList<Card> deck = new ArrayList<Card>();
   private ArrayList<Card> discard = new ArrayList<Card>();
   private Random randgen;
@@ -13,12 +13,19 @@ public class Game{
   
 
   public Game(int numPlayers, int numRules){
-    players = new ArrayList<Player>(numPlayers);
+    //clears discard pile, chooses top card randomly
+    discard.clear();
+    topCard = deck.get(Math.abs(randgen.nextInt(deck.size())));
+    deck.remove(topCard);
+    discard.add(topCard);
+    //sets up game with numPlayers and 7 cards each
+    players = new ArrayList<Player>();
     for(int x=0; x<numPlayers; x++){
-
+      players.set(x, new Player("", 7));
     }
     index = Math.abs(randgen.nextInt(numPlayers));
   }
+  
 
   public void draw(Player person, int num){
     if(deck.size()==0){
