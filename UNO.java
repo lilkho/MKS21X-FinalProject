@@ -23,32 +23,18 @@ public class UNO{
     terminal.setCursorVisible(false);
 
     boolean running = true;
-    int mode = 0;
     long lastTime =  System.currentTimeMillis();
     long currentTime = lastTime;
     long timer = 0;
 
     while(running){
       Key key = terminal.readInput();
-      if (key != null)
-      {
-
-        //YOU CAN PUT DIFFERENT SETS OF BUTTONS FOR DIFFERENT MODES!!!
-
+      if (key != null) {
         if (key.getKind() == Key.Kind.Escape) {
           terminal.exitPrivateMode();
           running = false;
         }
-        //for all modes
-        if (key.getCharacter() == ' ') {
-          mode++;
-          mode%=2;//2 modes
-          terminal.clearScreen();
-          lastTime = System.currentTimeMillis();
-          currentTime = System.currentTimeMillis();
-        }
       }
-
     }
 
   }
