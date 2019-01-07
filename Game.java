@@ -9,6 +9,7 @@ public class Game{
   private ArrayList<Card> deck = new ArrayList<Card>();
   private ArrayList<Card> discard = new ArrayList<Card>();
   private Random randgen;
+  
 
   public Game(int numPlayers, int numRules){
     players = new ArrayList<Player>(numPlayers);
@@ -39,6 +40,9 @@ public class Game{
   }
 
   public void play(Player person, Card toPlay){
+    if(toPlay.getValue().equals("SKIP"){
+
+    }
     if(toPlay.playable(toPlay)){
       person.removeCard(toPlay);
     }
