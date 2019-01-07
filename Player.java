@@ -18,14 +18,18 @@ public class Player {
     return numCards;
   }
 
+  public void setName(String name){
+    this.name = name;
+  }
+
   public ArrayList<Card> getCards() {
     return cards;
   }
-  
+
   public void removeCard(Card toRemove){
     cards.remove(toRemove);
   }
-  
+
   public void addCard(Card toAdd){
     cards.add(toAdd);
   }
