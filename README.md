@@ -6,8 +6,9 @@ Players are not required to say "UNO!" when they have one card.
 
 ### **Instructions**
 
-$ javac -cp lanterna.jar:. UNO.java
-$ java -cp lanterna.jar:. UNO
+`$ javac -cp lanterna.jar:. UNO.java`
+
+`$ java -cp lanterna.jar:. UNO`
 
 
 ---
