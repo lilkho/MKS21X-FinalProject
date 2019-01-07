@@ -21,6 +21,14 @@ public class Player {
   public ArrayList<Card> getCards() {
     return cards;
   }
+  
+  public void removeCard(Card toRemove){
+    cards.remove(toRemove);
+  }
+  
+  public void addCard(Card toAdd){
+    cards.add(toAdd);
+  }
 
   public String toString() {
     return name+": "+numCards;
