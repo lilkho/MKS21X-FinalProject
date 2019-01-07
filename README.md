@@ -1,9 +1,18 @@
 # MKS21X-FinalProject
-**Instructions**
+## UNO!
+Game rules [here](https://www.unorules.com/)
+### **Note**
+Players are not required to say "UNO!" when they have one card.
+
+### **Instructions**
+
+$ javac -cp lanterna.jar:. UNO.java
+$ java -cp lanterna.jar:. UNO
+
 
 ---
 
-**Development Log**
+### **Development Log**
 
 
 **1/4/19**
