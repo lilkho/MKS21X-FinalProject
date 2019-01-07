@@ -7,6 +7,7 @@ public class UNO{
   private ArrayList<Player> players;
   private Card card;
   private ArrayList<Card> deck = new ArrayList<Card>();
+  private ArrayList<Card> discard = new ArrayList<Card>();
   private Random randgen;
 
   public UNO(int numPlayers, int numRules){
@@ -16,8 +17,12 @@ public class UNO{
 
   public void draw(Player person, int num){
     for(int x=0; x<num; x++){
+      //chooses a random card from the deck and adds it to the player's hand
       Card toAdd = deck.get(Math.abs(randgen.nextInt(deck.size())));
       person.addCard(toAdd);
+      //removes card from deck and adds it to "discard" pile
+      discard.add(toAdd);
+      deck.remove(toAdd);
     }
   }
 
