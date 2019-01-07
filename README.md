@@ -7,4 +7,4 @@
 
 **1/6/19**
 - Changed Player class to include remove card and add card methods
-- Changed UNO class to include a deck and randgen
+- Changed UNO class to include a deck, discard pile, and randgen
