@@ -9,6 +9,7 @@ public class Game{
   private ArrayList<Card> deck = new ArrayList<Card>();
   private ArrayList<Card> discard = new ArrayList<Card>();
   private Random randgen;
+  private int index;
   
 
   public Game(int numPlayers, int numRules){
@@ -16,6 +17,7 @@ public class Game{
     for(int x=0; x<numPlayers; x++){
 
     }
+    index = Math.abs(randgen.nextInt(numPlayers));
   }
 
   public void draw(Player person, int num){
@@ -40,8 +42,17 @@ public class Game{
   }
 
   public void play(Player person, Card toPlay){
-    if(toPlay.getValue().equals("SKIP"){
-
+    if(order == true && toPlay.getValue().equals("SKIP")){
+      turn = players.get(index+1);
+    }else{
+      turn = players.get(index-1);
+    }
+    if(order == true && toPlay.getValue().equals("REVERSE")){
+      order = false;
+      turn = players.get(index-1);
+    }else{
+      order = true;
+      turn = players.get(index+1);
     }
     if(toPlay.playable(toPlay)){
       person.removeCard(toPlay);
