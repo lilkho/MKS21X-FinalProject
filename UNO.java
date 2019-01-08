@@ -34,6 +34,10 @@ public class UNO{
           terminal.exitPrivateMode();
           running = false;
         }
+<<<<<<< HEAD
+=======
+        
+>>>>>>> 65f61a2d4bbbd9c68cf841cd54196667561d30c9
       }
     }
 

@@ -25,6 +25,6 @@ public class Card{
   }
 
   public String toString(){
-    return "";
+    return ""+color+value;
   }
 }
