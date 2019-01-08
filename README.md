@@ -27,3 +27,4 @@ Players are not required to say "UNO!" when they have one card.
 **1/7/19**
 - Addded function to set name of player
 - Added remove and add card
+- Added terminal functionability.
