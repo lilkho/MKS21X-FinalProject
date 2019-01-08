@@ -5,8 +5,8 @@ public class Game{
   private boolean order;
   private Player turn;
   private static ArrayList<Player> players;
-  private Card topCard = new Card("","");
-  private ArrayList<Card> deck = new ArrayList<Card>();
+  private Card topCard;
+  private static ArrayList<Card> deck = new ArrayList<Card>();
   private ArrayList<Card> discard = new ArrayList<Card>();
   private Random randgen;
   private int index;
@@ -81,7 +81,7 @@ public class Game{
   }
 
   public static void main(String[] args) {
-    Game test = new Game(2, 2);
-    System.out.println(players.get(0).getCards());
+  //  Game test = new Game(2, 2);
+    System.out.println(deck);
   }
 }

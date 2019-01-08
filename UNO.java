@@ -26,7 +26,7 @@ public class UNO{
     int mode = 0;
     long lastTime =  System.currentTimeMillis();
     long timer = 3000000;
-    long timePassed;
+    long timePassed = 0;
 
     while(running && timePassed!=0){
       lastTime = System.currentTimeMillis();
