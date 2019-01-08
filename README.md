@@ -8,7 +8,7 @@ Players are not required to say "UNO!" when they have one card.
 
 `$ javac -cp lanterna.jar:. UNO.java`
 
-`$ java -cp lanterna.jar:. UNO`
+`$ java -Djava.awt.headless=true -cp lanterna.jar:. UNO`
 
 
 ---
