@@ -25,24 +25,20 @@ public class UNO{
     boolean running = true;
     int mode = 0;
     long lastTime =  System.currentTimeMillis();
-    long currentTime = lastTime;
-    long timer = 0;
+    long timer = 3000000;
+    long timePassed;
 
-    while(running){
+    while(running && timePassed!=0){
+      lastTime = System.currentTimeMillis();
+      timePassed = timer - lastTime;
       Key key = terminal.readInput();
-      if (key != null)
-      {
-
-        //YOU CAN PUT DIFFERENT SETS OF BUTTONS FOR DIFFERENT MODES!!!
-
+      if (key != null){
         if (key.getKind() == Key.Kind.Escape) {
           terminal.exitPrivateMode();
           running = false;
         }
-        
+
       }
-
     }
-
   }
 }
