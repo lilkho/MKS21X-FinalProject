@@ -10,7 +10,7 @@ public class Game{
   private ArrayList<Card> discard = new ArrayList<Card>();
   private Random randgen;
   private int index;
-  
+
 
   public Game(int numPlayers, int numRules){
     //clears discard pile, chooses top card randomly
@@ -25,7 +25,7 @@ public class Game{
     }
     index = Math.abs(randgen.nextInt(numPlayers));
   }
-  
+
 
   public void draw(Player person, int num){
     if(deck.size()==0){
