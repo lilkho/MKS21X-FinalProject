@@ -39,14 +39,7 @@ public class UNO{
           terminal.exitPrivateMode();
           running = false;
         }
-        //for all modes
-        if (key.getCharacter() == ' ') {
-          mode++;
-          mode%=2;//2 modes
-          terminal.clearScreen();
-          lastTime = System.currentTimeMillis();
-          currentTime = System.currentTimeMillis();
-        }
+        
       }
 
     }
