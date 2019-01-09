@@ -28,3 +28,7 @@ Players are not required to say "UNO!" when they have one card.
 - Addded function to set name of player
 - Added remove and add card
 - Added terminal functionability.
+
+**1/8/19**
+- Changed Card's toString for testing purposes
+- Bug: returning null pointer exception after adding Cards to deck
