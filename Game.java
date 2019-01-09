@@ -30,8 +30,31 @@ public class Game{
   }
 
   public void setDeck(){
-    deck.add(new Card("RED","0"));
-    deck.add(new Card("RED", "1"));
+    String[] colors = {"BLUE","RED","YELLOW","GREEN"};
+    for (int i=0;i<10;i++) {
+      deck.add(new Card("RED",""+i));
+    }
+    for (int i=0;i<10;i++) {
+      deck.add(new Card("BLUE",""+i));
+    }
+    for (int i=0;i<10;i++) {
+      deck.add(new Card("GREEN",""+i));
+    }
+    for (int i=0;i<10;i++) {
+      deck.add(new Card("YELLOW",""+i));
+    }
+    for (int i=0;i<4;i++) {
+      deck.add(new Card(colors[i],"REVERSE"));
+      deck.add(new Card(colors[i],"REVERSE"));
+      deck.add(new Card(colors[i],"SKIP"));
+      deck.add(new Card(colors[i],"SKIP"));
+      deck.add(new Card(colors[i],"+2"));
+      deck.add(new Card(colors[i],"+2"));
+    }
+    for (int i=0;i<4;i++) {
+      deck.add(new Card("BLACK","+4"));
+      deck.add(new Card("BLACK","WILD"));
+    }
   }
 
 
