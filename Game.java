@@ -5,10 +5,10 @@ public class Game{
   private boolean order;
   private Player turn;
   private static ArrayList<Player> players;
-  private Card topCard;
+  private static Card topCard;
   private static ArrayList<Card> deck = new ArrayList<Card>();
-  private ArrayList<Card> discard = new ArrayList<Card>();
-  private Random randgen;
+  private static ArrayList<Card> discard = new ArrayList<Card>();
+  private Random randgen = new Random();
   private int index;
 
 
@@ -20,13 +20,13 @@ public class Game{
     deck.remove(topCard);
     discard.add(topCard);
     //sets up game with numPlayers and 7 cards each
-    players = new ArrayList<Player>();
+    players = new ArrayList<Player>(numPlayers);
     for(int x=0; x<numPlayers; x++){
       Player person = new Player(""+x, 7);
-      players.set(x, person);
+      players.add(person);
       draw(person,7);
     }
-    index = Math.abs(randgen.nextInt(numPlayers));
+  index = Math.abs(randgen.nextInt(numPlayers));
   }
 
   public void setDeck(){
@@ -104,7 +104,10 @@ public class Game{
   }
 
   public static void main(String[] args) {
-  //  Game test = new Game(2, 2);
+    Game test = new Game(2, 2);
     System.out.println(deck);
+    System.out.println(topCard);
+    System.out.println(players.get(0).getCards());
+    System.out.println(discard);
   }
 }
