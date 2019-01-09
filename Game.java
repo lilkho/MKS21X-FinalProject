@@ -106,8 +106,7 @@ public class Game{
   public static void main(String[] args) {
     Game test = new Game(2, 2);
     System.out.println(deck);
-    System.out.println(topCard);
-    System.out.println(players.get(0).getCards());
     System.out.println(discard);
+    System.out.println(deck);
   }
 }
