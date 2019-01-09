@@ -26,7 +26,7 @@ public class Game{
       players.add(person);
       draw(person,7);
     }
-  index = Math.abs(randgen.nextInt(numPlayers));
+    index = Math.abs(randgen.nextInt(numPlayers));
   }
 
   public void setDeck(){
@@ -94,8 +94,14 @@ public class Game{
       order = true;
       turn = players.get(index+1);
     }
+    if(order == true && toPlay.getValue().equals("+2")){
+      turn = players.get(index+1);
+    }else{
+      turn = players.get(index-1);
+    }
     if(toPlay.playable(toPlay)){
       person.removeCard(toPlay);
+      discard.add(toPlay);
     }
   }
 
