@@ -23,7 +23,6 @@ public class UNO{
     terminal.setCursorVisible(false);
 
     boolean running = true;
-    int mode = 0;
     long lastTime =  System.currentTimeMillis();
     long timer = 3000000;
     long timePassed = 0;
@@ -37,7 +36,6 @@ public class UNO{
           terminal.exitPrivateMode();
           running = false;
         }
-
       }
     }
   }
