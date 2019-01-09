@@ -31,7 +31,15 @@ public class Game{
 
   public void setDeck(){
     String[] colors = {"BLUE","RED","YELLOW","GREEN"};
-    for (int i=0;i<10;i++) {
+    deck.add(new Card("RED","0"));
+    deck.add(new Card("BLUE","0"));
+    deck.add(new Card("YELLOW","0"));
+    deck.add(new Card("GREEN","0"));
+    for (int i=1;i<10;i++) {
+      deck.add(new Card("RED",""+i));
+      deck.add(new Card("BLUE",""+i));
+      deck.add(new Card("YELLOW",""+i));
+      deck.add(new Card("GREEN",""+i));
       deck.add(new Card("RED",""+i));
       deck.add(new Card("BLUE",""+i));
       deck.add(new Card("YELLOW",""+i));
@@ -100,7 +108,7 @@ public class Game{
   public static void main(String[] args) {
     Game test = new Game(2, 2);
     System.out.println(deck);
+    System.out.println(deck.size());
     System.out.println(discard);
-    System.out.println(deck);
   }
 }
