@@ -33,15 +33,9 @@ public class Game{
     String[] colors = {"BLUE","RED","YELLOW","GREEN"};
     for (int i=0;i<10;i++) {
       deck.add(new Card("RED",""+i));
-    }
-    for (int i=0;i<10;i++) {
       deck.add(new Card("BLUE",""+i));
-    }
-    for (int i=0;i<10;i++) {
-      deck.add(new Card("GREEN",""+i));
-    }
-    for (int i=0;i<10;i++) {
       deck.add(new Card("YELLOW",""+i));
+      deck.add(new Card("GREEN",""+i));
     }
     for (int i=0;i<4;i++) {
       deck.add(new Card(colors[i],"REVERSE"));
