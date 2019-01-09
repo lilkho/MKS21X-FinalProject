@@ -24,18 +24,19 @@ public class UNO{
 
     boolean running = true;
     long lastTime =  System.currentTimeMillis();
-    long currentTime = lastTime;
-    long timer = 0;
+    long timer = 3000000;
+    long timePassed = 0;
 
-    while(running){
+    while(running && timePassed!=0){
+      lastTime = System.currentTimeMillis();
+      timePassed = timer - lastTime;
       Key key = terminal.readInput();
-      if (key != null) {
+      if (key != null){
         if (key.getKind() == Key.Kind.Escape) {
           terminal.exitPrivateMode();
           running = false;
         }
       }
     }
-
   }
 }
