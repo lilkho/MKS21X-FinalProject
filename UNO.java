@@ -23,42 +23,15 @@ public class UNO{
 	}
 
   public static void main(String[] args){
-    Game game = new Game(Integer.parseInt(args[0]),Integer.parseInt(args[1]));
-
-    int x=0;
-    int y=0;
-    boolean running = true;
-    long lastTime =  System.currentTimeMillis();
-    long timer = 3000000;
-    long timePassed = 0;
-
-    Terminal terminal = TerminalFacade.createTextTerminal();
+    //setting up terminal
+    /*Terminal terminal = TerminalFacade.createTextTerminal();
     terminal.enterPrivateMode();
-
     TerminalSize size = terminal.getTerminalSize();
     terminal.setCursorVisible(false);
 
-<<<<<<< HEAD
-    for (int i=0;i<game.getPlayers().size();i++) {
-      putString(0,i,terminal,"Player "+game.getPlayers().get(i).toString());
-    }
-
-
-    while(running) {
-      terminal.moveCursor(x,y);
-=======
     boolean running = true;
-    long lastTime =  System.currentTimeMillis();
-    long timer = 10*60*1000;
-    //long timePassed = 0;
 
-    game.getPlayers().get(0).setName("random");
-    putString(0,0,terminal,game.printPlayers());
-
-    while(running && (timePassed)!=0){
->>>>>>> ef0aa955beddf6734b1cd37dceae63ffe7c3a0e8
-      lastTime = System.currentTimeMillis();
-      //timePassed = timer - lastTime;
+    while(running){
       Key key = terminal.readInput();
       if (key != null){
         if (key.getKind() == Key.Kind.Escape) {
@@ -67,5 +40,30 @@ public class UNO{
         }
       }
     }
+    */
+
+    /////////NOT TERMINAL STUFF///////////////
+    int p = 2;
+    int r = 0;
+    try{
+      if(args.length==0){
+        throw new IllegalArgumentException("Enter number of players.");
+      }
+      if(args.length!=0){
+        p = Integer.parseInt(args[0]);
+        r = Integer.parseInt(args[1]);
+        if(p<2 || p>4){
+          System.out.println("Please enter 2-4 players");
+          System.exit(1);
+        }
+      }
+    }catch(IllegalArgumentException e){
+      System.out.println("Please enter the following arguments: #players [#rules]");
+    }
+    Game game = new Game(p,r);
+    game.getPlayers().get(0).setName("random");
+    System.out.println(game);
+    //putString(0,0,terminal,game.printPlayers());
+
   }
 }
