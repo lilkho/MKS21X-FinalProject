@@ -126,14 +126,17 @@ public class Game{
   }
 
   public String toString(){
-    return players+"\n"+turn+"\n"+topCard;
+    return printPlayers()+"\nTurn: Player "+players.get(index).getName()+"\nTop Card: "+topCard;
   }
 
 
   public String printPlayers(){
     String res = "";
     for(int x=0; x<players.size(); x++){
-      res+=players.get(x)+"\n";
+      res+="Player "+players.get(x);
+      if(x!=players.size()-1){
+        res+="\n";
+      }
     }
     return res;
   }
