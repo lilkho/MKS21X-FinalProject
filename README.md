@@ -39,4 +39,4 @@ Players are not required to say "UNO!" when they have one card.
 
 **1/10/19**
 - Deck is working!
-- Bug: Deck is not printing correct cards 
+~~- Bug: Deck is not printing correct cards~~ 
