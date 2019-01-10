@@ -23,7 +23,6 @@ public class Game{
     //sets up game with numPlayers and 7 cards each
     players = new ArrayList<Player>(numPlayers);
     //makes a Player for each player && everyone draws 7 Cards
-    //separate setName function?
     for(int x=0; x<numPlayers; x++){
       Player person = new Player(""+x, 7);
       players.add(person);
@@ -104,16 +103,21 @@ public class Game{
       turn = players.get(index+1);
     }
     //conditions if a card is +2
-    //how does player choose to draw or to play +2?
-    //keep track of combo?
     if(order == true && toPlay.getValue().equals("+2")){
       turn = players.get(index+1);
     }else{
       turn = players.get(index-1);
     }
+    //if card is playable, remove from player's hand, add to discard pile,
+    //set it as top card, and set turn to next player
     if(toPlay.playable(toPlay)){
       person.removeCard(toPlay);
       discard.add(toPlay);
+      topCard = toPlay;
+      if(order){
+        turn = players.get(index+1);
+      }
+      turn = players.get(index-1);
     }
   }
 
@@ -121,10 +125,16 @@ public class Game{
     turn = person;
   }
 
+  public String toString(){
+    return players+"\n"+turn+"\n"+topCard;
+  }
+
   public static void main(String[] args) {
     Game test = new Game(2, 2);
-    System.out.println(deck);
+    /*System.out.println(deck);
     System.out.println(deck.size());
     System.out.println(discard);
+    System.out.println(players);
+    */System.out.println(test);
   }
 }
