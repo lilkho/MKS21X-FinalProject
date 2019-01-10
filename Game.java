@@ -11,7 +11,6 @@ public class Game{
   private Random randgen = new Random();
   private int index;
 
-
   public Game(int numPlayers, int numRules){
     //clears discard pile, chooses top card randomly
     discard.clear();
@@ -36,22 +35,26 @@ public class Game{
     deck.add(new Card("YELLOW","0"));
     deck.add(new Card("GREEN","0"));
     for (int i=1;i<10;i++) {
-      deck.add(new Card("RED",""+i));
-      deck.add(new Card("BLUE",""+i));
-      deck.add(new Card("YELLOW",""+i));
-      deck.add(new Card("GREEN",""+i));
-      deck.add(new Card("RED",""+i));
-      deck.add(new Card("BLUE",""+i));
-      deck.add(new Card("YELLOW",""+i));
-      deck.add(new Card("GREEN",""+i));
+      if(i==0){
+        deck.add(new Card("RED",""+i));
+        deck.add(new Card("BLUE",""+i));
+        deck.add(new Card("YELLOW",""+i));
+        deck.add(new Card("GREEN",""+i));
+      }else{
+        for(int x=0; x<2; x++){
+          deck.add(new Card("RED",""+i));
+          deck.add(new Card("BLUE",""+i));
+          deck.add(new Card("YELLOW",""+i));
+          deck.add(new Card("GREEN",""+i));
+        }
+      }
     }
     for (int i=0;i<4;i++) {
-      deck.add(new Card(colors[i],"REVERSE"));
-      deck.add(new Card(colors[i],"REVERSE"));
-      deck.add(new Card(colors[i],"SKIP"));
-      deck.add(new Card(colors[i],"SKIP"));
-      deck.add(new Card(colors[i],"+2"));
-      deck.add(new Card(colors[i],"+2"));
+      for(int x=0; x<2; x++){
+        deck.add(new Card(colors[i],"REVERSE"));
+        deck.add(new Card(colors[i],"SKIP"));
+        deck.add(new Card(colors[i],"+2"));
+      }
     }
     for (int i=0;i<4;i++) {
       deck.add(new Card("BLACK","+4"));
