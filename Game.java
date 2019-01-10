@@ -137,6 +137,23 @@ public class Game{
     }
     return res;
   }
+
+  public Card getTopCard(){
+    return topCard;
+  }
+
+  public ArrayList<Card> getDeck(){
+    return deck;
+  }
+
+  public ArrayList<Card> getDiscard(){
+    return discard;
+  }
+
+  public ArrayList<Player> getPlayers(){
+    return players;
+  }
+  
   public static void main(String[] args) {
     Game test = new Game(2, 2);
     /*System.out.println(deck);
