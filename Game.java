@@ -8,18 +8,22 @@ public class Game{
   private static Card topCard;
   private static ArrayList<Card> deck = new ArrayList<Card>();
   private static ArrayList<Card> discard = new ArrayList<Card>();
+  private ArrayList<Rule> rules = new ArrayList<Rule>();
   private Random randgen = new Random();
   private int index;
 
   public Game(int numPlayers, int numRules){
-    //clears discard pile, chooses top card randomly
+    //clears discard pile, sets the deck, chooses top card randomly
     discard.clear();
     setDeck();
     topCard = deck.get(Math.abs(randgen.nextInt(deck.size())));
+    //bc the card is chosen, remove from deck && add to "discard" (already used) deck
     deck.remove(topCard);
     discard.add(topCard);
     //sets up game with numPlayers and 7 cards each
     players = new ArrayList<Player>(numPlayers);
+    //makes a Player for each player && everyone draws 7 Cards
+    //separate setName function?
     for(int x=0; x<numPlayers; x++){
       Player person = new Player(""+x, 7);
       players.add(person);
@@ -30,11 +34,8 @@ public class Game{
 
   public void setDeck(){
     String[] colors = {"BLUE","RED","YELLOW","GREEN"};
-    deck.add(new Card("RED","0"));
-    deck.add(new Card("BLUE","0"));
-    deck.add(new Card("YELLOW","0"));
-    deck.add(new Card("GREEN","0"));
-    for (int i=1;i<10;i++) {
+    //1-9 has 4 colors each + a duplicate, 0 does not have a duplicate
+    for (int i=0;i<10;i++) {
       if(i==0){
         deck.add(new Card("RED",""+i));
         deck.add(new Card("BLUE",""+i));
@@ -49,6 +50,7 @@ public class Game{
         }
       }
     }
+    //reverse, skip, and +2 has 4 colors each + a duplicate
     for (int i=0;i<4;i++) {
       for(int x=0; x<2; x++){
         deck.add(new Card(colors[i],"REVERSE"));
@@ -56,6 +58,7 @@ public class Game{
         deck.add(new Card(colors[i],"+2"));
       }
     }
+    //4 wilds and 4 +4's
     for (int i=0;i<4;i++) {
       deck.add(new Card("BLACK","+4"));
       deck.add(new Card("BLACK","WILD"));
@@ -64,6 +67,7 @@ public class Game{
 
 
   public void draw(Player person, int num){
+    //if deck is empty, "shuffle" by making the discard pile the draw pile
     if(deck.size()==0){
       refresh();
     }
@@ -99,6 +103,9 @@ public class Game{
       order = true;
       turn = players.get(index+1);
     }
+    //conditions if a card is +2
+    //how does player choose to draw or to play +2?
+    //keep track of combo?
     if(order == true && toPlay.getValue().equals("+2")){
       turn = players.get(index+1);
     }else{
