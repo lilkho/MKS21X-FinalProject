@@ -132,8 +132,8 @@ public class Game{
 
   public static String printPlayers(){
     String res = "";
-    for(int x=0; x<players.size(); x++){
-      res+=players.get(x);
+    for(int x=0; x<getPlayers().size(); x++){
+      res+=getPlayers().get(x)+"\n";
     }
     return res;
   }
@@ -153,7 +153,7 @@ public class Game{
   public ArrayList<Player> getPlayers(){
     return players;
   }
-  
+
   public static void main(String[] args) {
     Game test = new Game(2, 2);
     /*System.out.println(deck);
@@ -161,7 +161,7 @@ public class Game{
     System.out.println(discard);
     System.out.println(players);
     */System.out.println(test);
-    players.get(0).setName("name here");
+    getPlayers().get(0).setName("name here");
     printPlayers();
   }
 }
