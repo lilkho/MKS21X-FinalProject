@@ -16,7 +16,8 @@ public class Card{
   }
 
   public boolean playable(Card compare){
-    if(this.getColor().equals(compare.getColor()) ||
+    if(compare.getColor().equals("BLACK") ||
+      this.getColor().equals(compare.getColor()) ||
       this.getValue().equals(compare.getValue())){
       return true;
     }else{
