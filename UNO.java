@@ -24,7 +24,7 @@ public class UNO{
 
     boolean running = true;
     long lastTime =  System.currentTimeMillis();
-    long timer = 3000000;
+    long timer = 3000;
     long timePassed = 0;
 
     while(running && timePassed!=0){
