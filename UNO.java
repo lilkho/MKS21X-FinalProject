@@ -14,6 +14,13 @@ import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.input.KeyMappingProfile;
 
 public class UNO{
+  public static void putString(int r, int c,Terminal t, String s){
+		t.moveCursor(r,c);
+		for(int i = 0; i < s.length();i++){
+			t.putCharacter(s.charAt(i));
+		}
+	}
+  
   public static void main(String[] args){
     Game game = new Game(Integer.parseInt(args[0]),Integer.parseInt(args[1]));
 

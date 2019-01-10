@@ -4,10 +4,10 @@ import java.util.Random;
 public class Game{
   private boolean order;
   private Player turn;
-  private static ArrayList<Player> players;
-  private static Card topCard;
-  private static ArrayList<Card> deck = new ArrayList<Card>();
-  private static ArrayList<Card> discard = new ArrayList<Card>();
+  private ArrayList<Player> players;
+  private Card topCard;
+  private ArrayList<Card> deck = new ArrayList<Card>();
+  private ArrayList<Card> discard = new ArrayList<Card>();
   private ArrayList<Rule> rules = new ArrayList<Rule>();
   private Random randgen = new Random();
   private int index;
