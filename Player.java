@@ -15,7 +15,7 @@ public class Player {
   }
 
   public int getNumCards() {
-    return numCards;
+    return cards.size();
   }
 
   public void setName(String name){
