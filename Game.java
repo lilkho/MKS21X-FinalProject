@@ -81,6 +81,7 @@ public class Game{
   }
 
   public void refresh(){
+    //copies discard to deck
     for(int x=0; x<discard.size(); x++){
       deck.set(x, discard.get(x));
     }
@@ -126,11 +127,17 @@ public class Game{
   }
 
   public String toString(){
+    //format: Player 1: 7
+    //Player 2: 7
+    //Turn: Player 1
+    //Top Card: BLUE3
     return printPlayers()+"\nTurn: Player "+players.get(index).getName()+"\nTop Card: "+topCard;
   }
 
 
   public String printPlayers(){
+    //format: Player 1: 7
+    //Player 2: 7
     String res = "";
     for(int x=0; x<players.size(); x++){
       res+="Player "+players.get(x);
