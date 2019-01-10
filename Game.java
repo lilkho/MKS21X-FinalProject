@@ -6,6 +6,7 @@ public class Game{
   private Player turn;
   private ArrayList<Player> players;
   private Card topCard;
+  private ArrayList<Rule> allRules = new ArrayList<Rule>();
   private ArrayList<Card> deck = new ArrayList<Card>();
   private ArrayList<Card> discard = new ArrayList<Card>();
   private ArrayList<Rule> rules = new ArrayList<Rule>();
@@ -28,7 +29,9 @@ public class Game{
       players.add(person);
       draw(person,7);
     }
+    //selects a player to start game
     index = Math.abs(randgen.nextInt(numPlayers));
+    turn = players.get(index);
   }
 
   public void setDeck(){
@@ -67,7 +70,10 @@ public class Game{
 
   public void draw(Player person, int num){
     //if deck is empty, "shuffle" by making the discard pile the draw pile
-    if(deck.size()==0){
+    if(deck.size() == 0){
+      refresh();
+    }
+    if(num > deck.size()){
       refresh();
     }
     for(int x=0; x<num; x++){
@@ -83,7 +89,7 @@ public class Game{
   public void refresh(){
     //copies discard to deck
     for(int x=0; x<discard.size(); x++){
-      deck.set(x, discard.get(x));
+      deck.add(discard.get(x));
     }
     discard.clear();
   }
@@ -162,6 +168,26 @@ public class Game{
 
   public ArrayList<Player> getPlayers(){
     return players;
+  }
+
+  public ArrayList<Rule> getRules(){
+    return rules;
+  }
+
+  public int getIndex(){
+    return index;
+  }
+
+  public boolean getOrder(){
+    return order;
+  }
+
+  public Player getTurn(){
+    return turn;
+  }
+
+  public ArrayList<Rule> getAllRules(){
+    return allRules;
   }
 
   public static void main(String[] args) {

@@ -11,9 +11,14 @@ public class Test{
     System.out.println("empty ?="+game.getRules());
     System.out.println("15 ?="+game.getDiscard().size());
     System.out.println("93 ?="+game.getDeck().size());
+    //testing when you draw all of deck
     game.draw(game.getPlayers().get(0),93);
     System.out.println("0 ?="+game.getDeck().size());
+    //when you draw when deck is empty
     game.draw(game.getPlayers().get(0),1);
+    System.out.println("107 ?="+game.getDeck().size());
+    //when you draw more than deck size
+    game.draw(game.getPlayers().get(0),108);
     System.out.println("0 ?="+game.getDeck().size());
   }
 }
