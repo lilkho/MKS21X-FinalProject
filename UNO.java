@@ -34,6 +34,8 @@ public class UNO{
     long timer = 3000000;
     long timePassed = 0;
 
+    putString(0,0,terminal,game.printPlayers());
+
     while(running && timePassed!=0){
       lastTime = System.currentTimeMillis();
       timePassed = timer - lastTime;
