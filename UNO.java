@@ -24,19 +24,26 @@ public class UNO{
   public static void main(String[] args){
     Game game = new Game(Integer.parseInt(args[0]),Integer.parseInt(args[1]));
 
-    Terminal terminal = TerminalFacade.createTextTerminal();
-    terminal.enterPrivateMode();
-    TerminalSize size = terminal.getTerminalSize();
-    terminal.setCursorVisible(false);
-
+    int x=0;
+    int y=0;
     boolean running = true;
     long lastTime =  System.currentTimeMillis();
     long timer = 3000000;
     long timePassed = 0;
 
-    putString(0,0,terminal,game.printPlayers());
+    Terminal terminal = TerminalFacade.createTextTerminal();
+    terminal.enterPrivateMode();
 
-    while(running && timePassed!=0){
+    TerminalSize size = terminal.getTerminalSize();
+    terminal.setCursorVisible(false);
+
+    for (int i=0;i<game.getPlayers().size();i++) {
+      putString(0,i,terminal,"Player "+game.getPlayers().get(i).toString());
+    }
+
+
+    while(running) {
+      terminal.moveCursor(x,y);
       lastTime = System.currentTimeMillis();
       timePassed = timer - lastTime;
       Key key = terminal.readInput();
