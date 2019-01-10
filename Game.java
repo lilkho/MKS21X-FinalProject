@@ -132,8 +132,8 @@ public class Game{
 
   public String printPlayers(){
     String res = "";
-    for(int x=0; x<getPlayers().size(); x++){
-      res+=getPlayers().get(x)+"\n";
+    for(int x=0; x<players.size(); x++){
+      res+=players.get(x)+"\n";
     }
     return res;
   }
