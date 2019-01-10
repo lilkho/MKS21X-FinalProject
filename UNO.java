@@ -31,7 +31,7 @@ public class UNO{
 
     boolean running = true;
     long lastTime =  System.currentTimeMillis();
-    long timer = 3000;
+    long timer = 3000000;
     long timePassed = 0;
 
     putString(0,0,terminal,game.printPlayers());

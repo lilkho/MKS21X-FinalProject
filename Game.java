@@ -132,11 +132,28 @@ public class Game{
 
   public String printPlayers(){
     String res = "";
-    for(int x=0; x<players.size(); x++){
-      res+=players.get(x);
+    for(int x=0; x<getPlayers().size(); x++){
+      res+=getPlayers().get(x)+"\n";
     }
     return res;
   }
+
+  public Card getTopCard(){
+    return topCard;
+  }
+
+  public ArrayList<Card> getDeck(){
+    return deck;
+  }
+
+  public ArrayList<Card> getDiscard(){
+    return discard;
+  }
+
+  public ArrayList<Player> getPlayers(){
+    return players;
+  }
+
   public static void main(String[] args) {
     /*Game test = new Game(2, 2);
     System.out.println(deck);
