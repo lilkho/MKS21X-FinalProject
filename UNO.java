@@ -20,7 +20,7 @@ public class UNO{
 			t.putCharacter(s.charAt(i));
 		}
 	}
-  
+
   public static void main(String[] args){
     Game game = new Game(Integer.parseInt(args[0]),Integer.parseInt(args[1]));
 
@@ -33,6 +33,8 @@ public class UNO{
     long lastTime =  System.currentTimeMillis();
     long timer = 3000;
     long timePassed = 0;
+
+    putString(0,0,terminal,game.printPlayers());
 
     while(running && timePassed!=0){
       lastTime = System.currentTimeMillis();
