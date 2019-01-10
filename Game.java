@@ -4,7 +4,7 @@ import java.util.Random;
 public class Game{
   private boolean order;
   private Player turn;
-  private ArrayList<Player> players;
+  private static ArrayList<Player> players;
   private Card topCard;
   private ArrayList<Card> deck = new ArrayList<Card>();
   private ArrayList<Card> discard = new ArrayList<Card>();
@@ -132,8 +132,8 @@ public class Game{
 
   public static String printPlayers(){
     String res = "";
-    for(int x=0; x<getPlayers().size(); x++){
-      res+=getPlayers().get(x)+"\n";
+    for(int x=0; x<players.size(); x++){
+      res+=players.get(x)+"\n";
     }
     return res;
   }
@@ -161,7 +161,7 @@ public class Game{
     System.out.println(discard);
     System.out.println(players);
     */System.out.println(test);
-    getPlayers().get(0).setName("name here");
+    test.getPlayers().get(0).setName("name here");
     printPlayers();
   }
 }
