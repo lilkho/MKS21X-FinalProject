@@ -38,5 +38,6 @@ Players are not required to say "UNO!" when they have one card.
 - Players are given random 7 cards and a card is placed down
 
 **1/10/19**
-- Deck is working!
-~~- Bug: Deck is not printing correct cards~~ 
+- Deck is working
+~~- Bug: Deck is not printing correct cards~~
+- Questions: setName? how does player choose to draw or to play +2? keep track of combo? turn not printing correctly?
