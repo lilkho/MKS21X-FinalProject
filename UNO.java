@@ -14,6 +14,7 @@ import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.input.KeyMappingProfile;
 
 public class UNO{
+
   public static void putString(int r, int c,Terminal t, String s){
 		t.moveCursor(r,c);
 		for(int i = 0; i < s.length();i++){
@@ -31,14 +32,15 @@ public class UNO{
 
     boolean running = true;
     long lastTime =  System.currentTimeMillis();
-    long timer = 3000000;
-    long timePassed = 0;
+    long timer = 10*60*1000;
+    //long timePassed = 0;
 
+    game.getPlayers().get(0).setName("random");
     putString(0,0,terminal,game.printPlayers());
 
-    while(running && timePassed!=0){
+    while(running && (timePassed)!=0){
       lastTime = System.currentTimeMillis();
-      timePassed = timer - lastTime;
+      //timePassed = timer - lastTime;
       Key key = terminal.readInput();
       if (key != null){
         if (key.getKind() == Key.Kind.Escape) {

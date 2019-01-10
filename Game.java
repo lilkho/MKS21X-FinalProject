@@ -4,7 +4,7 @@ import java.util.Random;
 public class Game{
   private boolean order;
   private Player turn;
-  private static ArrayList<Player> players;
+  private ArrayList<Player> players;
   private Card topCard;
   private ArrayList<Card> deck = new ArrayList<Card>();
   private ArrayList<Card> discard = new ArrayList<Card>();
