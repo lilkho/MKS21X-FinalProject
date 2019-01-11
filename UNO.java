@@ -27,21 +27,34 @@ public class UNO{
     int p = 2;
     int r = 0;
     try{
-      if(args.length==0){
+      if(args[0].toUpperCase().equals("HELP")){
+        System.out.println("commands and stuff here");
+      }
+  /*    if(args[0].toUpperCase().equals("play")){
+        int person = Integer.parseInt(args[1]);
+        System.out.println(game+"\n"+game.getPlayers().get(person).getCards());
+      }
+  */    if(args.length==0){
+        System.out.println("Welcome to UNO! Enter 'help' as an argument for commands");
         throw new IllegalArgumentException("Enter number of players.");
       }
-      if(args.length!=0){
+      if(args.length==1){
+        p = Integer.parseInt(args[0]);
+      }
+      if(args.length>=2){
         p = Integer.parseInt(args[0]);
         r = Integer.parseInt(args[1]);
-        if(p<2 || p>4){
-          System.out.println("Please enter 2-4 players");
-          System.exit(1);
-        }
       }
+      if(p<2 || p>4){
+        System.out.println("Please enter 2-4 players");
+        System.exit(1);
+      }
+      Game game = new Game(p,r);
+      game.getPlayers().get(0).setName("random");
+      System.out.println(game);
     }catch(IllegalArgumentException e){
       System.out.println("Please enter the following arguments: #players [#rules]");
     }
-    Game game = new Game(p,r);
     //putString(0,0,terminal,game.printPlayers());
     //setting up terminal
     int x = 0;
