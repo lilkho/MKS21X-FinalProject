@@ -15,6 +15,10 @@ public class Card{
     return value;
   }
 
+  public void setColor(String col){
+    color = col;
+  }
+
   public boolean playable(Card compare){
     if(compare.getColor().equals("BLACK") ||
       this.getColor().equals(compare.getColor()) ||
