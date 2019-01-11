@@ -41,3 +41,11 @@ Players are not required to say "UNO!" when they have one card.
 - Deck is working
 ~~- Bug: Deck is not printing correct cards~~
 - Questions: setName? how does player choose to draw or to play +2? keep track of combo? turn not printing correctly?
+
+**1/11/19**
+- Added get functions to Game class so UNO can use them
+- Added printPlayers function to print by line rather than an array ArrayList
+- Draw function works in all cases
+- Playing a card works for everything except +2
+- Added setColor for when playing a wild card
+- Player says UNO! if player has 1 card
