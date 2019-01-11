@@ -30,11 +30,11 @@ public class UNO{
       if(args[0].toUpperCase().equals("HELP")){
         System.out.println("commands and stuff here");
       }
-  /*    if(args[0].toUpperCase().equals("play")){
+      if(args[0].toUpperCase().equals("play")){
         int person = Integer.parseInt(args[1]);
         System.out.println(game+"\n"+game.getPlayers().get(person).getCards());
       }
-  */    if(args.length==0){
+      if(args.length==0){
         System.out.println("Welcome to UNO! Enter 'help' as an argument for commands");
         throw new IllegalArgumentException("Enter number of players.");
       }
@@ -93,7 +93,7 @@ public class UNO{
 
       terminal.moveCursor(1,6);
 
-      
+
 
       Key key = terminal.readInput();
       if (key != null){
