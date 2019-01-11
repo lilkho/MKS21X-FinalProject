@@ -94,42 +94,59 @@ public class Game{
     discard.clear();
   }
 
-  public void play(Player person, Card toPlay){
-    //conditions if card is a skip
-    if(order == true && toPlay.getValue().equals("SKIP")){
-      turn = players.get(index+1);
-    }else{
-      turn = players.get(index-1);
-    }
-    //conditions if card is a reverse
-    if(order == true && toPlay.getValue().equals("REVERSE")){
-      order = false;
-      turn = players.get(index-1);
-    }else{
-      order = true;
-      turn = players.get(index+1);
-    }
-    //conditions if a card is +2
-    if(order == true && toPlay.getValue().equals("+2")){
-      turn = players.get(index+1);
-    }else{
-      turn = players.get(index-1);
-    }
+  public void play(Player person, Card toPlay, String dummy){
     //if card is playable, remove from player's hand, add to discard pile,
     //set it as top card, and set turn to next player
     if(toPlay.playable(toPlay)){
+      //if card is a skip, turn = 2 indecies after
+      if(toPlay.getValue().equals("SKIP")){
+        setTurn(2);
+      //if card is a reverse, switch order & turn = next player
+      }else if(toPlay.getValue().equals("REVERSE")){
+        if(order){
+          order = false;
+          setTurn(1);
+        }else{
+          order = true;
+          setTurn(1);
+        }
+        //conditions if a card is +2
+      }else if(toPlay.getValue().equals("+2")){
+        setTurn(1);
+      }else if(toPlay.getColor().equals("BLACK")){
+        if(dummy.equals("RED") ||
+        dummy.equals("YELLOW") ||
+        dummy.equals("BLUE") ||
+        dummy.equals("GREEN")){
+          toPlay.setColor(dummy);
+        }else{
+          System.out.println("Invalid color!");
+        }
+      }else{
+        setTurn(1);
+      }
       person.removeCard(toPlay);
       discard.add(toPlay);
       topCard = toPlay;
-      if(order){
-        turn = players.get(index+1);
-      }
-      turn = players.get(index-1);
+    }else{
+      System.out.println("Invalid card!");
     }
   }
 
-  public void setTurn(Player person){
-    turn = person;
+  public void setTurn(int num){
+    if(order){
+      //loops around like a circle
+      index = (index+num)%players.size();
+    }else{
+      if(index == 0){
+        index = (players.size() + (index - num));
+      }else if(index == 1){
+        index = (players.size() + (0 - num));
+      }else{
+        index -= num;
+      }
+    }
+    turn = players.get(index);
   }
 
   public String toString(){
