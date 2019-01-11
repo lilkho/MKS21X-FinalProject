@@ -20,5 +20,9 @@ public class Test{
     //when you draw more than deck size
     game.draw(game.getPlayers().get(0),108);
     System.out.println("0 ?="+game.getDeck().size());
+    System.out.println("7 ?="+game.getPlayers().get(1).getCards().size());
+    game.getPlayers().add(new Player("2",1));
+    game.draw(game.getPlayers().get(2),1);
+    System.out.println("2: UNO! ?="+game.getPlayers().get(2));
   }
 }
