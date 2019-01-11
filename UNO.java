@@ -22,9 +22,22 @@ public class UNO{
 		}
 	}
 
+  public static void putString(int r, int c,Terminal t,
+        String s, Terminal.Color forg, Terminal.Color back ){
+    t.moveCursor(r,c);
+    t.applyBackgroundColor(forg);
+    t.applyForegroundColor(Terminal.Color.BLACK);
+
+    for(int i = 0; i < s.length();i++){
+      t.putCharacter(s.charAt(i));
+    }
+    t.applyBackgroundColor(Terminal.Color.DEFAULT);
+    t.applyForegroundColor(Terminal.Color.DEFAULT);
+  }
+
   public static void main(String[] args){
     /////////NOT TERMINAL STUFF///////////////
-    int p = 2;
+    int p = 0;
     int r = 0;
     try{
       if(args[0].toUpperCase().equals("HELP")){
@@ -49,13 +62,12 @@ public class UNO{
         System.out.println("Please enter 2-4 players");
         System.exit(1);
       }
-      Game game = new Game(p,r);
-      game.getPlayers().get(0).setName("random");
-      System.out.println(game);
     }catch(IllegalArgumentException e){
       System.out.println("Please enter the following arguments: #players [#rules]");
     }
-    //putString(0,0,terminal,game.printPlayers());
+    Game game = new Game(p,r);
+    System.out.println(game);
+
     //setting up terminal
     int x = 0;
     int y = 0;
@@ -63,17 +75,36 @@ public class UNO{
     terminal.enterPrivateMode();
     TerminalSize size = terminal.getTerminalSize();
     terminal.setCursorVisible(false);
-
     boolean running = true;
 
     while(running){
+      putString(0,5,terminal,"Your Deck: ",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
       for (int i=0;i<game.getPlayers().size();i++) {
-        putString(0,i,terminal,"Player "+game.getPlayers().get(i).toString());
+        putString(0,i,terminal,"Player "+game.getPlayers().get(i).toString(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
       }
-      x=1;y=3;
+      for(int i=0; i<game.getPlayers().get(0).getCards().size(); i++){
+        Card card = game.getPlayers().get(0).getCards().get(i);
+        terminal.moveCursor(0,7+i);
+        if (card.getColor()=="RED") {
+          terminal.applyBackgroundColor(Terminal.Color.RED);
+          terminal.applyForegroundColor(Terminal.Color.DEFAULT);
+        }else if (card.getColor()=="GREEN") {
+          terminal.applyBackgroundColor(Terminal.Color.GREEN);
+          terminal.applyForegroundColor(Terminal.Color.BLACK);
+        }else if (card.getColor()=="BLUE") {
+          terminal.applyBackgroundColor(Terminal.Color.BLUE);
+          terminal.applyForegroundColor(Terminal.Color.DEFAULT);
+        }else if (card.getColor()=="YELLOW"){
+          terminal.applyBackgroundColor(Terminal.Color.YELLOW);
+          terminal.applyForegroundColor(Terminal.Color.BLACK);
+        }else{
+          terminal.applyBackgroundColor(Terminal.Color.BLACK);
+          terminal.applyForegroundColor(Terminal.Color.DEFAULT);
+        }
+        putString(0,7+i,terminal,card.getValue());
+      }
       Card topCard = game.getTopCard();
-      terminal.moveCursor(1,3);
-      putString(1,3,terminal,topCard.getValue());
+      putString(0,3,terminal,"Top Card: "+topCard.getValue());
       for (int i=0;i<topCard.getValue().length();i++) {
         terminal.moveCursor(1+i,3);
         if (topCard.getColor()=="RED") {terminal.applyBackgroundColor(Terminal.Color.RED);}
@@ -98,10 +129,7 @@ public class UNO{
           running = false;
         }
       }
+
     }
-
-
-
-
   }
 }
