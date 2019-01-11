@@ -23,25 +23,6 @@ public class UNO{
 	}
 
   public static void main(String[] args){
-    //setting up terminal
-    /*Terminal terminal = TerminalFacade.createTextTerminal();
-    terminal.enterPrivateMode();
-    TerminalSize size = terminal.getTerminalSize();
-    terminal.setCursorVisible(false);
-
-    boolean running = true;
-
-    while(running){
-      Key key = terminal.readInput();
-      if (key != null){
-        if (key.getKind() == Key.Kind.Escape) {
-          terminal.exitPrivateMode();
-          running = false;
-        }
-      }
-    }
-    */
-
     /////////NOT TERMINAL STUFF///////////////
     int p = 2;
     int r = 0;
@@ -75,6 +56,52 @@ public class UNO{
       System.out.println("Please enter the following arguments: #players [#rules]");
     }
     //putString(0,0,terminal,game.printPlayers());
+    //setting up terminal
+    int x = 0;
+    int y = 0;
+    Terminal terminal = TerminalFacade.createTextTerminal();
+    terminal.enterPrivateMode();
+    TerminalSize size = terminal.getTerminalSize();
+    terminal.setCursorVisible(false);
+
+    boolean running = true;
+
+    while(running){
+      for (int i=0;i<game.getPlayers().size();i++) {
+        putString(0,i,terminal,"Player "+game.getPlayers().get(i).toString());
+      }
+      x=1;y=3;
+      Card topCard = game.getTopCard();
+      terminal.moveCursor(1,3);
+      putString(1,3,terminal,topCard.getValue());
+      for (int i=0;i<topCard.getValue().length();i++) {
+        terminal.moveCursor(1+i,3);
+        if (topCard.getColor()=="RED") {terminal.applyBackgroundColor(Terminal.Color.RED);}
+        else if (topCard.getColor()=="GREEN") {terminal.applyBackgroundColor(Terminal.Color.GREEN);}
+        else if (topCard.getColor()=="BLUE") {terminal.applyBackgroundColor(Terminal.Color.BLUE);}
+        else if (topCard.getColor()=="YELLOW") {
+          terminal.applyBackgroundColor(Terminal.Color.YELLOW);
+          terminal.applyForegroundColor(Terminal.Color.DEFAULT);
+
+        }
+        else {
+          terminal.applyBackgroundColor(Terminal.Color.WHITE);
+          terminal.applyForegroundColor(Terminal.Color.DEFAULT);
+        }
+        x++;
+      }
+
+      Key key = terminal.readInput();
+      if (key != null){
+        if (key.getKind() == Key.Kind.Escape) {
+          terminal.exitPrivateMode();
+          running = false;
+        }
+      }
+    }
+
+
+
 
   }
 }
