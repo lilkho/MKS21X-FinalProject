@@ -36,14 +36,15 @@ Players are not required to say "UNO!" when they have one card.
 **1/9/19**
 - Created method to initialize a deck
 - Players are given random 7 cards and a card is placed down
-
-**1/10/19**
-- Deck is working
+- Bug fixed! Deck is working
 ~~- Bug: Deck is not printing correct cards~~
 - Questions: setName? how does player choose to draw or to play +2? keep track of combo? turn not printing correctly?
+
+**1/10/19**
 - Added get functions to Game class so UNO can use them
 - Added printPlayers function to print by line rather than an array ArrayList
 - Draw function works in all cases
+- Bug fixed! Printing turn works
 - Playing a card works for everything except +2
 - Added setColor for when playing a wild card
 - Player says UNO! if player has 1 card
