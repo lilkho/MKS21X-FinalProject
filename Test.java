@@ -23,6 +23,25 @@ public class Test{
     System.out.println("7 ?="+game.getPlayers().get(1).getCards().size());
     game.getPlayers().add(new Player("2",1));
     game.draw(game.getPlayers().get(2),1);
+    //say UNO! ?
     System.out.println("2: UNO! ?="+game.getPlayers().get(2));
+    //added card?
+    game.getPlayers().get(2).addCard(new Card("BLACK","WILD"));
+    System.out.println("BLACKWILD&randomcard ?="+game.getPlayers().get(2).getCards());
+    //can play wild?
+    game.play(game.getPlayers().get(2),new Card("BLACK","WILD"),"RED");
+    //did color change?
+    System.out.println("REDWILD ?="+game.getTopCard());
+    //does topCard get updated?
+    game.play(game.getPlayers().get(2),new Card("BLUE","2"),"");
+    System.out.println("BLUE2 ?="+game.getTopCard());
+    //invalid color?
+    System.out.println("INVALID IS AN INVALID COLOR ?=");
+    game.play(game.getPlayers().get(2),new Card("BLACK","WILD"),"INVALID");
+    //invalid card? red5 cannot be put on blue2
+    //ERROR HERE
+    System.out.println("INVALID CARD ?=");
+    game.play(game.getPlayers().get(2),new Card("RED","5"),"");
+    System.out.println("BLUE2 ?="+game.getTopCard());
   }
 }

@@ -120,7 +120,7 @@ public class Game{
         dummy.equals("GREEN")){
           toPlay.setColor(dummy);
         }else{
-          System.out.println("Invalid color!");
+          System.out.println(dummy+" is an invalid color!");
         }
       }else{
         setTurn(1);
