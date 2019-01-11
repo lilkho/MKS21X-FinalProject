@@ -97,12 +97,13 @@ public class Game{
   public void play(Player person, Card toPlay, String dummy){
     //if card is playable, remove from player's hand, add to discard pile,
     //set it as top card, and set turn to next player
-    if(toPlay.playable(toPlay)){
+    if(topCard.playable(toPlay)){
       //if card is a skip, turn = 2 indecies after
       if(toPlay.getValue().equals("SKIP")){
         setTurn(2);
       //if card is a reverse, switch order & turn = next player
-      }else if(toPlay.getValue().equals("REVERSE")){
+      }
+      if(toPlay.getValue().equals("REVERSE")){
         if(order){
           order = false;
           setTurn(1);
@@ -111,18 +112,19 @@ public class Game{
           setTurn(1);
         }
         //conditions if a card is +2
-      }else if(toPlay.getValue().equals("+2")){
+      }
+      if(toPlay.getValue().equals("+2")){
         setTurn(1);
-      }else if(toPlay.getColor().equals("BLACK")){
+      }
+      if(toPlay.getColor().equals("BLACK")){
         if(dummy.equals("RED") ||
         dummy.equals("YELLOW") ||
         dummy.equals("BLUE") ||
         dummy.equals("GREEN")){
           toPlay.setColor(dummy);
         }else{
-          System.out.println("Invalid color!");
+          System.out.println(dummy+" is an invalid color!");
         }
-      }else{
         setTurn(1);
       }
       person.removeCard(toPlay);
