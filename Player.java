@@ -35,6 +35,12 @@ public class Player {
   }
 
   public String toString() {
-    return name+": "+numCards;
+    String res = name+": ";
+    if(cards.size()==1){
+      res+="UNO!";
+    }else{
+      res+=cards.size();
+    }
+    return res;
   }
 }
