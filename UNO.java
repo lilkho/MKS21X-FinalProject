@@ -40,23 +40,27 @@ public class UNO{
     for(int i=0; i<game.getPlayers().get(x).getCards().size(); i++){
       Card card = game.getPlayers().get(x).getCards().get(i);
       terminal.moveCursor(0,7+i);
-      if (card.getColor()=="RED") {
-        terminal.applyBackgroundColor(Terminal.Color.RED);
-        terminal.applyForegroundColor(Terminal.Color.DEFAULT);
-      }else if (card.getColor()=="GREEN") {
-        terminal.applyBackgroundColor(Terminal.Color.GREEN);
-        terminal.applyForegroundColor(Terminal.Color.BLACK);
-      }else if (card.getColor()=="BLUE") {
-        terminal.applyBackgroundColor(Terminal.Color.BLUE);
-        terminal.applyForegroundColor(Terminal.Color.DEFAULT);
-      }else if (card.getColor()=="YELLOW"){
-        terminal.applyBackgroundColor(Terminal.Color.YELLOW);
-        terminal.applyForegroundColor(Terminal.Color.BLACK);
-      }else{
-        terminal.applyBackgroundColor(Terminal.Color.BLACK);
-        terminal.applyForegroundColor(Terminal.Color.DEFAULT);
-      }
+      determineColor(terminal, card);
       putString(0,7+i,terminal,card.getValue());
+    }
+  }
+
+  public static void determineColor(Terminal terminal, Card card){
+    if (card.getColor()=="RED") {
+      terminal.applyBackgroundColor(Terminal.Color.RED);
+      terminal.applyForegroundColor(Terminal.Color.DEFAULT);
+    }else if (card.getColor()=="GREEN") {
+      terminal.applyBackgroundColor(Terminal.Color.GREEN);
+      terminal.applyForegroundColor(Terminal.Color.BLACK);
+    }else if (card.getColor()=="BLUE") {
+      terminal.applyBackgroundColor(Terminal.Color.BLUE);
+      terminal.applyForegroundColor(Terminal.Color.DEFAULT);
+    }else if (card.getColor()=="YELLOW"){
+      terminal.applyBackgroundColor(Terminal.Color.YELLOW);
+      terminal.applyForegroundColor(Terminal.Color.BLACK);
+    }else{
+      terminal.applyBackgroundColor(Terminal.Color.BLACK);
+      terminal.applyForegroundColor(Terminal.Color.DEFAULT);
     }
   }
 
@@ -103,6 +107,7 @@ public class UNO{
     int mode = 0;
 
     while(running){
+      putString(0,0,terminal,"This is mode "+mode);
       Key key = terminal.readInput();
       if(key != null){
         //main screen with commands and instructions
@@ -141,22 +146,7 @@ public class UNO{
           putString(0,3,terminal,"Top Card: "+topCard.getValue());
           for (int i=0;i<topCard.getValue().length();i++) {
             terminal.moveCursor(1+i,3);
-            if (topCard.getColor()=="RED") {
-              terminal.applyBackgroundColor(Terminal.Color.RED);
-              terminal.applyForegroundColor(Terminal.Color.DEFAULT);
-            }else if (topCard.getColor()=="GREEN") {
-              terminal.applyBackgroundColor(Terminal.Color.GREEN);
-              terminal.applyForegroundColor(Terminal.Color.BLACK);
-            }else if (topCard.getColor()=="BLUE") {
-              terminal.applyBackgroundColor(Terminal.Color.BLUE);
-              terminal.applyForegroundColor(Terminal.Color.DEFAULT);
-            }else if (topCard.getColor()=="YELLOW") {
-              terminal.applyBackgroundColor(Terminal.Color.YELLOW);
-              terminal.applyForegroundColor(Terminal.Color.BLACK);
-            }else {
-              terminal.applyBackgroundColor(Terminal.Color.BLACK);
-              terminal.applyForegroundColor(Terminal.Color.DEFAULT);
-            }
+            determineColor(terminal, topCard);
           }
         }
 
