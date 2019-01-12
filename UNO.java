@@ -107,7 +107,7 @@ public class UNO{
     int mode = 0;
 
     while(running){
-      putString(0,0,terminal,"This is mode "+mode);
+      putString(20,0,terminal,"This is mode "+mode);
       Key key = terminal.readInput();
       if(key != null){
         //main screen with commands and instructions
@@ -119,20 +119,28 @@ public class UNO{
           if(key.getCharacter() == ' '){
             mode = 1;
           }
+          if(key.getCharacter() == '1'){
+            terminal.clearScreen();
+            printCards(terminal, game, 0);
+          }
+          if(key.getCharacter() == '2'){
+            terminal.clearScreen();
+            printCards(terminal, game, 1);
+          }
         }
         //second screen for playing
         if(mode == 1){
           if(key.getCharacter() == '1'){
-            printCards(terminal, game, 1);
+            printCards(terminal, game, 0);
           }
           if(key.getCharacter() == '2'){
-            printCards(terminal, game, 2);
+            mode = 3;
           }
           if(key.getCharacter() == '3'){
-            printCards(terminal, game, 3);
+            mode = 4;
           }
           if(key.getCharacter() == '4'){
-            printCards(terminal, game, 4);
+            mode = 5;
           }
           if(key.getCharacter() == ' '){
             mode = 0;
@@ -150,8 +158,13 @@ public class UNO{
           }
         }
 
+        if(mode != 0 && mode != 1){
+          if(key.getCharacter() == 'd'){
+
+          }
         }
 
+        }
       }
   }
 }
