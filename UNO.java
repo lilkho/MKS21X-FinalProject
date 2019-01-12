@@ -91,7 +91,6 @@ public class UNO{
       System.out.println("Please enter the following arguments: start #players [#rules]");
     }
     Game game = new Game(p,r);
-    System.out.println(game);
 
     //setting up terminal
     int x = 0;
@@ -119,49 +118,50 @@ public class UNO{
         //second screen for playing
         if(mode == 1){
           if(key.getCharacter() == '1'){
-            printCards(terminal, game, 0);
-          }
-          if(key.getCharacter() == '2'){
             printCards(terminal, game, 1);
           }
-          if(key.getCharacter() == '3'){
+          if(key.getCharacter() == '2'){
             printCards(terminal, game, 2);
           }
-          if(key.getCharacter() == '4'){
+          if(key.getCharacter() == '3'){
             printCards(terminal, game, 3);
+          }
+          if(key.getCharacter() == '4'){
+            printCards(terminal, game, 4);
           }
           if(key.getCharacter() == ' '){
             mode = 0;
           }
 
+          for (int i=0;i<game.getPlayers().size();i++) {
+            putString(0,i,terminal,"Player "+game.getPlayers().get(i).toString(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+          }
+
+          Card topCard = game.getTopCard();
+          putString(0,3,terminal,"Top Card: "+topCard.getValue());
+          for (int i=0;i<topCard.getValue().length();i++) {
+            terminal.moveCursor(1+i,3);
+            if (topCard.getColor()=="RED") {
+              terminal.applyBackgroundColor(Terminal.Color.RED);
+              terminal.applyForegroundColor(Terminal.Color.DEFAULT);
+            }else if (topCard.getColor()=="GREEN") {
+              terminal.applyBackgroundColor(Terminal.Color.GREEN);
+              terminal.applyForegroundColor(Terminal.Color.BLACK);
+            }else if (topCard.getColor()=="BLUE") {
+              terminal.applyBackgroundColor(Terminal.Color.BLUE);
+              terminal.applyForegroundColor(Terminal.Color.DEFAULT);
+            }else if (topCard.getColor()=="YELLOW") {
+              terminal.applyBackgroundColor(Terminal.Color.YELLOW);
+              terminal.applyForegroundColor(Terminal.Color.BLACK);
+            }else {
+              terminal.applyBackgroundColor(Terminal.Color.BLACK);
+              terminal.applyForegroundColor(Terminal.Color.DEFAULT);
+            }
+          }
+        }
+
         }
 
       }
-      for (int i=0;i<game.getPlayers().size();i++) {
-        putString(0,i,terminal,"Player "+game.getPlayers().get(i).toString(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
-      }
-
-      Card topCard = game.getTopCard();
-      putString(0,3,terminal,"Top Card: "+topCard.getValue());
-      for (int i=0;i<topCard.getValue().length();i++) {
-        terminal.moveCursor(1+i,3);
-        if (topCard.getColor()=="RED") {
-          terminal.applyBackgroundColor(Terminal.Color.RED);
-          terminal.applyForegroundColor(Terminal.Color.DEFAULT);
-        }else if (topCard.getColor()=="GREEN") {
-          terminal.applyBackgroundColor(Terminal.Color.GREEN);
-          terminal.applyForegroundColor(Terminal.Color.BLACK);
-        }else if (topCard.getColor()=="BLUE") {
-          terminal.applyBackgroundColor(Terminal.Color.BLUE);
-          terminal.applyForegroundColor(Terminal.Color.DEFAULT);
-        }else if (topCard.getColor()=="YELLOW") {
-          terminal.applyBackgroundColor(Terminal.Color.YELLOW);
-          terminal.applyForegroundColor(Terminal.Color.BLACK);
-        }else {
-          terminal.applyBackgroundColor(Terminal.Color.BLACK);
-          terminal.applyForegroundColor(Terminal.Color.DEFAULT);
-        }
-      }
-    }
   }
 }
