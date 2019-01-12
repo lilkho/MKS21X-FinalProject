@@ -74,7 +74,7 @@ public class UNO{
       }
       /*if(args[0].toUpperCase().equals("play")){
         int person = Integer.parseInt(args[1]);
-        System.out.println(game+"\n"+game.getPlayers().get(person).getCards());
+        //System.out.println(game+"\n"+game.getPlayers().get(person).getCards());
       }
 */      if(args.length==0){
         System.out.println("Welcome to UNO! Enter 'help' as an argument for commands.");
@@ -128,6 +128,17 @@ public class UNO{
             printCards(terminal, game, 1);
           }
         }
+        x++;
+      }
+
+      terminal.moveCursor(1,6);
+
+      Key key = terminal.readInput();
+      if (key != null){
+        if (key.getKind() == Key.Kind.Escape) {
+          terminal.exitPrivateMode();
+          running = false;
+        }
         //second screen for playing
         if(mode == 1){
           if(key.getCharacter() == '1'){
@@ -157,6 +168,7 @@ public class UNO{
             determineColor(terminal, topCard);
           }
         }
+<<<<<<< HEAD
 
         if(mode != 0 && mode != 1){
           if(key.getCharacter() == 'd'){
@@ -165,6 +177,9 @@ public class UNO{
         }
 
         }
+=======
+>>>>>>> e0c710b82a49c55eedd449fc16475fba939d1276
       }
   }
+}
 }
