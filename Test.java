@@ -38,8 +38,7 @@ public class Test{
     //invalid color?
     System.out.println("INVALID COLOR ?= ");
     game.play(game.getPlayers().get(2),new Card("BLACK","WILD"),"haha");
-    game.play(game.getPlayers().get(2),new Card("RED","1"),"");
-    //WHY DOES IT JUST PLAY THE CARD INSTEAD OF CHECKING IF IT'S PLAYABLE DKASKAS
+    game.play(game.getPlayers().get(2),new Card("BLACK","WILD"),"RED");
     System.out.println("\n\n\n\n\nTHIS IS THE DECK: "+game.getPlayers().get(2).getCards());
     System.out.println("THIS IS THE TOP CARD: "+game.getTopCard());
     System.out.println("TRYING TO PLAY FIRST CARD");

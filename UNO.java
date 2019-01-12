@@ -35,6 +35,31 @@ public class UNO{
     t.applyForegroundColor(Terminal.Color.DEFAULT);
   }
 
+  public static void printCards(Terminal terminal, Game game, int x){
+    putString(0,5,terminal,"Your Cards:",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+    for(int i=0; i<game.getPlayers().get(x).getCards().size(); i++){
+      Card card = game.getPlayers().get(x).getCards().get(i);
+      terminal.moveCursor(0,7+i);
+      if (card.getColor()=="RED") {
+        terminal.applyBackgroundColor(Terminal.Color.RED);
+        terminal.applyForegroundColor(Terminal.Color.DEFAULT);
+      }else if (card.getColor()=="GREEN") {
+        terminal.applyBackgroundColor(Terminal.Color.GREEN);
+        terminal.applyForegroundColor(Terminal.Color.BLACK);
+      }else if (card.getColor()=="BLUE") {
+        terminal.applyBackgroundColor(Terminal.Color.BLUE);
+        terminal.applyForegroundColor(Terminal.Color.DEFAULT);
+      }else if (card.getColor()=="YELLOW"){
+        terminal.applyBackgroundColor(Terminal.Color.YELLOW);
+        terminal.applyForegroundColor(Terminal.Color.BLACK);
+      }else{
+        terminal.applyBackgroundColor(Terminal.Color.BLACK);
+        terminal.applyForegroundColor(Terminal.Color.DEFAULT);
+      }
+      putString(0,7+i,terminal,card.getValue());
+    }
+  }
+
   public static void main(String[] args){
     /////////NOT TERMINAL STUFF///////////////
     int p = 0;
@@ -43,27 +68,27 @@ public class UNO{
       if(args[0].toUpperCase().equals("HELP")){
         System.out.println("commands and stuff here");
       }
-      if(args[0].toUpperCase().equals("play")){
+      /*if(args[0].toUpperCase().equals("play")){
         int person = Integer.parseInt(args[1]);
         System.out.println(game+"\n"+game.getPlayers().get(person).getCards());
       }
-      if(args.length==0){
-        System.out.println("Welcome to UNO! Enter 'help' as an argument for commands");
+*/      if(args.length==0){
+        System.out.println("Welcome to UNO! Enter 'help' as an argument for commands.");
         throw new IllegalArgumentException("Enter number of players.");
       }
-      if(args.length==1){
-        p = Integer.parseInt(args[0]);
+      if(args[0].toUpperCase().equals("START") && args.length==2){
+        p = Integer.parseInt(args[1]);
       }
-      if(args.length>=2){
-        p = Integer.parseInt(args[0]);
-        r = Integer.parseInt(args[1]);
+      if(args[0].toUpperCase().equals("START") && args.length>=3){
+        p = Integer.parseInt(args[1]);
+        r = Integer.parseInt(args[2]);
       }
       if(p<2 || p>4){
         System.out.println("Please enter 2-4 players");
         System.exit(1);
       }
     }catch(IllegalArgumentException e){
-      System.out.println("Please enter the following arguments: #players [#rules]");
+      System.out.println("Please enter the following arguments: start #players [#rules]");
     }
     Game game = new Game(p,r);
     System.out.println(game);
@@ -76,67 +101,67 @@ public class UNO{
     TerminalSize size = terminal.getTerminalSize();
     terminal.setCursorVisible(false);
     boolean running = true;
+    int mode = 0;
 
     while(running){
-      putString(0,5,terminal,"Your Deck: ",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+      Key key = terminal.readInput();
+      if(key != null){
+        //main screen with commands and instructions
+        if(mode == 0){
+          if (key.getKind() == Key.Kind.Escape) {
+            terminal.exitPrivateMode();
+            running = false;
+          }
+          if(key.getCharacter() == ' '){
+            mode = 1;
+          }
+        }
+        //second screen for playing
+        if(mode == 1){
+          if(key.getCharacter() == '1'){
+            printCards(terminal, game, 0);
+          }
+          if(key.getCharacter() == '2'){
+            printCards(terminal, game, 1);
+          }
+          if(key.getCharacter() == '3'){
+            printCards(terminal, game, 2);
+          }
+          if(key.getCharacter() == '4'){
+            printCards(terminal, game, 3);
+          }
+          if(key.getCharacter() == ' '){
+            mode = 0;
+          }
+
+        }
+
+      }
       for (int i=0;i<game.getPlayers().size();i++) {
         putString(0,i,terminal,"Player "+game.getPlayers().get(i).toString(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
       }
-      for(int i=0; i<game.getPlayers().get(0).getCards().size(); i++){
-        Card card = game.getPlayers().get(0).getCards().get(i);
-        terminal.moveCursor(0,7+i);
-        if (card.getColor()=="RED") {
-          terminal.applyBackgroundColor(Terminal.Color.RED);
-          terminal.applyForegroundColor(Terminal.Color.DEFAULT);
-        }else if (card.getColor()=="GREEN") {
-          terminal.applyBackgroundColor(Terminal.Color.GREEN);
-          terminal.applyForegroundColor(Terminal.Color.BLACK);
-        }else if (card.getColor()=="BLUE") {
-          terminal.applyBackgroundColor(Terminal.Color.BLUE);
-          terminal.applyForegroundColor(Terminal.Color.DEFAULT);
-        }else if (card.getColor()=="YELLOW"){
-          terminal.applyBackgroundColor(Terminal.Color.YELLOW);
-          terminal.applyForegroundColor(Terminal.Color.BLACK);
-        }else{
-          terminal.applyBackgroundColor(Terminal.Color.BLACK);
-          terminal.applyForegroundColor(Terminal.Color.DEFAULT);
-        }
-        putString(0,7+i,terminal,card.getValue());
-      }
+
       Card topCard = game.getTopCard();
       putString(0,3,terminal,"Top Card: "+topCard.getValue());
       for (int i=0;i<topCard.getValue().length();i++) {
         terminal.moveCursor(1+i,3);
-        if (topCard.getColor()=="RED") {terminal.applyBackgroundColor(Terminal.Color.RED);}
-        else if (topCard.getColor()=="GREEN") {terminal.applyBackgroundColor(Terminal.Color.GREEN);}
-        else if (topCard.getColor()=="BLUE") {terminal.applyBackgroundColor(Terminal.Color.BLUE);}
-        else if (topCard.getColor()=="YELLOW") {
+        if (topCard.getColor()=="RED") {
+          terminal.applyBackgroundColor(Terminal.Color.RED);
+          terminal.applyForegroundColor(Terminal.Color.DEFAULT);
+        }else if (topCard.getColor()=="GREEN") {
+          terminal.applyBackgroundColor(Terminal.Color.GREEN);
+          terminal.applyForegroundColor(Terminal.Color.BLACK);
+        }else if (topCard.getColor()=="BLUE") {
+          terminal.applyBackgroundColor(Terminal.Color.BLUE);
+          terminal.applyForegroundColor(Terminal.Color.DEFAULT);
+        }else if (topCard.getColor()=="YELLOW") {
           terminal.applyBackgroundColor(Terminal.Color.YELLOW);
-          terminal.applyForegroundColor(Terminal.Color.DEFAULT);
-
-        }
-        else {
-          terminal.applyBackgroundColor(Terminal.Color.WHITE);
+          terminal.applyForegroundColor(Terminal.Color.BLACK);
+        }else {
+          terminal.applyBackgroundColor(Terminal.Color.BLACK);
           terminal.applyForegroundColor(Terminal.Color.DEFAULT);
         }
-        x++;
       }
-
-<<<<<<< HEAD
-      terminal.moveCursor(1,6);
-
-
-
-=======
->>>>>>> ec892764b6660c0dc375161f0e63e65fb90e1d13
-      Key key = terminal.readInput();
-      if (key != null){
-        if (key.getKind() == Key.Kind.Escape) {
-          terminal.exitPrivateMode();
-          running = false;
-        }
-      }
-
     }
   }
 }
