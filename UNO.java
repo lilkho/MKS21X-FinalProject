@@ -45,7 +45,7 @@ public class UNO{
       }
       if(args[0].toUpperCase().equals("play")){
         int person = Integer.parseInt(args[1]);
-        System.out.println(game+"\n"+game.getPlayers().get(person).getCards());
+        //System.out.println(game+"\n"+game.getPlayers().get(person).getCards());
       }
       if(args.length==0){
         System.out.println("Welcome to UNO! Enter 'help' as an argument for commands");
@@ -122,13 +122,8 @@ public class UNO{
         x++;
       }
 
-<<<<<<< HEAD
       terminal.moveCursor(1,6);
 
-
-
-=======
->>>>>>> ec892764b6660c0dc375161f0e63e65fb90e1d13
       Key key = terminal.readInput();
       if (key != null){
         if (key.getKind() == Key.Kind.Escape) {
