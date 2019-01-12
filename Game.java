@@ -12,6 +12,7 @@ public class Game{
   private ArrayList<Rule> rules = new ArrayList<Rule>();
   private Random randgen = new Random();
   private int index;
+  private int combo = 0;
 
   public Game(int numPlayers, int numRules){
     //clears discard pile, sets the deck, chooses top card randomly
@@ -94,7 +95,7 @@ public class Game{
     discard.clear();
   }
 
-  public void play(Player person, Card toPlay, String dummy){
+  public void play(Player person, Card toPlay, String color){
     //if card is playable, remove from player's hand, add to discard pile,
     //set it as top card, and set turn to next player
     if(topCard.playable(toPlay)){
@@ -114,16 +115,17 @@ public class Game{
         //conditions if a card is +2
       }
       if(toPlay.getValue().equals("+2")){
+        combo+=2;
         setTurn(1);
       }
       if(toPlay.getColor().equals("BLACK")){
-        if(dummy.equals("RED") ||
-        dummy.equals("YELLOW") ||
-        dummy.equals("BLUE") ||
-        dummy.equals("GREEN")){
-          toPlay.setColor(dummy);
+        if(color.equals("RED") ||
+        color.equals("YELLOW") ||
+        color.equals("BLUE") ||
+        color.equals("GREEN")){
+          toPlay.setColor(color);
         }else{
-          System.out.println(dummy+" is an invalid color!");
+          System.out.println(color+" is an invalid color!");
         }
         setTurn(1);
       }
