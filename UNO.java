@@ -36,12 +36,12 @@ public class UNO{
   }
 
   public static void printCards(Terminal terminal, Game game, int x){
-    putString(0,5,terminal,"Your Cards:",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+    putString(0,3,terminal,"Your Cards:",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
     for(int i=0; i<game.getPlayers().get(x).getCards().size(); i++){
       Card card = game.getPlayers().get(x).getCards().get(i);
-      terminal.moveCursor(0,7+i);
+      terminal.moveCursor(0,5+i);
       determineColor(terminal, card);
-      putString(0,7+i,terminal,card.getValue());
+      putString(0,5+i,terminal,card.getValue());
     }
   }
 
@@ -62,6 +62,17 @@ public class UNO{
       terminal.applyBackgroundColor(Terminal.Color.BLACK);
       terminal.applyForegroundColor(Terminal.Color.DEFAULT);
     }
+  }
+
+  public static void printInfo(Terminal terminal, Game game){
+    for (int i=0;i<game.getPlayers().size();i++) {
+      putString(30,i,terminal,"Player "+game.getPlayers().get(i).toString(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+    }
+    putString(0,0,terminal,"Top Card:",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+    Card topCard = game.getTopCard();
+    terminal.moveCursor(10,0);
+    determineColor(terminal, topCard);
+    putString(10,0,terminal,topCard.getValue());
   }
 
   public static void main(String[] args){
@@ -107,7 +118,7 @@ public class UNO{
     int mode = 0;
 
     while(running){
-      putString(20,0,terminal,"This is mode "+mode);
+      putString(20,3,terminal,"This is mode "+mode);
       Key key = terminal.readInput();
       if(key != null){
         //main screen with commands and instructions
@@ -121,25 +132,16 @@ public class UNO{
           }
           if(key.getCharacter() == '1'){
             terminal.clearScreen();
+            printInfo(terminal, game);
             printCards(terminal, game, 0);
           }
           if(key.getCharacter() == '2'){
             terminal.clearScreen();
+            printInfo(terminal, game);
             printCards(terminal, game, 1);
           }
         }
-        x++;
-      }
 
-      terminal.moveCursor(1,6);
-
-      Key key = terminal.readInput();
-      if (key != null){
-        if (key.getKind() == Key.Kind.Escape) {
-          terminal.exitPrivateMode();
-          running = false;
-        }
-        //second screen for playing
         if(mode == 1){
           if(key.getCharacter() == '1'){
             printCards(terminal, game, 0);
@@ -156,30 +158,8 @@ public class UNO{
           if(key.getCharacter() == ' '){
             mode = 0;
           }
-
-          for (int i=0;i<game.getPlayers().size();i++) {
-            putString(0,i,terminal,"Player "+game.getPlayers().get(i).toString(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
-          }
-
-          Card topCard = game.getTopCard();
-          putString(0,3,terminal,"Top Card: "+topCard.getValue());
-          for (int i=0;i<topCard.getValue().length();i++) {
-            terminal.moveCursor(1+i,3);
-            determineColor(terminal, topCard);
-          }
         }
-<<<<<<< HEAD
-
-        if(mode != 0 && mode != 1){
-          if(key.getCharacter() == 'd'){
-
-          }
-        }
-
-        }
-=======
->>>>>>> e0c710b82a49c55eedd449fc16475fba939d1276
       }
+    }
   }
-}
 }
