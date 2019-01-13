@@ -108,7 +108,7 @@ public class UNO{
         }
       }
     }catch(IllegalArgumentException e){
-      System.out.println("Please enter the following arguments: start #players [#rules]");
+      System.out.println("Please enter the following arguments: #players [#rules]");
       System.exit(1);
     }
     Game game = new Game(p,r);
@@ -133,9 +133,6 @@ public class UNO{
             if (key.getKind() == Key.Kind.Escape) {
               terminal.exitPrivateMode();
               running = false;
-            }
-            if(key.getCharacter() == ' '){
-              mode = 1;
             }
             if(key.getCharacter() == '0'){
               terminal.clearScreen();
@@ -163,6 +160,12 @@ public class UNO{
               terminal.applyBackgroundColor(Terminal.Color.BLACK);
               terminal.applyForegroundColor(Terminal.Color.DEFAULT);
             }
+            if(key.getCharacter() == 'p'){
+              mode = 1;
+              terminal.clearScreen();
+              terminal.applyBackgroundColor(Terminal.Color.BLACK);
+              terminal.applyForegroundColor(Terminal.Color.DEFAULT);
+            }
           }catch(IndexOutOfBoundsException e){
             terminal.clearScreen();
             putString(0,0,terminal,"Player does not exist!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
@@ -171,23 +174,19 @@ public class UNO{
           }
         }
 
-        if(mode == 1){
-          if(key.getCharacter() == '1'){
-            printCards(terminal, game, 0);
-          }
-          if(key.getCharacter() == '2'){
-            mode = 3;
-          }
-          if(key.getCharacter() == '3'){
-            mode = 4;
-          }
-          if(key.getCharacter() == '4'){
-            mode = 5;
-          }
+        if(mode == 1){/*
+          Player playing = game.getTurn();
+          char c = key.getCharacter();
+          int toPlay = Character.getNumericValue(c);
+          game.play(playing,playing.getCards().get(0),""); */
           if(key.getCharacter() == ' '){
             mode = 0;
+            terminal.clearScreen();
+            terminal.applyBackgroundColor(Terminal.Color.BLACK);
+            terminal.applyForegroundColor(Terminal.Color.DEFAULT);
           }
         }
+
       }
     }
   }
