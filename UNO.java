@@ -84,10 +84,6 @@ public class UNO{
     int p = 0;
     int r = 0;
     try{
-      /*if(args[0].toUpperCase().equals("play")){
-        int person = Integer.parseInt(args[1]);
-        //System.out.println(game+"\n"+game.getPlayers().get(person).getCards());
-      }*/
       if(args.length==0){
         System.out.println("Welcome to UNO! Enter the number of players to start a game.");
         System.exit(1);
@@ -124,10 +120,19 @@ public class UNO{
     int mode = 0;
 
     while(running){
-      putString(20,10,terminal,"This is mode "+mode);
+      if(mode == 0){
+        putString(30,10,terminal,"d to draw card(s)");
+        putString(30,11,terminal,"h to hide your cards");
+        putString(30,12,terminal,"p to play a card");
+        putString(30,13,terminal,"(player) # to get cards");
+        putString(30,14,terminal,"escape to exit");
+      }
+      if(mode == 1){
+        putString(30,10,terminal,"space to return to main screen");
+      }
+      putString(20,9,terminal,"This is mode "+mode);
       Key key = terminal.readInput();
       if(key != null){
-        //main screen with commands and instructions
         if(mode == 0){
           try{
             if (key.getKind() == Key.Kind.Escape) {
@@ -154,14 +159,20 @@ public class UNO{
               printInfo(terminal, game);
               printCards(terminal, game, 3);
             }
-            if(key.getCharacter() == 'c'){
+            if(key.getCharacter() == 'h'){
               terminal.clearScreen();
               printInfo(terminal, game);
               terminal.applyBackgroundColor(Terminal.Color.BLACK);
               terminal.applyForegroundColor(Terminal.Color.DEFAULT);
             }
-            if(key.getCharacter() == 'p'){
+            if(key.getCharacter() == 'd'){
               mode = 1;
+              terminal.clearScreen();
+              terminal.applyBackgroundColor(Terminal.Color.BLACK);
+              terminal.applyForegroundColor(Terminal.Color.DEFAULT);
+            }
+            if(key.getCharacter() == 'p'){
+              mode = 2;
               terminal.clearScreen();
               terminal.applyBackgroundColor(Terminal.Color.BLACK);
               terminal.applyForegroundColor(Terminal.Color.DEFAULT);
@@ -174,7 +185,13 @@ public class UNO{
           }
         }
 
-        if(mode == 1){/*
+        //to draw cards
+        if(mode == 1){
+
+        }
+
+        //to play cards 
+        if(mode == 2){/*
           Player playing = game.getTurn();
           char c = key.getCharacter();
           int toPlay = Character.getNumericValue(c);
