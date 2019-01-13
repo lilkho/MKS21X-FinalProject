@@ -124,6 +124,9 @@ public class Game{
         color.equals("BLUE") ||
         color.equals("GREEN")){
           toPlay.setColor(color);
+          if(toPlay.getValue().equals("+4")){
+            combo+=4;
+          }
         }else{
           System.out.println(color+" is an invalid color!");
         }
@@ -160,7 +163,7 @@ public class Game{
     Top Card: BLUE3
     Combo: 2 (only if not 0)
     Rules: [Perfection] (only if not empty) */
-    String res += players+"\nTurn: Player "+players.get(index).getName()+"\nTop Card: "+topCard;
+    String res = players+"\nTurn: Player "+players.get(index).getName()+"\nTop Card: "+topCard;
     if(combo!=0){
       res+="\nCombo: "+combo;
     }
