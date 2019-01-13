@@ -86,6 +86,7 @@ public class Game{
       discard.add(toAdd);
       deck.remove(toAdd);
     }
+    setTurn(1);
   }
 
   public void refresh(){
@@ -102,22 +103,21 @@ public class Game{
     if(topCard.playable(toPlay)){
       //if card is a skip, turn = 2 indecies after
       if(toPlay.getValue().equals("SKIP")){
-        setTurn(2);
+        setTurn(1);
       //if card is a reverse, switch order & turn = next player
       }
       if(toPlay.getValue().equals("REVERSE")){
         if(order){
           order = false;
-          setTurn(1);
         }else{
           order = true;
-          setTurn(1);
         }
       }
       //conditions if a card is +2
       if(toPlay.getValue().equals("+2")){
         combo+=2;
         setTurn(1);
+        draw(getTurn(),2);
       }
       if(toPlay.getColor().equals("BLACK")){
         if(color.equals("RED") ||
@@ -125,17 +125,19 @@ public class Game{
         color.equals("BLUE") ||
         color.equals("GREEN")){
           toPlay.setColor(color);
-          if(toPlay.getValue().equals("+4")){
-            combo+=4;
-          }
+        if(toPlay.getValue().equals("+4")){
+          combo+=4;
+          setTurn(1);
+          draw(getTurn(),4);
+        }
         }else{
           System.out.println(color+" is an invalid color!");
         }
-        setTurn(1);
       }
       person.removeCard(toPlay);
       discard.add(toPlay);
       topCard = toPlay;
+      setTurn(1);
     }else{
       System.out.println("Invalid card!");
     }

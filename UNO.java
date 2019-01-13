@@ -167,7 +167,7 @@ public class UNO{
             if(key.getCharacter() == 'd'){
               Player playing = game.getTurn();
               game.draw(playing,1);
-              game.setTurn(1);
+              //game.setTurn(1);
               terminal.clearScreen();
               printInfo(terminal, game);
               printCards(terminal, game, game.getPlayers().indexOf(playing));
@@ -218,7 +218,7 @@ public class UNO{
           if (Character.getNumericValue(key.getCharacter()) < playing.getCards().size()) {
             mode = 0;
             game.play(playing,playing.getCards().get(Character.getNumericValue(key.getCharacter())),playing.getCards().get(Character.getNumericValue(key.getCharacter())).getColor());
-            game.setTurn(1);
+            //game.setTurn(1);
             terminal.clearScreen();
             printInfo(terminal, game);
             printCards(terminal, game, game.getPlayers().indexOf(playing));
