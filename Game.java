@@ -109,7 +109,7 @@ public class Game{
       if(toPlay.getValue().equals("REVERSE")){
         if(order){
           order = false;
-        }else{
+        } else{
           order = true;
         }
       }
@@ -120,25 +120,21 @@ public class Game{
         draw(getTurn(),2);
       }
       if(toPlay.getColor().equals("BLACK")){
-        if(color.equals("RED") ||
-        color.equals("YELLOW") ||
-        color.equals("BLUE") ||
-        color.equals("GREEN")){
-          toPlay.setColor(color);
         if(toPlay.getValue().equals("+4")){
           combo+=4;
           setTurn(1);
           draw(getTurn(),4);
         }
-        }else{
+        String colors[] = {"RED","BLUE","YELLOW","GREEN"};
+        toPlay.setColor(colors[Math.abs(randgen.nextInt(colors.length))]);
+      } else{
           System.out.println(color+" is an invalid color!");
-        }
       }
       person.removeCard(toPlay);
       discard.add(toPlay);
       topCard = toPlay;
       setTurn(1);
-    }else{
+    } else {
       System.out.println("Invalid card!");
     }
   }
