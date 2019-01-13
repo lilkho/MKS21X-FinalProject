@@ -41,7 +41,7 @@ public class UNO{
       Card card = game.getPlayers().get(x).getCards().get(i);
       terminal.moveCursor(0,5+i);
       determineColor(terminal, card);
-      putString(0,5+i,terminal,card.getValue());
+      putString(0,5+i,terminal,""+i+": "+card.getValue());
     }
     terminal.applyBackgroundColor(Terminal.Color.BLACK);
     terminal.applyForegroundColor(Terminal.Color.DEFAULT);
@@ -68,7 +68,7 @@ public class UNO{
 
   public static void printInfo(Terminal terminal, Game game){
     game.setTurn(1);
-    putString(30,0,terminal,"Next player: Player "+game.getTurn().getName(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+    putString(30,0,terminal,"Playing: Player "+game.getTurn().getName(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
     for (int i=0;i<game.getPlayers().size();i++) {
       putString(30,i+3,terminal,"Player "+game.getPlayers().get(i).toString(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
     }
@@ -166,10 +166,18 @@ public class UNO{
               terminal.applyForegroundColor(Terminal.Color.DEFAULT);
             }
             if(key.getCharacter() == 'd'){
+              Player playing = game.getTurn();
+              game.draw(playing,1);
+              game.setTurn(1);
+              terminal.clearScreen();
+              printInfo(terminal, game);
+              printCards(terminal, game, game.getPlayers().indexOf(playing));
+              /*
               mode = 1;
               terminal.clearScreen();
               terminal.applyBackgroundColor(Terminal.Color.BLACK);
               terminal.applyForegroundColor(Terminal.Color.DEFAULT);
+              */
             }
             if(key.getCharacter() == 'p'){
               mode = 2;
@@ -177,7 +185,7 @@ public class UNO{
               terminal.applyBackgroundColor(Terminal.Color.BLACK);
               terminal.applyForegroundColor(Terminal.Color.DEFAULT);
             }
-          }catch(IndexOutOfBoundsException e){
+          } catch(IndexOutOfBoundsException e){
             terminal.clearScreen();
             putString(0,0,terminal,"Player does not exist!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
             terminal.applyBackgroundColor(Terminal.Color.BLACK);
@@ -187,22 +195,41 @@ public class UNO{
 
         //to draw cards
         if(mode == 1){
-
-<<<<<<< HEAD
-      if (key != null){
-        if (key.getKind() == Key.Kind.Escape) {
-          terminal.exitPrivateMode();
-          running = false;
-=======
->>>>>>> 37fdd250a185d79c864b668b80f6b0a785f47a67
+          if(key.getCharacter() == ' '){
+            mode = 0;
+            terminal.clearScreen();
+            terminal.applyBackgroundColor(Terminal.Color.BLACK);
+            terminal.applyForegroundColor(Terminal.Color.DEFAULT);
+          }
         }
 
-        //to play cards 
-        if(mode == 2){/*
+        if (key != null){
+            if (key.getKind() == Key.Kind.Escape) {
+              terminal.exitPrivateMode();
+              running = false;
+            }
+        }
+
+        //to play cards
+        if(mode == 2){
+          putString(30,15,terminal,"Choose index of card to play!");
+          Player playing = game.getTurn();
+          printCards(terminal, game, game.getPlayers().indexOf(playing));
+          if (Character.getNumericValue(key.getCharacter()) <= playing.getCards().size()) {
+            mode = 0;
+            game.play(playing,playing.getCards().get(Character.getNumericValue(key.getCharacter())),playing.getCards().get(Character.getNumericValue(key.getCharacter())).getColor());
+            game.setTurn(2);
+            terminal.clearScreen();
+            printInfo(terminal, game);
+            printCards(terminal, game, game.getPlayers().indexOf(playing));
+            putString(30,15,terminal,"chosen card: "+key.getCharacter());
+          }
+          /*
           Player playing = game.getTurn();
           char c = key.getCharacter();
           int toPlay = Character.getNumericValue(c);
-          game.play(playing,playing.getCards().get(0),""); */
+          game.play(playing,playing.getCards().get(0),"");
+          */
           if(key.getCharacter() == ' '){
             mode = 0;
             terminal.clearScreen();
