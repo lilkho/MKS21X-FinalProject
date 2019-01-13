@@ -144,7 +144,7 @@ public class Game{
   public void setTurn(int num){
     for (int i=0;i<num;i++) {
       if (order) {turnIndex++;}
-      else {turnIndex--;}
+      else {turnIndex+=players.size()-1;}
     }
     turn=players.get(turnIndex%players.size());
   }
