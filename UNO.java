@@ -127,22 +127,37 @@ public class UNO{
       if(key != null){
         //main screen with commands and instructions
         if(mode == 0){
-          if (key.getKind() == Key.Kind.Escape) {
-            terminal.exitPrivateMode();
-            running = false;
-          }
-          if(key.getCharacter() == ' '){
-            mode = 1;
-          }
-          if(key.getCharacter() == '1'){
+          try{
+            if (key.getKind() == Key.Kind.Escape) {
+              terminal.exitPrivateMode();
+              running = false;
+            }
+            if(key.getCharacter() == ' '){
+              mode = 1;
+            }
+            if(key.getCharacter() == '0'){
+              terminal.clearScreen();
+              printInfo(terminal, game);
+              printCards(terminal, game, 0);
+            }
+            if(key.getCharacter() == '1'){
+              terminal.clearScreen();
+              printInfo(terminal, game);
+              printCards(terminal, game, 1);
+            }
+            if(key.getCharacter() == '2'){
+              terminal.clearScreen();
+              printInfo(terminal, game);
+              printCards(terminal, game, 2);
+            }
+            if(key.getCharacter() == '3'){
+              terminal.clearScreen();
+              printInfo(terminal, game);
+              printCards(terminal, game, 3);
+            }
+          }catch(IndexOutOfBoundsException e){
             terminal.clearScreen();
-            printInfo(terminal, game);
-            printCards(terminal, game, 0);
-          }
-          if(key.getCharacter() == '2'){
-            terminal.clearScreen();
-            printInfo(terminal, game);
-            printCards(terminal, game, 1);
+            putString(0,0,terminal,"Player does not exist!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
           }
         }
 
