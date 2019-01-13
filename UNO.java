@@ -84,30 +84,32 @@ public class UNO{
     int p = 0;
     int r = 0;
     try{
-      if(args[0].toUpperCase().equals("HELP")){
-        System.out.println("commands and stuff here");
-      }
       /*if(args[0].toUpperCase().equals("play")){
         int person = Integer.parseInt(args[1]);
         //System.out.println(game+"\n"+game.getPlayers().get(person).getCards());
-      }
-*/      if(args.length==0){
-        System.out.println("Welcome to UNO! Enter 'help' as an argument for commands.");
-        throw new IllegalArgumentException("Enter number of players.");
-      }
-      if(args[0].toUpperCase().equals("START") && args.length==2){
-        p = Integer.parseInt(args[1]);
-      }
-      if(args[0].toUpperCase().equals("START") && args.length>=3){
-        p = Integer.parseInt(args[1]);
-        r = Integer.parseInt(args[2]);
-      }
-      if(p<2 || p>4){
-        System.out.println("Please enter 2-4 players");
+      }*/
+      if(args.length==0){
+        System.out.println("Welcome to UNO! Enter the number of players to start a game.");
         System.exit(1);
+      }
+      if(args.length==1){
+        p = Integer.parseInt(args[0]);
+        if(p<2 || p>4){
+          System.out.println("Please enter 2-4 players");
+          System.exit(1);
+        }
+      }
+      if(args.length>=2){
+        p = Integer.parseInt(args[0]);
+        r = Integer.parseInt(args[1]);
+        if(p<2 || p>4){
+          System.out.println("Please enter 2-4 players");
+          System.exit(1);
+        }
       }
     }catch(IllegalArgumentException e){
       System.out.println("Please enter the following arguments: start #players [#rules]");
+      System.exit(1);
     }
     Game game = new Game(p,r);
 
@@ -155,9 +157,17 @@ public class UNO{
               printInfo(terminal, game);
               printCards(terminal, game, 3);
             }
+            if(key.getCharacter() == 'c'){
+              terminal.clearScreen();
+              printInfo(terminal, game);
+              terminal.applyBackgroundColor(Terminal.Color.BLACK);
+              terminal.applyForegroundColor(Terminal.Color.DEFAULT);
+            }
           }catch(IndexOutOfBoundsException e){
             terminal.clearScreen();
             putString(0,0,terminal,"Player does not exist!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+            terminal.applyBackgroundColor(Terminal.Color.BLACK);
+            terminal.applyForegroundColor(Terminal.Color.DEFAULT);
           }
         }
 
