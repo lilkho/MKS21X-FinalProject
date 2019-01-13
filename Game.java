@@ -112,8 +112,8 @@ public class Game{
           order = true;
           setTurn(1);
         }
-        //conditions if a card is +2
       }
+      //conditions if a card is +2
       if(toPlay.getValue().equals("+2")){
         combo+=2;
         setTurn(1);
@@ -154,11 +154,20 @@ public class Game{
   }
 
   public String toString(){
-    //format: Player 1: 7
-    //Player 2: 7
-    //Turn: Player 1
-    //Top Card: BLUE3
-    return printPlayers()+"\nTurn: Player "+players.get(index).getName()+"\nTop Card: "+topCard;
+    /*format:
+    Players: [Player 0: 7, Player 1: 7]
+    Turn: Player 1
+    Top Card: BLUE3
+    Combo: 2 (only if not 0)
+    Rules: [Perfection] (only if not empty) */
+    String res += players+"\nTurn: Player "+players.get(index).getName()+"\nTop Card: "+topCard;
+    if(combo!=0){
+      res+="\nCombo: "+combo;
+    }
+    if(!rules.isEmpty()){
+      res+="\nRules: "+rules;
+    }
+    return res;
   }
 
 
@@ -209,6 +218,10 @@ public class Game{
 
   public ArrayList<Rule> getAllRules(){
     return allRules;
+  }
+
+  public int getCombo(){
+    return combo;
   }
 
   public static void main(String[] args) {
