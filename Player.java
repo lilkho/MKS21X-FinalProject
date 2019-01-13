@@ -35,7 +35,7 @@ public class Player {
   }
 
   public String toString() {
-    String res = name+": ";
+    String res = "Player "+name+": ";
     if(cards.size()==1){
       res+="UNO!";
     }else{
