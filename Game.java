@@ -3,6 +3,7 @@ import java.util.Random;
 
 public class Game{
   private boolean order;
+  private int turnIndex;
   private Player turn;
   private ArrayList<Player> players;
   private Card topCard;
@@ -31,8 +32,8 @@ public class Game{
       draw(person,7);
     }
     //selects a player to start game
-    index = Math.abs(randgen.nextInt(numPlayers));
-    turn = players.get(index);
+    turnIndex = Math.abs(randgen.nextInt(numPlayers));
+    turn = players.get(turnIndex);
   }
 
   public void setDeck(){
@@ -141,19 +142,11 @@ public class Game{
   }
 
   public void setTurn(int num){
-    if(order){
-      //loops around like a circle
-      index = (index+num)%players.size();
-    }else{
-      if(index == 0){
-        index = (players.size() + (index - num));
-      }else if(index == 1){
-        index = (players.size() + (0 - num));
-      }else{
-        index -= num;
-      }
+    for (int i=0;i<num;i++) {
+      if (order) {turnIndex++;}
+      else {turnIndex--;}
     }
-    turn = players.get(index);
+    turn=players.get(turnIndex%players.size());
   }
 
   public String toString(){

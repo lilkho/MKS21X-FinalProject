@@ -67,8 +67,7 @@ public class UNO{
   }
 
   public static void printInfo(Terminal terminal, Game game){
-    game.setTurn(1);
-    putString(30,0,terminal,"Playing: Player "+game.getTurn().getName(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+    putString(30,0,terminal,"Next Player: Player "+game.getTurn().getName(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
     for (int i=0;i<game.getPlayers().size();i++) {
       putString(30,i+3,terminal,"Player "+game.getPlayers().get(i).toString(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
     }
@@ -214,11 +213,12 @@ public class UNO{
         if(mode == 2){
           putString(30,15,terminal,"Choose index of card to play!");
           Player playing = game.getTurn();
+          printInfo(terminal, game);
           printCards(terminal, game, game.getPlayers().indexOf(playing));
-          if (Character.getNumericValue(key.getCharacter()) <= playing.getCards().size()) {
+          if (Character.getNumericValue(key.getCharacter()) < playing.getCards().size()) {
             mode = 0;
             game.play(playing,playing.getCards().get(Character.getNumericValue(key.getCharacter())),playing.getCards().get(Character.getNumericValue(key.getCharacter())).getColor());
-            game.setTurn(2);
+            game.setTurn(1);
             terminal.clearScreen();
             printInfo(terminal, game);
             printCards(terminal, game, game.getPlayers().indexOf(playing));
