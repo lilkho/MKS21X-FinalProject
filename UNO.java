@@ -125,7 +125,6 @@ public class UNO{
 
       terminal.moveCursor(1,6);
 
-      Key key = terminal.readInput();
       if (key != null){
         if (key.getKind() == Key.Kind.Escape) {
           terminal.exitPrivateMode();
