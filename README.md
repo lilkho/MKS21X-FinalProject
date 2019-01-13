@@ -56,3 +56,8 @@ Players are not required to say "UNO!" when they have one card.
 - Added determineColor method to set terminal background&foreground color to match a card
 - Added exceptions for starting a game in terminal
 - Added modes for displaying/hide cards and drawing (which doesn't work)
+
+**1/13/19**
+- Drawing and playing cards properly work with their proper function.
+- Drawing a card that is playable will be playable.
+- WILD and +4 become a random color when played for now, so nothing really breaks.
