@@ -51,3 +51,8 @@ Players are not required to say "UNO!" when they have one card.
 - Terminal shows correct amount of players, amount of cards, player deck, and topcard.
 - Terminal shows cards with corresponding colors.
 - Deck is random.
+
+**1/12/19**
+- Added determineColor method to set terminal background&foreground color to match a card
+- Added exceptions for starting a game in terminal
+- Added modes for displaying/hide cards and drawing (which doesn't work)
