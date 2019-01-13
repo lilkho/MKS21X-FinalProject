@@ -67,7 +67,7 @@ public class UNO{
   }
 
   public static void printInfo(Terminal terminal, Game game){
-    putString(30,0,terminal,"Next Player: Player "+game.getTurn().getName(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+    putString(30,0,terminal,"PLAYING: Player "+game.getTurn().getName(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
     for (int i=0;i<game.getPlayers().size();i++) {
       putString(30,i+3,terminal,"Player "+game.getPlayers().get(i).toString(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
     }
