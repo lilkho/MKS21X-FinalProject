@@ -43,6 +43,8 @@ public class UNO{
       determineColor(terminal, card);
       putString(0,5+i,terminal,card.getValue());
     }
+    terminal.applyBackgroundColor(Terminal.Color.BLACK);
+    terminal.applyForegroundColor(Terminal.Color.DEFAULT);
   }
 
   public static void determineColor(Terminal terminal, Card card){
@@ -65,8 +67,10 @@ public class UNO{
   }
 
   public static void printInfo(Terminal terminal, Game game){
+    game.setTurn(1);
+    putString(30,0,terminal,"Next player: Player "+game.getTurn().getName(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
     for (int i=0;i<game.getPlayers().size();i++) {
-      putString(30,i,terminal,"Player "+game.getPlayers().get(i).toString(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+      putString(30,i+3,terminal,"Player "+game.getPlayers().get(i).toString(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
     }
     putString(0,0,terminal,"Top Card:",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
     Card topCard = game.getTopCard();
@@ -118,7 +122,7 @@ public class UNO{
     int mode = 0;
 
     while(running){
-      putString(20,3,terminal,"This is mode "+mode);
+      putString(20,10,terminal,"This is mode "+mode);
       Key key = terminal.readInput();
       if(key != null){
         //main screen with commands and instructions
