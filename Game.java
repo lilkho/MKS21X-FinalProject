@@ -82,13 +82,12 @@ public class Game{
     for(int x=0; x<num; x++){
       //chooses a random card from the deck and adds it to the player's hand
       Card toAdd = deck.get(Math.abs(randgen.nextInt(deck.size())));
-      if (topCard.playable(toAdd) && num==1) {play=true;}
       person.addCard(toAdd);
       //removes card from deck and adds it to "discard" pile
       discard.add(toAdd);
       deck.remove(toAdd);
     }
-    if (!play) {setTurn(1);}
+    setTurn(1);
   }
 
   public void refresh(){
@@ -118,14 +117,10 @@ public class Game{
       //conditions if a card is +2
       if(toPlay.getValue().equals("+2")){
         combo+=2;
-        setTurn(1);
-        draw(getTurn(),2);
       }
       if(toPlay.getColor().equals("BLACK")){
         if(toPlay.getValue().equals("+4")){
           combo+=4;
-          setTurn(1);
-          draw(getTurn(),4);
         }
         String colors[] = {"RED","BLUE","YELLOW","GREEN"};
         toPlay.setColor(colors[Math.abs(randgen.nextInt(colors.length))]);
@@ -142,11 +137,21 @@ public class Game{
   }
 
   public void setTurn(int num){
-    for (int i=0;i<num;i++) {
-      if (order) {turnIndex++;}
-      else {turnIndex+=players.size()-1;}
+    if(order){
+      //loops around like a circle
+      index = (index+num)%players.size();
+    }else{
+      if(index == 0){
+        index = players.size() - num;
+      }else if(index == 1 && num == 1){
+        index = 0;
+      }else if(index == 1 && num == 2){
+        index = players.size()-1;
+      }else{
+        index -= num;
+      }
     }
-    turn=players.get(turnIndex%players.size());
+    turn = players.get(index);
   }
 
   public String toString(){
