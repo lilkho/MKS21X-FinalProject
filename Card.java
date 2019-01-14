@@ -26,6 +26,7 @@ public class Card{
           return true;
       }
       //black can be placed on any card, same color or value is playable
+    if (this.getColor().equals("BLACK")) {return true;}
     return compare.getColor().equals("BLACK") ||
       this.getColor().equals(compare.getColor()) ||
       this.getValue().equals(compare.getValue());

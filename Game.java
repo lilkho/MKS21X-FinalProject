@@ -71,6 +71,7 @@ public class Game{
 
 
   public void draw(Player person, int num){
+    boolean play = false;
     //if deck is empty, "shuffle" by making the discard pile the draw pile
     if(deck.size() == 0){
       refresh();
@@ -81,12 +82,13 @@ public class Game{
     for(int x=0; x<num; x++){
       //chooses a random card from the deck and adds it to the player's hand
       Card toAdd = deck.get(Math.abs(randgen.nextInt(deck.size())));
+      if (topCard.playable(toAdd) && num==1) {play=true;}
       person.addCard(toAdd);
       //removes card from deck and adds it to "discard" pile
       discard.add(toAdd);
       deck.remove(toAdd);
     }
-    setTurn(1);
+    if (!play) {setTurn(1);}
   }
 
   public void refresh(){
