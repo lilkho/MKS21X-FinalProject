@@ -61,17 +61,21 @@ public class Game{
       }
     }
     //reverse, skip, and +2 has 4 colors each + a duplicate
-    for (int i=0;i<4;i++) {
-      for(int x=0; x<2; x++){
-        deck.add(new Card(colors[i],"REVERSE"));
-        deck.add(new Card(colors[i],"SKIP"));
-        deck.add(new Card(colors[i],"+2"));
+    if(!rules.contains("NO ACTION")){
+      for (int i=0;i<4;i++) {
+        for(int x=0; x<2; x++){
+          deck.add(new Card(colors[i],"REVERSE"));
+          deck.add(new Card(colors[i],"SKIP"));
+          deck.add(new Card(colors[i],"+2"));
+        }
       }
     }
     //4 wilds and 4 +4's
     for (int i=0;i<4;i++) {
       deck.add(new Card("BLACK","+4"));
-      deck.add(new Card("BLACK","WILD"));
+      if(!rules.contains("NO ACTION")){
+        deck.add(new Card("BLACK","WILD"));
+      }
     }
   }
   
