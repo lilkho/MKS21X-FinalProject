@@ -170,7 +170,7 @@ public class Game{
     //Player 2: 7
     String res = "";
     for(int x=0; x<players.size(); x++){
-      res+="Player "+players.get(x);
+      res+="Player "+players.get(x)+" cards";
       if(x!=players.size()-1){
         res+="\n";
       }
