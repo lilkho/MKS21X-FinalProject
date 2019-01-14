@@ -61,3 +61,5 @@ Players are not required to say "UNO!" when they have one card.
 - Drawing and playing cards properly work with their proper function.
 - Drawing a card that is playable will be playable.
 - WILD and +4 become a random color when played for now, so nothing really breaks.
+- Added reset method to reset terminal colors
+- Added combo and drawing the correct number of cards rather than 1
