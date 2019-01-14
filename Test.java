@@ -44,5 +44,8 @@ public class Test{
     System.out.println("TRYING TO PLAY FIRST CARD");
     game.play(game.getPlayers().get(2),game.getPlayers().get(2).getCards().get(0),"");
     System.out.println("NOW THIS IS THE TOP CARD: "+game.getTopCard());
+    System.out.println('a'+0);
+    System.out.println('b'+0);
+    System.out.println((int)'a');
   }
 }
