@@ -187,8 +187,8 @@ public class UNO{
             }
           } catch(IndexOutOfBoundsException e){
             terminal.clearScreen();
-            putString(0,0,terminal,"Player does not exist!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
             reset(terminal);
+            putString(0,0,terminal,"Player does not exist!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
           }
         }
 
