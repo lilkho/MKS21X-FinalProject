@@ -67,11 +67,12 @@ public class UNO{
 
   public static void printInfo(Terminal terminal, Game game){
     putString(0,0,terminal,"PLAYING: Player "+game.getTurn().getName(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
-    putString(25,0,terminal,"Player | #cards",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+    putString(0,1,terminal,"COMBO: "+game.getCombo(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+    putString(25,0,terminal,"PLAYER | #CARDS",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
     for (int i=0;i<game.getPlayers().size();i++) {
       putString(25,i+2,terminal,game.getPlayers().get(i).toString(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
     }
-    putString(0,3,terminal,"Top Card:",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+    putString(0,3,terminal,"TOP CARD:",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
     Card topCard = game.getTopCard();
     determineColor(terminal, topCard);
     putString(10,3,terminal,topCard.getValue());
@@ -165,7 +166,12 @@ public class UNO{
             }
             if(key.getCharacter() == 'd'){
               Player playing = game.getTurn();
-              game.draw(playing,1);
+              if(game.getTopCard().getValue().equals("+2") ||
+                game.getTopCard().getValue().equals("+4")){
+                game.draw(playing,game.getCombo());
+              }else{
+                game.draw(playing,1);
+              }
               //game.setTurn(1);
               terminal.clearScreen();
               printInfo(terminal, game);
