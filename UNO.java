@@ -35,8 +35,13 @@ public class UNO{
     t.applyForegroundColor(Terminal.Color.DEFAULT);
   }
 
+  public static void reset(Terminal terminal){
+    terminal.applyBackgroundColor(Terminal.Color.BLACK);
+    terminal.applyForegroundColor(Terminal.Color.DEFAULT);
+  }
+
   public static void printCards(Terminal terminal, Game game, int x){
-    putString(0,5,terminal,"Your Cards:",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+    putString(0,5,terminal,"Player "+game.getPlayers().get(x).getName()+"'s Cards:",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
     for(int i=0; i<game.getPlayers().get(x).getCards().size(); i++){
       Card card = game.getPlayers().get(x).getCards().get(i);
       determineColor(terminal, card);
@@ -60,13 +65,12 @@ public class UNO{
       terminal.applyBackgroundColor(Terminal.Color.YELLOW);
       terminal.applyForegroundColor(Terminal.Color.BLACK);
     }else{
-      terminal.applyBackgroundColor(Terminal.Color.BLACK);
-      terminal.applyForegroundColor(Terminal.Color.DEFAULT);
+      reset(terminal);
     }
   }
 
   public static void printInfo(Terminal terminal, Game game){
-    putString(0,0,terminal,"PLAYING: Player "+game.getTurn().getName(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+    putString(0,0,terminal,"TURN: Player "+game.getTurn().getName(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
     putString(0,1,terminal,"COMBO: "+game.getCombo(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
     putString(25,0,terminal,"PLAYER | #CARDS",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
     for (int i=0;i<game.getPlayers().size();i++) {
@@ -120,24 +124,18 @@ public class UNO{
 
     while(running){
       if(mode == 0){
+        //commands
         putString(50,0,terminal,"d to draw card(s)");
         putString(50,1,terminal,"h to hide your cards");
         putString(50,2,terminal,"p to play a card");
         putString(50,3,terminal,"(player) # to get cards");
         putString(50,4,terminal,"escape to exit");
       }
-      if(mode == 1){
-        putString(30,10,terminal,"space to return to main screen");
-      }
-      //putString(20,9,terminal,"This is mode "+mode);
+
       Key key = terminal.readInput();
       if(key != null){
         if(mode == 0){
           try{
-            if (key.getKind() == Key.Kind.Escape) {
-              terminal.exitPrivateMode();
-              running = false;
-            }
             if(key.getCharacter() == '0'){
               terminal.clearScreen();
               printInfo(terminal, game);
@@ -161,86 +159,56 @@ public class UNO{
             if(key.getCharacter() == 'h'){
               terminal.clearScreen();
               printInfo(terminal, game);
-              terminal.applyBackgroundColor(Terminal.Color.BLACK);
-              terminal.applyForegroundColor(Terminal.Color.DEFAULT);
+              reset(terminal);
             }
             if(key.getCharacter() == 'd'){
               Player playing = game.getTurn();
-              if(game.getTopCard().getValue().equals("+2") ||
-                game.getTopCard().getValue().equals("+4")){
+              if(game.getCombo()!=0){
                 game.draw(playing,game.getCombo());
+                game.setCombo(0);
               }else{
                 game.draw(playing,1);
               }
               //game.setTurn(1);
               terminal.clearScreen();
               printInfo(terminal, game);
-              printCards(terminal, game, game.getPlayers().indexOf(playing));
-              /*
-              mode = 1;
-              terminal.clearScreen();
-              terminal.applyBackgroundColor(Terminal.Color.BLACK);
-              terminal.applyForegroundColor(Terminal.Color.DEFAULT);
-              */
+              reset(terminal);
             }
             if(key.getCharacter() == 'p'){
               mode = 2;
               terminal.clearScreen();
-              terminal.applyBackgroundColor(Terminal.Color.BLACK);
-              terminal.applyForegroundColor(Terminal.Color.DEFAULT);
+              reset(terminal);
             }
           } catch(IndexOutOfBoundsException e){
             terminal.clearScreen();
             putString(0,0,terminal,"Player does not exist!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
-            terminal.applyBackgroundColor(Terminal.Color.BLACK);
-            terminal.applyForegroundColor(Terminal.Color.DEFAULT);
+            reset(terminal);
           }
         }
 
-        //to draw cards
-        if(mode == 1){
-          if(key.getCharacter() == ' '){
-            mode = 0;
-            terminal.clearScreen();
-            terminal.applyBackgroundColor(Terminal.Color.BLACK);
-            terminal.applyForegroundColor(Terminal.Color.DEFAULT);
-          }
-        }
-
-        if (key != null){
-            if (key.getKind() == Key.Kind.Escape) {
-              terminal.exitPrivateMode();
-              running = false;
-            }
+        if (key.getKind() == Key.Kind.Escape) {
+          terminal.exitPrivateMode();
+          running = false;
         }
 
         //to play cards
         if(mode == 2){
           try{
-            putString(30,15,terminal,"Choose index of card to play!");
             Player playing = game.getTurn();
+            putString(30,15,terminal,"Choose index of card to play!");
             printInfo(terminal, game);
             printCards(terminal, game, game.getPlayers().indexOf(playing));
-            if (Character.getNumericValue(key.getCharacter()) < playing.getCards().size()) {
+            int choice = Character.getNumericValue(key.getCharacter());
+            if (choice < playing.getCards().size()) {
               mode = 0;
-              game.play(playing,playing.getCards().get(Character.getNumericValue(key.getCharacter())),playing.getCards().get(Character.getNumericValue(key.getCharacter())).getColor());
-              //game.setTurn(1);
+              game.play(playing,playing.getCards().get(choice),playing.getCards().get(choice).getColor());
               terminal.clearScreen();
               printInfo(terminal, game);
-              printCards(terminal, game, game.getPlayers().indexOf(playing));
               putString(30,15,terminal,"chosen card: "+key.getCharacter());
-            }
-            /*
-            Player playing = game.getTurn();
-            char c = key.getCharacter();
-            int toPlay = Character.getNumericValue(c);
-            game.play(playing,playing.getCards().get(0),"");
-            */
-            if(key.getCharacter() == ' '){
-              mode = 0;
-              terminal.clearScreen();
-              terminal.applyBackgroundColor(Terminal.Color.BLACK);
-              terminal.applyForegroundColor(Terminal.Color.DEFAULT);
+
+            //  game.setTurn(1);
+
+              reset(terminal);
             }
           }catch(ArrayIndexOutOfBoundsException e){
             System.out.println("Choose index of card.");

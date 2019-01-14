@@ -142,11 +142,19 @@ public class Game{
   }
 
   public void setTurn(int num){
-    for (int i=0;i<num;i++) {
-      if (order) {turnIndex++;}
-      else {turnIndex+=players.size()-1;}
+    if(order){
+      //loops around like a circle
+      index = (index+num)%players.size();
+    }else{
+      if(index == 0){
+        index = (players.size() + (index - num));
+      }else if(index == 1){
+        index = (players.size() + (0 - num));
+      }else{
+        index -= num;
+      }
     }
-    turn=players.get(turnIndex%players.size());
+    turn = players.get(index);
   }
 
   public String toString(){
@@ -218,6 +226,10 @@ public class Game{
 
   public int getCombo(){
     return combo;
+  }
+
+  public void setCombo(int num){
+    combo = num;
   }
 
   public static void main(String[] args) {
