@@ -142,19 +142,11 @@ public class Game{
   }
 
   public void setTurn(int num){
-    if(order){
-      //loops around like a circle
-      index = (index+num)%players.size();
-    }else{
-      if(index == 0){
-        index = (players.size() + (index - num));
-      }else if(index == 1){
-        index = (players.size() + (0 - num));
-      }else{
-        index -= num;
-      }
+    for (int i=0;i<num;i++) {
+      if (order) {turnIndex++;}
+      else {turnIndex+=players.size()-1;}
     }
-    turn = players.get(index);
+    turn=players.get(turnIndex%players.size());
   }
 
   public String toString(){

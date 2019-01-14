@@ -125,17 +125,24 @@ public class UNO{
     while(running){
       if(mode == 0){
         //commands
+        printInfo(terminal, game);
+        reset(terminal);
         putString(50,0,terminal,"d to draw card(s)");
         putString(50,1,terminal,"h to hide your cards");
         putString(50,2,terminal,"p to play a card");
         putString(50,3,terminal,"(player) # to get cards");
         putString(50,4,terminal,"escape to exit");
+
       }
 
       Key key = terminal.readInput();
       if(key != null){
         if(mode == 0){
           try{
+            if (key.getKind() == Key.Kind.Escape) {
+              terminal.exitPrivateMode();
+              running = false;
+            }
             if(key.getCharacter() == '0'){
               terminal.clearScreen();
               printInfo(terminal, game);
@@ -169,7 +176,6 @@ public class UNO{
               }else{
                 game.draw(playing,1);
               }
-              //game.setTurn(1);
               terminal.clearScreen();
               printInfo(terminal, game);
               reset(terminal);
@@ -186,11 +192,6 @@ public class UNO{
           }
         }
 
-        if (key.getKind() == Key.Kind.Escape) {
-          terminal.exitPrivateMode();
-          running = false;
-        }
-
         //to play cards
         if(mode == 2){
           try{
@@ -205,9 +206,6 @@ public class UNO{
               terminal.clearScreen();
               printInfo(terminal, game);
               putString(30,15,terminal,"chosen card: "+key.getCharacter());
-
-            //  game.setTurn(1);
-
               reset(terminal);
             }
           }catch(ArrayIndexOutOfBoundsException e){
