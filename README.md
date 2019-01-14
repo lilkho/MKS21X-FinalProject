@@ -63,3 +63,4 @@ Players are not required to say "UNO!" when they have one card.
 - WILD and +4 become a random color when played for now, so nothing really breaks.
 - Added reset method to reset terminal colors
 - Added combo and drawing the correct number of cards rather than 1
+- Added setTurn to set the turn to the next player (1 if drawing, reversing, or adding; 2 if skipping)
