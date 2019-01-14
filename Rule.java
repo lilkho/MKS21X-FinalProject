@@ -1,6 +1,10 @@
 public class Rule {
   private String name;
   private String description;
+  
+  public Rule(String name){
+    this.name = name;
+  }
 
   public Rule(String name, String description) {
     this.name = name;
@@ -13,7 +17,6 @@ public class Rule {
 
   public String getDescription() {
     return description;
-
   }
 
   public String toString() {
