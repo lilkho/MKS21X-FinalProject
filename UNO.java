@@ -148,30 +148,15 @@ public class UNO{
       Key key = terminal.readInput();
       if(key != null){
         if(mode == 0){
-          try{
+          //try{
             if (key.getKind() == Key.Kind.Escape) {
               terminal.exitPrivateMode();
               running = false;
             }
-            if(key.getCharacter() == '0'){
+            if(Character.getNumericValue(key.getCharacter()) < game.getPlayers().size() && Character.getNumericValue(key.getCharacter()) >= 0){
               terminal.clearScreen();
               printInfo(terminal, game);
-              printCards(terminal, game, 0);
-            }
-            if(key.getCharacter() == '1'){
-              terminal.clearScreen();
-              printInfo(terminal, game);
-              printCards(terminal, game, 1);
-            }
-            if(key.getCharacter() == '2'){
-              terminal.clearScreen();
-              printInfo(terminal, game);
-              printCards(terminal, game, 2);
-            }
-            if(key.getCharacter() == '3'){
-              terminal.clearScreen();
-              printInfo(terminal, game);
-              printCards(terminal, game, 3);
+              printCards(terminal, game, Character.getNumericValue(key.getCharacter()));
             }
             if(key.getCharacter() == 'h'){
               terminal.clearScreen();
@@ -199,11 +184,11 @@ public class UNO{
               terminal.clearScreen();
               game.setTurn(1);
               printInfo(terminal, game);
-            }
+            }/*
           } catch(IndexOutOfBoundsException e){
             terminal.clearScreen();
             reset(terminal);
-            putString(50,9,terminal,"Player does not exist!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+            putString(50,9,terminal,"Player does not exist!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);*/
           }
         }
 
@@ -228,7 +213,6 @@ public class UNO{
             System.out.println("Choose index of card.");
           }
         }
-
       }
     }
   }
