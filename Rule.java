@@ -1,7 +1,7 @@
 public class Rule {
   private String name;
   private String description;
-  
+
   public Rule(String name){
     this.name = name;
   }

@@ -127,11 +127,12 @@ public class UNO{
         //commands
         printInfo(terminal, game);
         reset(terminal);
-        putString(50,0,terminal,"d to draw card(s)");
-        putString(50,1,terminal,"h to hide your cards");
-        putString(50,2,terminal,"p to play a card");
-        putString(50,3,terminal,"(player) # to get cards");
-        putString(50,4,terminal,"escape to exit");
+        putString(50,0,terminal,"Rules: "+game.printRules());
+        putString(50,3,terminal,"d to draw card(s)");
+        putString(50,4,terminal,"h to hide your cards");
+        putString(50,5,terminal,"p to play a card");
+        putString(50,6,terminal,"(player) # to get cards");
+        putString(50,7,terminal,"escape to exit");
 
       }
 

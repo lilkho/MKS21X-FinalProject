@@ -37,7 +37,9 @@ public class Game{
     if(numRules!=0){
       setRules();
       for(int y=0; y<numRules; y++){
-        rules.add(allRules.get(Math.abs(randgen.nextInt(allRules.size()))));
+        Rule toAdd = allRules.get(Math.abs(randgen.nextInt(allRules.size())));
+        rules.add(toAdd);
+        allRules.remove(toAdd);
       }
     }
   }
@@ -78,10 +80,10 @@ public class Game{
       }
     }
   }
-  
+
   public void setRules(){
     allRules.add(new Rule("NO ACTION","There are only numerical and wild cards in the deck."));
-    allRules.add(new Rule("NO COMBO","You cannot block combos."));
+    /*allRules.add(new Rule("NO COMBO","You cannot block combos."));
     allRules.add(new Rule("CLEAN FINISH","You can only win if your last card is a numerical card."));
     allRules.add(new Rule("PERFECTION","If you play a card whose numerical value is equal to the number of cards in your hand, you can play again."));
     allRules.add(new Rule("SUPER COMBO","You can block a combo with any + card"));
@@ -89,7 +91,7 @@ public class Game{
     allRules.add(new Rule("SUDDEN DEATH CARD","You are eliminated if you are unable to play a card."));
     allRules.add(new Rule("BOMB CARD","You are eliminated if you draw this card."));
     allRules.add(new Rule("INK CARD","When you play this card, every colored card on the next player’s hand turns the color of your ink card."));
-  }
+  */}
 
 
   public void draw(Player person, int num){
@@ -202,6 +204,17 @@ public class Game{
       res+="Player "+players.get(x)+" cards";
       if(x!=players.size()-1){
         res+="\n";
+      }
+    }
+    return res;
+  }
+
+  public String printRules(){
+    String res = "";
+    for(int x=0; x<rules.size(); x++){
+      res+=rules.get(x).getName();
+      if(x!=rules.size()-1){
+        res+=", ";
       }
     }
     return res;
