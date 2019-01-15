@@ -11,13 +11,13 @@ git clone git@github.com:lilkho/MKS21X-FinalProject.git
 ```
 2. Move into the directory of the repo
 ```
-cd MKS21X-FinalProject
+cd MKS21X-FinalProject/
 ```
 3. Compile the UNO game
 ```
 javac -cp lanterna.jar:. UNO.java
 ```
-Or for git bash
+For git bash:
 ```
 javac -cp "lanterna.jar;." UNO.java
 ```
@@ -25,7 +25,7 @@ javac -cp "lanterna.jar;." UNO.java
 ```
 java -Djava.awt.headless=true -cp lanterna.jar:. UNO
 ```
-Or for git bash
+For git bash:
 ```
 java -Djava.awt.headless=true -cp "lanterna.jar;." UNO
 ```
@@ -57,8 +57,7 @@ java -Djava.awt.headless=true -cp "lanterna.jar;." UNO
 - Created method to initialize a deck
 - Players are given random 7 cards and a card is placed down
 - Bug fixed! Deck is working
-~~- Bug: Deck is not printing correct cards~~
-- Questions: setName? how does player choose to draw or to play +2? keep track of combo? turn not printing correctly?
+- Bug: Deck is not printing correct cards
 
 **1/10/19**
 - Added get functions to Game class so UNO can use them
