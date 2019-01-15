@@ -29,7 +29,7 @@ public class Game{
     for(int x=0; x<numPlayers; x++){
       Player person = new Player(""+x, 7);
       players.add(person);
-      draw(person,7);
+      draw(person,1);
     }
     //selects a player to start game
     turnIndex = Math.abs(randgen.nextInt(numPlayers));

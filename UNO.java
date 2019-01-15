@@ -73,13 +73,17 @@ public class UNO{
     putString(0,0,terminal,"TURN: Player "+game.getTurn().getName(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
     putString(0,1,terminal,"COMBO: "+game.getCombo(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
     putString(25,0,terminal,"PLAYER | #CARDS",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
-    for (int i=0;i<game.getPlayers().size();i++) {
-      putString(25,i+2,terminal,game.getPlayers().get(i).toString(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
-    }
     putString(0,3,terminal,"TOP CARD:",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
     Card topCard = game.getTopCard();
     determineColor(terminal, topCard);
     putString(10,3,terminal,topCard.getValue());
+    for (int i=0;i<game.getPlayers().size();i++) {
+      Player test = game.getPlayers().get(i);
+      if(test.getCards().size() == 0){
+        putString(50,0,terminal,"Player "+i+" won the game! Congratulations!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+      }
+      putString(25,i+2,terminal,test.toString(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+    }
   }
 
   public static void main(String[] args){
@@ -171,18 +175,11 @@ public class UNO{
             }
             if(key.getCharacter() == 'd'){
               Player playing = game.getTurn();
-              int count = 0;
-              if(count != 0){
-                game.setTurn(1);
+              if(game.getCombo()!=0){
+                game.draw(playing,game.getCombo());
+                game.setCombo(0);
               }else{
-                if(game.getCombo()!=0){
-                  game.draw(playing,game.getCombo());
-                  count = 1;
-                  game.setCombo(0);
-                }else{
-                  game.draw(playing,1);
-                  count = 1;
-                }
+                game.draw(playing,1);
               }
               terminal.clearScreen();
               printInfo(terminal, game);
