@@ -127,7 +127,7 @@ public class UNO{
         //commands
         printInfo(terminal, game);
         reset(terminal);
-        putString(50,0,terminal,"Rules: "+game.printRules());
+      //  putString(50,0,terminal,"Rules: "+game.printRules());
         putString(50,3,terminal,"d to draw card(s)");
         putString(50,4,terminal,"h to hide your cards");
         putString(50,5,terminal,"p to play a card");
@@ -203,7 +203,9 @@ public class UNO{
             int choice = Character.getNumericValue(key.getCharacter());
             if (choice < playing.getCards().size()) {
               mode = 0;
-              game.play(playing,playing.getCards().get(choice),playing.getCards().get(choice).getColor());
+              Card toPlay = playing.getCards().get(choice);
+              //if(game.getTopCard())
+              game.play(playing,toPlay,toPlay.getColor());
               terminal.clearScreen();
               printInfo(terminal, game);
               putString(30,15,terminal,"chosen card: "+key.getCharacter());

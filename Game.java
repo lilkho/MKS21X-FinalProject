@@ -63,7 +63,7 @@ public class Game{
       }
     }
     //reverse, skip, and +2 has 4 colors each + a duplicate
-    if(!rules.contains("NO ACTION")){
+    if(!contains("NO ACTION")){
       for (int i=0;i<4;i++) {
         for(int x=0; x<2; x++){
           deck.add(new Card(colors[i],"REVERSE"));
@@ -93,6 +93,16 @@ public class Game{
     allRules.add(new Rule("INK CARD","When you play this card, every colored card on the next player’s hand turns the color of your ink card."));
   */}
 
+  public boolean contains(String name){
+    for(int x=0; x<rules.size(); x++){
+      String test = rules.get(x).getName();
+      if(name.equals(test)){
+        return true;
+      }
+    }
+    return false;
+  }
+
 
   public void draw(Player person, int num){
     boolean play = false;
@@ -111,7 +121,9 @@ public class Game{
       discard.add(toAdd);
       deck.remove(toAdd);
     }
-    setTurn(1);
+    if(num!=1){
+      setTurn(1);
+    }
   }
 
   public void refresh(){
