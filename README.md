@@ -64,3 +64,11 @@ Players are not required to say "UNO!" when they have one card.
 - Added reset method to reset terminal colors
 - Added combo and drawing the correct number of cards rather than 1
 - Added setTurn to set the turn to the next player (1 if drawing, reversing, or adding; 2 if skipping)
+
+**1/14/19**
+- Tried to start implement rules, but rule name is not printing correctly
+- Fixed continuous error where a matching color could be placed on any + card (given that there is a combo)
+- Fixed error (expanding on the above) where you cannot place a matching color card on top of a + card (no combo)
+- Added game mechanic where a reverse works like a skip when there are two players
+- Added a simple winning message!
+- Added option to pass your turn *_(only IFF you draw 1 card!! which we didn't figure out yet)_*
