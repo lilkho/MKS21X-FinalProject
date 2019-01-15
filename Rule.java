@@ -8,7 +8,7 @@ public class Rule {
 
   public Rule(String name, String description) {
     this.name = name;
-    this.name = description;
+    this.description = description;
   }
 
   public String getName() {

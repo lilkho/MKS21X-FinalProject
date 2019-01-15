@@ -110,6 +110,10 @@ public class UNO{
           System.out.println("Please enter 2-4 players");
           System.exit(1);
         }
+        if(r<0 || r>1){
+          System.out.println("Please enter 0-1 rules");
+          System.exit(1);
+        }
       }
     }catch(IllegalArgumentException e){
       System.out.println("Please enter the following arguments: #players [#rules]");
