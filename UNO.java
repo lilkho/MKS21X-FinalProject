@@ -191,11 +191,7 @@ public class UNO{
               terminal.clearScreen();
               reset(terminal);
             }
-            if(key.getCharacter() == 'n'){
-              terminal.clearScreen();
-              game.setTurn(1);
-              printInfo(terminal, game);
-            }
+
           } catch(IndexOutOfBoundsException e){
             terminal.clearScreen();
             reset(terminal);

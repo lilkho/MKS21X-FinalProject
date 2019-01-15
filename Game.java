@@ -82,7 +82,7 @@ public class Game{
   }
 
   public void setRules(){
-    allRules.add(new Rule("There are only numerical and wild cards in the deck.","NO ACTION"));
+    allRules.add(new Rule("NO ACTION","There are only numerical and wild cards in the deck."));
     /*allRules.add(new Rule("NO COMBO","You cannot block combos."));
     allRules.add(new Rule("CLEAN FINISH","You can only win if your last card is a numerical card."));
     allRules.add(new Rule("PERFECTION","If you play a card whose numerical value is equal to the number of cards in your hand, you can play again."));
