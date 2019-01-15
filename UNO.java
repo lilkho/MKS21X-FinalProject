@@ -172,13 +172,17 @@ public class UNO{
             if(key.getCharacter() == 'd'){
               Player playing = game.getTurn();
               int count = 0;
-              if(game.getCombo()!=0){
-                game.draw(playing,game.getCombo());
-                count = 1;
-                game.setCombo(0);
+              if(count != 0){
+                game.setTurn(1);
               }else{
-                game.draw(playing,1);
-                count = 1;
+                if(game.getCombo()!=0){
+                  game.draw(playing,game.getCombo());
+                  count = 1;
+                  game.setCombo(0);
+                }else{
+                  game.draw(playing,1);
+                  count = 1;
+                }
               }
               terminal.clearScreen();
               printInfo(terminal, game);
@@ -188,6 +192,9 @@ public class UNO{
               mode = 2;
               terminal.clearScreen();
               reset(terminal);
+            }
+            if(key.getCharacter() == 'n'){
+              game.setTurn(1);
             }
           } catch(IndexOutOfBoundsException e){
             terminal.clearScreen();
