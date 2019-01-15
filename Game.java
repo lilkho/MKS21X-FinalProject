@@ -137,27 +137,30 @@ public class Game{
   public void play(Player person, Card toPlay, String color){
     //if card is playable, remove from player's hand, add to discard pile,
     //set it as top card, and set turn to next player
-    if(topCard.playable(toPlay)){
-      //if card is a skip, turn = 2 indecies after
-      if(toPlay.getValue().equals("SKIP")){
-        setTurn(1);
+    if(combo == 0 && topCard.playable(toPlay)){
       //if card is a reverse, switch order & turn = next player
-      }
-      if(toPlay.getValue().equals("REVERSE")){
+      if(players.size() > 2 && toPlay.getValue().equals("REVERSE")){
         if(order){
           order = false;
         } else{
           order = true;
         }
       }
-      //conditions if a card is +2
+      //if card is a skip, turn = 2 indecies after
+      //player size = 2, reverse works like a skip
+      if(toPlay.getValue().equals("SKIP") || toPlay.getValue().equals("REVERSE")){
+        setTurn(1);
+      }
+      //if +2, add 2 to combo
       if(toPlay.getValue().equals("+2")){
         combo+=2;
       }
       if(toPlay.getColor().equals("BLACK")){
+        //add 4 to combo if +4
         if(toPlay.getValue().equals("+4")){
           combo+=4;
         }
+        //wild & +4 choose a color
         String colors[] = {"RED","BLUE","YELLOW","GREEN"};
         toPlay.setColor(colors[Math.abs(randgen.nextInt(colors.length))]);
       } else{
@@ -167,6 +170,12 @@ public class Game{
       discard.add(toPlay);
       topCard = toPlay;
       setTurn(1);
+      //combo != 0, meaning only + cards of the same value can match
+    }else if(combo != 0 && topCard.getValue().equals(topCard.getValue())){
+        person.removeCard(toPlay);
+        discard.add(toPlay);
+        topCard = toPlay;
+        setTurn(1);
     } else {
       System.out.println("Invalid card!");
     }

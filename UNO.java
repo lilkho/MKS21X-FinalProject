@@ -171,11 +171,14 @@ public class UNO{
             }
             if(key.getCharacter() == 'd'){
               Player playing = game.getTurn();
+              int count = 0;
               if(game.getCombo()!=0){
                 game.draw(playing,game.getCombo());
+                count = 1;
                 game.setCombo(0);
               }else{
                 game.draw(playing,1);
+                count = 1;
               }
               terminal.clearScreen();
               printInfo(terminal, game);
@@ -204,7 +207,6 @@ public class UNO{
             if (choice < playing.getCards().size()) {
               mode = 0;
               Card toPlay = playing.getCards().get(choice);
-              //if(game.getTopCard())
               game.play(playing,toPlay,toPlay.getColor());
               terminal.clearScreen();
               printInfo(terminal, game);
