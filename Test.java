@@ -47,5 +47,8 @@ public class Test{
     System.out.println('a'+0);
     System.out.println('b'+0);
     System.out.println((int)'a');
+
+    Game test = new Game(2,1);
+    System.out.println(test);
   }
 }

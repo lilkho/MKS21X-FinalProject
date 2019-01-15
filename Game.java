@@ -3,8 +3,8 @@ import java.util.Random;
 
 public class Game{
   private boolean order;
-  private int turnIndex;
   private Player turn;
+  private int turnIndex;
   private ArrayList<Player> players;
   private Card topCard;
   private ArrayList<Rule> allRules = new ArrayList<Rule>();
@@ -75,14 +75,14 @@ public class Game{
     //4 wilds and 4 +4's
     for (int i=0;i<4;i++) {
       deck.add(new Card("BLACK","+4"));
-      if(!rules.contains("NO ACTION")){
+      if(!contains("NO ACTION")){
         deck.add(new Card("BLACK","WILD"));
       }
     }
   }
 
   public void setRules(){
-    allRules.add(new Rule("NO ACTION","There are only numerical and wild cards in the deck."));
+    allRules.add(new Rule("There are only numerical and wild cards in the deck.","NO ACTION"));
     /*allRules.add(new Rule("NO COMBO","You cannot block combos."));
     allRules.add(new Rule("CLEAN FINISH","You can only win if your last card is a numerical card."));
     allRules.add(new Rule("PERFECTION","If you play a card whose numerical value is equal to the number of cards in your hand, you can play again."));
@@ -209,7 +209,10 @@ public class Game{
       res+="\nCombo: "+combo;
     }
     if(!rules.isEmpty()){
-      res+="\nRules: "+rules;
+      res+="\nRules: ";
+      for(int x=0; x<rules.size(); x++){
+        res+=rules.get(x).getName();
+      }
     }
     return res;
   }

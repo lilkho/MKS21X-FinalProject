@@ -74,6 +74,7 @@ public class UNO{
     putString(0,1,terminal,"COMBO: "+game.getCombo(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
     putString(25,0,terminal,"PLAYER | #CARDS",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
     putString(0,3,terminal,"TOP CARD:",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+    putString(50,0,terminal,"Rules: "+game.printRules(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
     Card topCard = game.getTopCard();
     determineColor(terminal, topCard);
     putString(10,3,terminal,topCard.getValue());
@@ -131,13 +132,12 @@ public class UNO{
         //commands
         printInfo(terminal, game);
         reset(terminal);
-      //  putString(50,0,terminal,"Rules: "+game.printRules());
-        putString(50,3,terminal,"d to draw card(s)");
-        putString(50,4,terminal,"h to hide your cards");
-        putString(50,5,terminal,"n to pass turn");
-        putString(50,6,terminal,"p to play a card");
-        putString(50,7,terminal,"(player) # to get cards");
-        putString(50,8,terminal,"escape to exit");
+        putString(50,2,terminal,"d to draw card(s)");
+        putString(50,3,terminal,"h to hide your cards");
+        putString(50,4,terminal,"n to pass turn");
+        putString(50,5,terminal,"p to play a card");
+        putString(50,6,terminal,"(player) # to get cards");
+        putString(50,7,terminal,"escape to exit");
 
       }
 
