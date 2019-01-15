@@ -134,9 +134,10 @@ public class UNO{
       //  putString(50,0,terminal,"Rules: "+game.printRules());
         putString(50,3,terminal,"d to draw card(s)");
         putString(50,4,terminal,"h to hide your cards");
-        putString(50,5,terminal,"p to play a card");
-        putString(50,6,terminal,"(player) # to get cards");
-        putString(50,7,terminal,"escape to exit");
+        putString(50,5,terminal,"n to pass turn");
+        putString(50,6,terminal,"p to play a card");
+        putString(50,7,terminal,"(player) # to get cards");
+        putString(50,8,terminal,"escape to exit");
 
       }
 
@@ -191,7 +192,9 @@ public class UNO{
               reset(terminal);
             }
             if(key.getCharacter() == 'n'){
+              terminal.clearScreen();
               game.setTurn(1);
+              printInfo(terminal, game);
             }
           } catch(IndexOutOfBoundsException e){
             terminal.clearScreen();
