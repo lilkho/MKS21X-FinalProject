@@ -1,14 +1,34 @@
 # MKS21X-FinalProject
 ## UNO!
 Game rules [here](https://www.unorules.com/)
-### **Note**
+#### **Note**
 Players are not required to say "UNO!" when they have one card.
 
-### **Instructions**
-
-`$ javac -cp lanterna.jar:. UNO.java`
-
-`$ java -Djava.awt.headless=true -cp lanterna.jar:. UNO`
+#### **Instructions**
+1. Clone this repo
+```
+git clone git@github.com:lilkho/MKS21X-FinalProject.git
+```
+2. Move into the directory of the repo
+```
+cd MKS21X-FinalProject
+```
+3. Compile the UNO game
+```
+javac -cp lanterna.jar:. UNO.java
+```
+Or for git bash
+```
+javac -cp "lanterna.jar;." UNO.java
+```
+4. Run the UNO game
+```
+java -Djava.awt.headless=true -cp lanterna.jar:. UNO
+```
+Or for git bash
+```
+java -Djava.awt.headless=true -cp "lanterna.jar;." UNO
+```
 
 
 ---
