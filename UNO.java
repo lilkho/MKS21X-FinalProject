@@ -203,7 +203,7 @@ public class UNO{
           } catch(IndexOutOfBoundsException e){
             terminal.clearScreen();
             reset(terminal);
-            putString(0,0,terminal,"Player does not exist!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+            putString(50,9,terminal,"Player does not exist!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
           }
         }
 
@@ -211,7 +211,7 @@ public class UNO{
         if(mode == 2){
           try{
             Player playing = game.getTurn();
-            putString(30,15,terminal,"Choose index of card to play!");
+            putString(50,9,terminal,"Choose index of card to play!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
             printInfo(terminal, game);
             printCards(terminal, game, game.getPlayers().indexOf(playing));
             int choice = Character.getNumericValue(key.getCharacter());
