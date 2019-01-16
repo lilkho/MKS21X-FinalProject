@@ -91,3 +91,8 @@ java -Djava.awt.headless=true -cp "lanterna.jar;." UNO
 - Added game mechanic where a reverse works like a skip when there are two players
 - Added a simple winning message!
 - Added option to pass your turn *_(only IFF you draw 1 card!! which we didn't figure out yet)_*
+
+**1/15/19**
+- Added a limit for rules
+- Fixed error where rule printed description instead of name
+- Added function to disable viewing cards of a player that does not exist.
