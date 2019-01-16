@@ -148,47 +148,41 @@ public class UNO{
       Key key = terminal.readInput();
       if(key != null){
         if(mode == 0){
-          //try{
-            if (key.getKind() == Key.Kind.Escape) {
-              terminal.exitPrivateMode();
-              running = false;
+          if (key.getKind() == Key.Kind.Escape) {
+            terminal.exitPrivateMode();
+            running = false;
+          }
+          if(Character.getNumericValue(key.getCharacter()) < game.getPlayers().size() && Character.getNumericValue(key.getCharacter()) >= 0){
+            terminal.clearScreen();
+            printInfo(terminal, game);
+            printCards(terminal, game, Character.getNumericValue(key.getCharacter()));
+          }
+          if(key.getCharacter() == 'h'){
+            terminal.clearScreen();
+            printInfo(terminal, game);
+            reset(terminal);
+          }
+          if(key.getCharacter() == 'd'){
+            Player playing = game.getTurn();
+            if(game.getCombo()!=0){
+              game.draw(playing,game.getCombo());
+              game.setCombo(0);
+            }else{
+              game.draw(playing,1);
             }
-            if(Character.getNumericValue(key.getCharacter()) < game.getPlayers().size() && Character.getNumericValue(key.getCharacter()) >= 0){
-              terminal.clearScreen();
-              printInfo(terminal, game);
-              printCards(terminal, game, Character.getNumericValue(key.getCharacter()));
-            }
-            if(key.getCharacter() == 'h'){
-              terminal.clearScreen();
-              printInfo(terminal, game);
-              reset(terminal);
-            }
-            if(key.getCharacter() == 'd'){
-              Player playing = game.getTurn();
-              if(game.getCombo()!=0){
-                game.draw(playing,game.getCombo());
-                game.setCombo(0);
-              }else{
-                game.draw(playing,1);
-              }
-              terminal.clearScreen();
-              printInfo(terminal, game);
-              reset(terminal);
-            }
-            if(key.getCharacter() == 'p'){
-              mode = 2;
-              terminal.clearScreen();
-              reset(terminal);
-            }
-            if(key.getCharacter() == 'n'){
-              terminal.clearScreen();
-              game.setTurn(1);
-              printInfo(terminal, game);
-            }/*
-          } catch(IndexOutOfBoundsException e){
+            terminal.clearScreen();
+            printInfo(terminal, game);
+            reset(terminal);
+          }
+          if(key.getCharacter() == 'p'){
+            mode = 2;
             terminal.clearScreen();
             reset(terminal);
-            putString(50,9,terminal,"Player does not exist!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);*/
+          }
+          if(key.getCharacter() == 'n'){
+            terminal.clearScreen();
+            game.setTurn(1);
+            printInfo(terminal, game);
           }
         }
 
