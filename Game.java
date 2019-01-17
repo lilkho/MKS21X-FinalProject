@@ -28,7 +28,7 @@ public class Game{
     }
     //this is needed bc if the first card chosen is an action card,
     //the action must be carried out
-    players.add(new Player(""+numPlayers, 2));
+    players.add(new Player(""+numPlayers, 1));
     Card test = deck.get(Math.abs(randgen.nextInt(deck.size())));
     play(players.get(numPlayers),test,test.getColor());
     players.remove(numPlayers);
@@ -86,10 +86,10 @@ public class Game{
 
   public void setRules(){
     allRules.add(new Rule("NO ACTION","There are only numerical and wild cards in the deck."));
-    allRules.add(new Rule("CAMOUFLAGE","You cannot see anyone’s number of cards until they only have 1 card left."));
+    //allRules.add(new Rule("CAMOUFLAGE","You cannot see anyone’s number of cards until they only have 1 card left."));
+    allRules.add(new Rule("PERFECTION","If you play a card whose numerical value is equal to the number of cards in your hand, you can play again."));
     /*allRules.add(new Rule("NO COMBO","You cannot block combos."));
     allRules.add(new Rule("CLEAN FINISH","You can only win if your last card is a numerical card."));
-    allRules.add(new Rule("PERFECTION","If you play a card whose numerical value is equal to the number of cards in your hand, you can play again."));
     allRules.add(new Rule("SUPER COMBO","You can block a combo with any + card"));
     allRules.add(new Rule("SUDDEN DEATH CARD","You are eliminated if you are unable to play a card."));
     allRules.add(new Rule("BOMB CARD","You are eliminated if you draw this card."));
@@ -154,6 +154,15 @@ public class Game{
         if(toPlay.getValue().equals("+2")){
           combo+=2;
         }
+        if(rules.contains("PERFECTION")){
+          String size = person.getCards().size()+"";
+          if(size.equals(toPlay.getValue())){
+            person.removeCard(toPlay);
+            discard.add(toPlay);
+            topCard = toPlay;
+            setTurn(-1);
+          }
+        }
         if(toPlay.getColor().equals("BLACK")){
           //add 4 to combo if +4
           if(toPlay.getValue().equals("+4")){
@@ -165,6 +174,7 @@ public class Game{
         } else{
             System.out.println(color+" is an invalid color!");
         }
+
         person.removeCard(toPlay);
         discard.add(toPlay);
         topCard = toPlay;
@@ -176,7 +186,9 @@ public class Game{
   }
 
   public void setTurn(int num){
-    if(order){
+    if(num == -1){
+      index= index-1%players.size();
+    }else if(order){
       //loops around like a circle
       index = (index+num)%players.size();
     }else{
