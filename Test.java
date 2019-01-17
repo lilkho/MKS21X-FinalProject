@@ -53,7 +53,7 @@ public class Test{
     System.out.println(test.getDiscard());
   //  System.out.println(test.getAllRules());
   //  System.out.println(test.getPlayers().get(0).getCards());
-    System.out.println(test.getRules().contains("NOACTION"));
+    System.out.println(test.getRules().contains("NO ACTION"));
   //  System.out.println(test.printPlayers());
   }
 }

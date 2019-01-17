@@ -170,9 +170,6 @@ public class UNO{
           }
           if(key.getCharacter() == 'd'){
             terminal.clearScreen();
-
-
-
             Player playing = game.getTurn();
             if(game.getCombo()!=0){
               game.draw(playing,game.getCombo());
@@ -216,8 +213,8 @@ public class UNO{
             putString(50,9,terminal,"Player "+playing.getName()+" played "+toPlay+"!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
             reset(terminal);
           }
-        }catch(ArrayIndexOutOfBoundsException e){
-          System.out.println("Choose index of card.");
+        }catch(NullPointerException e){
+          System.out.println("");
         }
       }
     }

@@ -66,7 +66,7 @@ public class Game{
       }
     }
     //reverse, skip, and +2 has 4 colors each + a duplicate
-    if(rules.contains("NOACTION")){
+    if(rules.contains("NO ACTION")){
       for (int i=0;i<4;i++) {
         for(int x=0; x<2; x++){
           deck.add(new Card(colors[i],"REVERSE"));
@@ -78,14 +78,14 @@ public class Game{
     //4 wilds and 4 +4's
     for (int i=0;i<4;i++) {
       deck.add(new Card("BLACK","WILD"));
-      if(rules.contains("NOACTION")){
+      if(rules.contains("NO ACTION")){
         deck.add(new Card("BLACK","+4"));
       }
     }
   }
 
   public void setRules(){
-    allRules.add(new Rule("NOACTION","There are only numerical and wild cards in the deck."));
+    allRules.add(new Rule("NO ACTION","There are only numerical and wild cards in the deck."));
     allRules.add(new Rule("CAMOUFLAGE","You cannot see anyone’s number of cards until they only have 1 card left."));
     allRules.add(new Rule("PERFECTION","If you play a card whose numerical value is equal to the number of cards in your hand, you can play again."));
     /*allRules.add(new Rule("NO COMBO","You cannot block combos."));
