@@ -46,7 +46,7 @@ public class Test{
     System.out.println("NOW THIS IS THE TOP CARD: "+game.getTopCard());
     System.out.println('a'+0);
     System.out.println('b'+0);
-    System.out.println((int)'a');
+    System.out.println((int)'a'+"\n\n\n\n\n");
 
     Game test = new Game(2,1);
     System.out.println(test);
