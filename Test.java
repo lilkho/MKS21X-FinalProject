@@ -48,9 +48,11 @@ public class Test{
     System.out.println('b'+0);
     System.out.println((int)'a'+"\n\n\n\n\n");
 
-    Game test = new Game(2,1);
+    Game test = new Game(2,2);
     System.out.println(test);
     System.out.println(test.getAllRules());
     System.out.println(test.getPlayers().get(0).getCards());
+    System.out.println(test.getRules().contains("NO ACTION"));
+    System.out.println(test.printPlayers());
   }
 }

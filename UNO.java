@@ -79,11 +79,17 @@ public class UNO{
     determineColor(terminal, topCard);
     putString(10,3,terminal,topCard.getValue());
     for (int i=0;i<game.getPlayers().size();i++) {
-      Player test = game.getPlayers().get(i);
-      if(test.getCards().size() == 0){
+      Player person = game.getPlayers().get(i);
+      String temp = ": ";
+      if(person.getCards().size() == 0){
         putString(50,0,terminal,"Player "+i+" won the game! Congratulations!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
       }
-      putString(25,i+2,terminal,test.toString(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+      if(game.getRules().contains("CAMOUFLAGE")){
+        putString(25,i+2,terminal,person.getName()+temp+"?",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+      }else{
+        putString(25,i+2,terminal,person.getName()+temp+person.getCards().size(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+      }
+
     }
   }
 
@@ -110,8 +116,8 @@ public class UNO{
           System.out.println("Please enter 2-4 players");
           System.exit(1);
         }
-        if(r<0 || r>1){
-          System.out.println("Please enter 0-1 rules");
+        if(r<0 || r>5){
+          System.out.println("Please enter 0-5 rules");
           System.exit(1);
         }
       }
