@@ -18,6 +18,7 @@ public class Game{
   public Game(int numPlayers, int numRules){
     //clears discard pile, sets the deck, chooses top card randomly
     discard.clear();
+    deck.clear();
     setDeck();
     players = new ArrayList<Player>(numPlayers+1);
     //makes a Player for each player && everyone draws 7 Cards
@@ -65,7 +66,7 @@ public class Game{
       }
     }
     //reverse, skip, and +2 has 4 colors each + a duplicate
-    if(!rules.contains("NO ACTION")){
+    if(rules.contains("NOACTION")){
       for (int i=0;i<4;i++) {
         for(int x=0; x<2; x++){
           deck.add(new Card(colors[i],"REVERSE"));
@@ -76,17 +77,16 @@ public class Game{
     }
     //4 wilds and 4 +4's
     for (int i=0;i<4;i++) {
-      deck.add(new Card("BLACK","+4"));
-      if(rules.contains("NO ACTION")){
-      }else{
-        deck.add(new Card("BLACK","WILD"));
+      deck.add(new Card("BLACK","WILD"));
+      if(rules.contains("NOACTION")){
+        deck.add(new Card("BLACK","+4"));
       }
     }
   }
 
   public void setRules(){
-    allRules.add(new Rule("NO ACTION","There are only numerical and wild cards in the deck."));
-    //allRules.add(new Rule("CAMOUFLAGE","You cannot see anyone’s number of cards until they only have 1 card left."));
+    allRules.add(new Rule("NOACTION","There are only numerical and wild cards in the deck."));
+    allRules.add(new Rule("CAMOUFLAGE","You cannot see anyone’s number of cards until they only have 1 card left."));
     allRules.add(new Rule("PERFECTION","If you play a card whose numerical value is equal to the number of cards in your hand, you can play again."));
     /*allRules.add(new Rule("NO COMBO","You cannot block combos."));
     allRules.add(new Rule("CLEAN FINISH","You can only win if your last card is a numerical card."));
@@ -172,7 +172,7 @@ public class Game{
           String colors[] = {"RED","BLUE","YELLOW","GREEN"};
           toPlay.setColor(colors[Math.abs(randgen.nextInt(colors.length))]);
         } else{
-            System.out.println(color+" is an invalid color!");
+          //  System.out.println(color+" is an invalid color!");
         }
 
         person.removeCard(toPlay);
@@ -212,7 +212,8 @@ public class Game{
     Top Card: BLUE3
     Combo: 2 (only if not 0)
     Rules: [Perfection] (only if not empty) */
-    String res = players+"\nTurn: Player "+players.get(index).getName()+"\nTop Card: "+topCard;
+    //String res = players+"\nTurn: Player "+players.get(index).getName()+"\nTop Card: "+topCard;
+    String res = "";
     if(combo!=0){
       res+="\nCombo: "+combo;
     }
