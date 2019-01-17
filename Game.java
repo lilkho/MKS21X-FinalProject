@@ -19,19 +19,20 @@ public class Game{
     //clears discard pile, sets the deck, chooses top card randomly
     discard.clear();
     setDeck();
-    topCard = deck.get(Math.abs(randgen.nextInt(deck.size())));
-    //bc the card is chosen, remove from deck && add to "discard" (already used) deck
-    deck.remove(topCard);
-    discard.add(topCard);
-    //sets up game with numPlayers and 7 cards each
-    players = new ArrayList<Player>(numPlayers);
+    players = new ArrayList<Player>(numPlayers+1);
     //makes a Player for each player && everyone draws 7 Cards
     for(int x=0; x<numPlayers; x++){
       Player person = new Player(""+x, 7);
       players.add(person);
       draw(person,7);
     }
-    //selects a player to start game
+    //this is needed bc if the first card chosen is an action card,
+    //the action must be carried out
+    players.add(new Player(""+numPlayers, 2));
+    Card test = deck.get(Math.abs(randgen.nextInt(deck.size())));
+    play(players.get(numPlayers),test,test.getColor());
+    players.remove(numPlayers);
+    //selects a player to "start" game
     turnIndex = Math.abs(randgen.nextInt(numPlayers));
     turn = players.get(turnIndex);
     if(numRules!=0){
@@ -127,6 +128,9 @@ public class Game{
   }
 
   public void play(Player person, Card toPlay, String color){
+    if(topCard == null){
+      topCard = toPlay;
+    }
     //if card is playable, remove from player's hand, add to discard pile,
     //set it as top card, and set turn to next player
     if(topCard.playable(toPlay)){
