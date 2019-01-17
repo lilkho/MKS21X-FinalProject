@@ -96,3 +96,7 @@ java -Djava.awt.headless=true -cp "lanterna.jar;." UNO
 - Added a limit for rules
 - Fixed error where rule printed description instead of name
 - Added function to disable viewing cards of a player that does not exist.
+
+**1/16/19**
+- Added a log of actions (drawing, playing, passing)
+- Perfection & camouflage rules working *_why isn't no action working i have no clue_*
