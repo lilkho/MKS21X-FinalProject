@@ -10,7 +10,7 @@ public class Game{
   private ArrayList<Rule> allRules = new ArrayList<Rule>();
   private ArrayList<Card> deck = new ArrayList<Card>();
   private ArrayList<Card> discard = new ArrayList<Card>();
-  private ArrayList<Rule> rules = new ArrayList<Rule>();
+  private ArrayList<String> rules = new ArrayList<String>();
   private Random randgen = new Random();
   private int index;
   private int combo = 0;
@@ -38,7 +38,8 @@ public class Game{
       setRules();
       for(int y=0; y<numRules; y++){
         Rule toAdd = allRules.get(Math.abs(randgen.nextInt(allRules.size())));
-        rules.add(toAdd);
+        String name = toAdd.getName();
+        rules.add(name);
         allRules.remove(toAdd);
       }
     }
@@ -63,7 +64,7 @@ public class Game{
       }
     }
     //reverse, skip, and +2 has 4 colors each + a duplicate
-    if(!contains("NO ACTION")){
+    if(!rules.contains("NO ACTION")){
       for (int i=0;i<4;i++) {
         for(int x=0; x<2; x++){
           deck.add(new Card(colors[i],"REVERSE"));
@@ -75,7 +76,8 @@ public class Game{
     //4 wilds and 4 +4's
     for (int i=0;i<4;i++) {
       deck.add(new Card("BLACK","+4"));
-      if(!contains("NO ACTION")){
+      if(rules.contains("NO ACTION")){
+      }else{
         deck.add(new Card("BLACK","WILD"));
       }
     }
@@ -92,16 +94,6 @@ public class Game{
     allRules.add(new Rule("BOMB CARD","You are eliminated if you draw this card."));
     allRules.add(new Rule("INK CARD","When you play this card, every colored card on the next player’s hand turns the color of your ink card."));
   */}
-
-  public boolean contains(String name){
-    for(int x=0; x<rules.size(); x++){
-      String test = rules.get(x).getName();
-      if(name.equals(test)){
-        return true;
-      }
-    }
-    return false;
-  }
 
 
   public void draw(Player person, int num){
@@ -211,7 +203,7 @@ public class Game{
     if(!rules.isEmpty()){
       res+="\nRules: ";
       for(int x=0; x<rules.size(); x++){
-        res+=rules.get(x).getName();
+        res+=rules.get(x);
       }
     }
     return res;
@@ -226,17 +218,6 @@ public class Game{
       res+="Player "+players.get(x)+" cards";
       if(x!=players.size()-1){
         res+="\n";
-      }
-    }
-    return res;
-  }
-
-  public String printRules(){
-    String res = "";
-    for(int x=0; x<rules.size(); x++){
-      res+=rules.get(x).getName();
-      if(x!=rules.size()-1){
-        res+=", ";
       }
     }
     return res;
@@ -258,7 +239,7 @@ public class Game{
     return players;
   }
 
-  public ArrayList<Rule> getRules(){
+  public ArrayList<String> getRules(){
     return rules;
   }
 

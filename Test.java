@@ -50,5 +50,7 @@ public class Test{
 
     Game test = new Game(2,1);
     System.out.println(test);
+    System.out.println(test.getAllRules());
+    System.out.println(test.getPlayers().get(0).getCards());
   }
 }

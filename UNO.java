@@ -74,7 +74,7 @@ public class UNO{
     putString(0,1,terminal,"COMBO: "+game.getCombo(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
     putString(25,0,terminal,"PLAYER | #CARDS",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
     putString(0,3,terminal,"TOP CARD:",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
-    putString(50,0,terminal,"Rules: "+game.printRules(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+    putString(50,0,terminal,"Rules: "+game.getRules(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
     Card topCard = game.getTopCard();
     determineColor(terminal, topCard);
     putString(10,3,terminal,topCard.getValue());
@@ -163,14 +163,19 @@ public class UNO{
             reset(terminal);
           }
           if(key.getCharacter() == 'd'){
+            terminal.clearScreen();
+
+
+
             Player playing = game.getTurn();
             if(game.getCombo()!=0){
               game.draw(playing,game.getCombo());
+              putString(50,9,terminal,"Player "+playing.getName()+" drew "+game.getCombo()+" cards!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
               game.setCombo(0);
             }else{
               game.draw(playing,1);
+              putString(50,9,terminal,"Player "+playing.getName()+" drew 1 card!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
             }
-            terminal.clearScreen();
             printInfo(terminal, game);
             reset(terminal);
           }
@@ -183,6 +188,7 @@ public class UNO{
             terminal.clearScreen();
             game.setTurn(1);
             printInfo(terminal, game);
+            putString(50,9,terminal,"Player "+game.getTurn().getName()+" passed!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
           }
         }
       }
@@ -201,7 +207,7 @@ public class UNO{
             game.play(playing,toPlay,toPlay.getColor());
             terminal.clearScreen();
             printInfo(terminal, game);
-            putString(30,15,terminal,"chosen card: "+key.getCharacter());
+            putString(50,9,terminal,"Player "+playing.getName()+" played "+toPlay+"!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
             reset(terminal);
           }
         }catch(ArrayIndexOutOfBoundsException e){
