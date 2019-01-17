@@ -160,7 +160,7 @@ public class Game{
             person.removeCard(toPlay);
             discard.add(toPlay);
             topCard = toPlay;
-            setTurn(-1);
+            setTurn(players.size()-1);
           }
         }
         if(toPlay.getColor().equals("BLACK")){
