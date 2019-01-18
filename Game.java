@@ -25,7 +25,7 @@ public class Game{
     for(int x=0; x<numPlayers; x++){
       Player person = new Player(""+x, 7);
       players.add(person);
-      draw(person,2);
+      draw(person,1);
     }
     //this is needed bc if the first card chosen is an action card,
     //the action must be carried out
@@ -50,7 +50,7 @@ public class Game{
   public void setDeck(){
     String[] colors = {"BLUE","RED","YELLOW","GREEN"};
     //1-9 has 4 colors each + a duplicate, 0 does not have a duplicate
-    for (int i=0;i<10;i++) {
+    for (int i=0;i<1;i++) {
       if(i==0){
         deck.add(new Card("RED",""+i));
         deck.add(new Card("BLUE",""+i));
@@ -66,7 +66,7 @@ public class Game{
       }
     }
     //reverse, skip, and +2 has 4 colors each + a duplicate
-    if(rules.contains("NO ACTION")){
+    if(!rules.contains("NO ACTION")){
       for (int i=0;i<4;i++) {
         for(int x=0; x<2; x++){
           deck.add(new Card(colors[i],"REVERSE"));
@@ -78,19 +78,19 @@ public class Game{
     //4 wilds and 4 +4's
     for (int i=0;i<4;i++) {
       deck.add(new Card("BLACK","WILD"));
-      if(rules.contains("NO ACTION")){
+      if(!rules.contains("NO ACTION")){
         deck.add(new Card("BLACK","+4"));
       }
     }
   }
 
   public void setRules(){
-    allRules.add(new Rule("NO ACTION","There are only numerical and wild cards in the deck."));
+    /*allRules.add(new Rule("NO ACTION","There are only numerical and wild cards in the deck."));
     allRules.add(new Rule("CAMOUFLAGE","You cannot see anyone’s number of cards until they only have 1 card left."));
     allRules.add(new Rule("PERFECTION","If you play a card whose numerical value is equal to the number of cards in your hand, you can play again."));
     allRules.add(new Rule("NO COMBO","You cannot block combos."));
-    /*allRules.add(new Rule("CLEAN FINISH","You can only win if your last card is a numerical card."));
-    allRules.add(new Rule("SUPER COMBO","You can block a combo with any + card"));
+    */allRules.add(new Rule("CLEAN FINISH","You can only win if your last card is a numerical card."));
+    /*allRules.add(new Rule("SUPER COMBO","You can block a combo with any + card"));
     allRules.add(new Rule("SUDDEN DEATH CARD","You are eliminated if you are unable to play a card."));
     allRules.add(new Rule("BOMB CARD","You are eliminated if you draw this card."));
     allRules.add(new Rule("INK CARD","When you play this card, every colored card on the next player’s hand turns the color of your ink card."));
@@ -155,6 +155,11 @@ public class Game{
     if(topCard.playable(toPlay)){
       if(rules.contains("NO COMBO") && topCard.getValue().equals("+2")){
         System.out.println("Invalid card!");
+      }else if(person.getCards().size() == 1 && rules.contains("CLEAN FINISH") &&
+        (toPlay.getValue().equals("+2") || toPlay.getValue().equals("+4") ||
+        toPlay.getValue().equals("WILD") || toPlay.getValue().equals("SKIP") ||
+        toPlay.getValue().equals("REVERSE"))){
+          System.out.println("Invalid card!");
       }else if(combo != 0 && !topCard.getValue().equals(toPlay.getValue())){
         System.out.println("Invalid card!");
       }else{
