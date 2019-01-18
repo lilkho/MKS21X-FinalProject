@@ -50,14 +50,14 @@ public class Game{
   public void setDeck(){
     String[] colors = {"BLUE","RED","YELLOW","GREEN"};
     //1-9 has 4 colors each + a duplicate, 0 does not have a duplicate
-    for (int i=0;i<1;i++) {
+    for (int i=0;i<10;i++) {
       if(i==0){
         deck.add(new Card("RED",""+i));
         deck.add(new Card("BLUE",""+i));
         deck.add(new Card("YELLOW",""+i));
         deck.add(new Card("GREEN",""+i));
       }else{
-        for(int x=0; x<2; x++){
+        for(int x=0; x<20; x++){
           deck.add(new Card("RED",""+i));
           deck.add(new Card("BLUE",""+i));
           deck.add(new Card("YELLOW",""+i));
@@ -94,13 +94,16 @@ public class Game{
     allRules.add(new Rule("NO COMBO","You cannot block combos."));
     allRules.add(new Rule("CLEAN FINISH","You can only win if your last card is a numerical card."));
     allRules.add(new Rule("BOMB CARD","You are eliminated if you draw this card."));
-    */allRules.add(new Rule("SUPER COMBO","You can block a combo with any + card"));
+    allRules.add(new Rule("SUPER COMBO","You can block a combo with any + card"));
+    */allRules.add(new Rule("STACKING","add description!!!"));
     /*allRules.add(new Rule("SUDDEN DEATH CARD","You are eliminated if you are unable to play a card."));
     allRules.add(new Rule("INK CARD","When you play this card, every colored card on the next player’s hand turns the color of your ink card."));
   */}
 
   public void setTurn(int num){
-    if(num == -1){
+    if(num == 0){
+      index = index;
+    }else if(num == -1){
       index= index-1%players.size();
     }else if(order){
       //loops around like a circle
@@ -167,6 +170,13 @@ public class Game{
         discard.add(toPlay);
         topCard = toPlay;
         setTurn(1);
+      }else if(rules.contains("STACKING") && !(toPlay.getValue().equals("+2") || toPlay.getValue().equals("+4") ||
+      toPlay.getValue().equals("WILD") || toPlay.getValue().equals("SKIP") ||
+      toPlay.getValue().equals("REVERSE")) && checkStack(person, toPlay) == true){
+        person.removeCard(toPlay);
+        discard.add(toPlay);
+        topCard = toPlay;
+        setTurn(0);
       }else if(topCard.playable(toPlay)){
         if(rules.contains("NO COMBO") && topCard.getValue().equals("+2")){
           System.out.println("Invalid card!");
@@ -201,7 +211,7 @@ public class Game{
               person.removeCard(toPlay);
               discard.add(toPlay);
               topCard = toPlay;
-              setTurn(-1);
+              setTurn(0);
             }
           }
           if(toPlay.getColor().equals("BLACK")){
@@ -230,6 +240,15 @@ public class Game{
 
   public void setCombo(int num){
     combo = num;
+  }
+
+  public boolean checkStack(Player person, Card toPlay){
+    for(int x=0; x<person.getCards().size(); x++){
+      if(toPlay.getValue().equals(person.getCards().get(x).getValue())){
+        return true;
+      }
+    }
+    return false;
   }
 
   public String toString(){
