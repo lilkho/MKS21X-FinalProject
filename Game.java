@@ -172,7 +172,7 @@ public class Game{
           String colors[] = {"RED","BLUE","YELLOW","GREEN"};
           toPlay.setColor(colors[Math.abs(randgen.nextInt(colors.length))]);
         } else{
-            System.out.println(color+" is an invalid color!");
+            //System.out.println(color+" is an invalid color!");
         }
 
         person.removeCard(toPlay);

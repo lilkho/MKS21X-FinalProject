@@ -206,18 +206,17 @@ public class UNO{
           putString(50,9,terminal,"Choose index of card to play!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
           printInfo(terminal, game);
           printCards(terminal, game, game.getPlayers().indexOf(playing));
-          int choice = Character.getNumericValue(key.getCharacter());
-          if (choice < playing.getCards().size()) {
+          if (Character.getNumericValue(key.getCharacter()) < playing.getCards().size()) {
             mode = 0;
-            Card toPlay = playing.getCards().get(choice);
+            Card toPlay = playing.getCards().get(Character.getNumericValue(key.getCharacter()));
             game.play(playing,toPlay,toPlay.getColor());
             terminal.clearScreen();
             printInfo(terminal, game);
             putString(50,9,terminal,"Player "+playing.getName()+" played "+toPlay+"!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
             reset(terminal);
           }
-        }catch(ArrayIndexOutOfBoundsException e){
-          System.out.println("Choose index of card.");
+        }catch(NullPointerException e){
+          System.out.println(" ");
         }
       }
     }
