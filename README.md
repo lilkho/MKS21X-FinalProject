@@ -100,3 +100,10 @@ java -Djava.awt.headless=true -cp "lanterna.jar;." UNO
 **1/16/19**
 - Added a log of actions (drawing, playing, passing)
 - Perfection & camouflage rules working *_why isn't no action working i have no clue_*
+
+**1/17/19**
+- Fixed playing a card bug
+- Found out why No Action (and other rules related to the deck, such as bomb card) weren't working. Fixed!
+- No Action, Camouflage, No Combo, Clean Finish, Bomb Card, and Super Combo rules are all working
+- Will continue testing Stacking and Perfection rules
+- Added rule info to the game for reference
