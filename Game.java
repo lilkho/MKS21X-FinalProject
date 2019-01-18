@@ -76,7 +76,7 @@ public class Game{
       }
     }
     //4 wilds and 4 +4's
-    for (int i=0;i<4;i++) {
+    for (int i=0;i<10;i++) {
       deck.add(new Card("BLACK","WILD"));
       if(!rules.contains("NO ACTION")){
         deck.add(new Card("BLACK","+4"));
@@ -91,11 +91,11 @@ public class Game{
   //  allRules.add(new Rule("NO ACTION","There are only numerical and wild cards in the deck."));
 //    allRules.add(new Rule("CAMOUFLAGE","You cannot see anyone’s number of cards until they only have 1 card left."));
 //    allRules.add(new Rule("PERFECTION","If you play a card whose numerical value is equal to the number of cards in your hand, you can play again."));
-//    allRules.add(new Rule("NO COMBO","You cannot block combos."));
-//    allRules.add(new Rule("CLEAN FINISH","You can only win if your last card is a numerical card."));
-    allRules.add(new Rule("BOMB CARD","You are eliminated if you draw this card."));
+    allRules.add(new Rule("NO COMBO","You cannot block combos."));
+//working    allRules.add(new Rule("CLEAN FINISH","You can only win if your last card is a numerical card."));
+//working    allRules.add(new Rule("BOMB CARD","You are eliminated if you draw this card."));
 //working    allRules.add(new Rule("SUPER COMBO","You can block a combo with any + card"));
-  //IGNORE FOR NOW  allRules.add(new Rule("STACKING","add description!!!"));
+//IGNORE FOR NOW  allRules.add(new Rule("STACKING","add description!!!"));
     /*allRules.add(new Rule("SUDDEN DEATH CARD","You are eliminated if you are unable to play a card."));
     allRules.add(new Rule("INK CARD","When you play this card, every colored card on the next player’s hand turns the color of your ink card."));
   */}
@@ -170,9 +170,16 @@ public class Game{
         discard.add(toPlay);
         topCard = toPlay;
         setTurn(1);
+      }else if(person.getCards().size() == 1 && rules.contains("CLEAN FINISH") &&
+          (toPlay.getValue().equals("+2") || toPlay.getValue().equals("+4") ||
+          toPlay.getValue().equals("WILD") || toPlay.getValue().equals("REVERSE") ||
+          toPlay.getValue().equals("SKIP"))){
+          draw(person,1);
+      }else if(rules.contains("NO COMBO") && combo!=0 && (topCard.getValue().equals("+2") ||
+        topCard.getValue().equals("+4"))){
+        draw(person,Integer.parseInt(topCard.getValue()));
+        setCombo(0);
       }else if(topCard.playable(toPlay)){
-        if(rules.contains("NO COMBO") && topCard.getValue().equals("+2")){
-          System.out.println("Invalid card!");
       /*  }else if(rules.contains("STACKING") && !(toPlay.getValue().equals("+2") || toPlay.getValue().equals("+4") ||
         toPlay.getValue().equals("WILD") || toPlay.getValue().equals("SKIP") ||
         toPlay.getValue().equals("REVERSE")) && checkStack(person, toPlay) == true){
@@ -180,10 +187,7 @@ public class Game{
           discard.add(toPlay);
           topCard = toPlay;
           setTurn(-1);*/
-        }else if(person.getCards().size() == 1 && rules.contains("CLEAN FINISH") &&
-          toPlay.getType(toPlay).equals("ACTION")){
-            System.out.println("Invalid card!");
-        }else if(combo != 0 && !topCard.getValue().equals(toPlay.getValue())){
+        if(combo != 0 && !topCard.getValue().equals(toPlay.getValue())){
           System.out.println("Invalid card!");
         }else{
           //if card is a reverse, switch order & turn = next player
