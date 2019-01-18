@@ -93,9 +93,9 @@ public class Game{
     allRules.add(new Rule("PERFECTION","If you play a card whose numerical value is equal to the number of cards in your hand, you can play again."));
     allRules.add(new Rule("NO COMBO","You cannot block combos."));
     allRules.add(new Rule("CLEAN FINISH","You can only win if your last card is a numerical card."));
-    */allRules.add(new Rule("BOMB CARD","You are eliminated if you draw this card."));
-    /*allRules.add(new Rule("SUPER COMBO","You can block a combo with any + card"));
-    allRules.add(new Rule("SUDDEN DEATH CARD","You are eliminated if you are unable to play a card."));
+    allRules.add(new Rule("BOMB CARD","You are eliminated if you draw this card."));
+    */allRules.add(new Rule("SUPER COMBO","You can block a combo with any + card"));
+    /*allRules.add(new Rule("SUDDEN DEATH CARD","You are eliminated if you are unable to play a card."));
     allRules.add(new Rule("INK CARD","When you play this card, every colored card on the next player’s hand turns the color of your ink card."));
   */}
 
@@ -153,65 +153,77 @@ public class Game{
   }
 
   public void play(Player person, Card toPlay, String color){
-    if(topCard == null){
-      topCard = toPlay;
-    }
-    //if card is playable, remove from player's hand, add to discard pile,
-    //set it as top card, and set turn to next player
-    if(topCard.playable(toPlay)){
-      if(rules.contains("NO COMBO") && topCard.getValue().equals("+2")){
-        System.out.println("Invalid card!");
-      }else if(person.getCards().size() == 1 && rules.contains("CLEAN FINISH") &&
-        (toPlay.getValue().equals("+2") || toPlay.getValue().equals("+4") ||
-        toPlay.getValue().equals("WILD") || toPlay.getValue().equals("SKIP") ||
-        toPlay.getValue().equals("REVERSE"))){
-          System.out.println("Invalid card!");
-      }else if(combo != 0 && !topCard.getValue().equals(toPlay.getValue())){
-        System.out.println("Invalid card!");
-      }else{
-        //if card is a reverse, switch order & turn = next player
-        if(players.size() > 2 && toPlay.getValue().equals("REVERSE")){
-          if(order){
-            order = false;
-          } else{
-            order = true;
-          }
-        }
-        //if card is a skip, turn = 2 indecies after
-        //player size = 2, reverse works like a skip
-        if(toPlay.getValue().equals("SKIP") || toPlay.getValue().equals("REVERSE")){
-          setTurn(1);
-        }
-        //if +2, add 2 to combo
-        if(toPlay.getValue().equals("+2")){
-          combo+=2;
-        }
-        if(rules.contains("PERFECTION")){
-          String size = person.getCards().size()+"";
-          if(size.equals(toPlay.getValue())){
-            person.removeCard(toPlay);
-            discard.add(toPlay);
-            topCard = toPlay;
-            setTurn(-1);
-          }
-        }
-        if(toPlay.getColor().equals("BLACK")){
-          //add 4 to combo if +4
-          if(toPlay.getValue().equals("+4")){
-            combo+=4;
-          }
-          //wild & +4 choose a color
-          String colors[] = {"RED","BLUE","YELLOW","GREEN"};
-          toPlay.setColor(colors[Math.abs(randgen.nextInt(colors.length))]);
-        } else{
-          //  System.out.println(color+" is an invalid color!");
-        }
+    try{
+      if(topCard == null){
+        topCard = toPlay;
+      }
+      //if card is playable, remove from player's hand, add to discard pile,
+      //set it as top card, and set turn to next player
+      if(rules.contains("SUPER COMBO") &&
+        (topCard.getValue().equals("+2") || topCard.getValue().equals("+4")) &&
+        (topCard.getValue().equals("+2") || topCard.getValue().equals("+4"))){
+        combo+=Integer.parseInt(toPlay.getValue());
         person.removeCard(toPlay);
         discard.add(toPlay);
         topCard = toPlay;
         setTurn(1);
+      }else if(topCard.playable(toPlay)){
+        if(rules.contains("NO COMBO") && topCard.getValue().equals("+2")){
+          System.out.println("Invalid card!");
+        }else if(person.getCards().size() == 1 && rules.contains("CLEAN FINISH") &&
+          (toPlay.getValue().equals("+2") || toPlay.getValue().equals("+4") ||
+          toPlay.getValue().equals("WILD") || toPlay.getValue().equals("SKIP") ||
+          toPlay.getValue().equals("REVERSE"))){
+            System.out.println("Invalid card!");
+        }else if(combo != 0 && !topCard.getValue().equals(toPlay.getValue())){
+          System.out.println("Invalid card!");
+        }else{
+          //if card is a reverse, switch order & turn = next player
+          if(players.size() > 2 && toPlay.getValue().equals("REVERSE")){
+            if(order){
+              order = false;
+            } else{
+              order = true;
+            }
+          }
+          //if card is a skip, turn = 2 indecies after
+          //player size = 2, reverse works like a skip
+          if(toPlay.getValue().equals("SKIP") || toPlay.getValue().equals("REVERSE")){
+            setTurn(1);
+          }
+          //if +2, add 2 to combo
+          if(toPlay.getValue().equals("+2")){
+            combo+=2;
+          }
+          if(rules.contains("PERFECTION")){
+            String size = person.getCards().size()+"";
+            if(size.equals(toPlay.getValue())){
+              person.removeCard(toPlay);
+              discard.add(toPlay);
+              topCard = toPlay;
+              setTurn(-1);
+            }
+          }
+          if(toPlay.getColor().equals("BLACK")){
+            //add 4 to combo if +4
+            if(toPlay.getValue().equals("+4")){
+              combo+=4;
+            }
+            //wild & +4 choose a color
+            String colors[] = {"RED","BLUE","YELLOW","GREEN"};
+            toPlay.setColor(colors[Math.abs(randgen.nextInt(colors.length))]);
+          } else{
+            //  System.out.println(color+" is an invalid color!");
+          }
+          person.removeCard(toPlay);
+          discard.add(toPlay);
+          topCard = toPlay;
+          setTurn(1);
+        }
+      } else {
+        System.out.println("Invalid card!");
       }
-    } else {
+    }catch(NumberFormatException e){
       System.out.println("Invalid card!");
     }
   }
