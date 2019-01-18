@@ -25,7 +25,7 @@ public class Game{
     for(int x=0; x<numPlayers; x++){
       Player person = new Player(""+x, 7);
       players.add(person);
-      draw(person,1);
+      draw(person,7);
     }
     //this is needed bc if the first card chosen is an action card,
     //the action must be carried out
@@ -82,6 +82,9 @@ public class Game{
         deck.add(new Card("BLACK","+4"));
       }
     }
+    if(!rules.contains("BOMB CARD")){
+      deck.add(new Card("BLACK","BOMB"));
+    }
   }
 
   public void setRules(){
@@ -89,10 +92,10 @@ public class Game{
     allRules.add(new Rule("CAMOUFLAGE","You cannot see anyone’s number of cards until they only have 1 card left."));
     allRules.add(new Rule("PERFECTION","If you play a card whose numerical value is equal to the number of cards in your hand, you can play again."));
     allRules.add(new Rule("NO COMBO","You cannot block combos."));
-    */allRules.add(new Rule("CLEAN FINISH","You can only win if your last card is a numerical card."));
+    allRules.add(new Rule("CLEAN FINISH","You can only win if your last card is a numerical card."));
+    */allRules.add(new Rule("BOMB CARD","You are eliminated if you draw this card."));
     /*allRules.add(new Rule("SUPER COMBO","You can block a combo with any + card"));
     allRules.add(new Rule("SUDDEN DEATH CARD","You are eliminated if you are unable to play a card."));
-    allRules.add(new Rule("BOMB CARD","You are eliminated if you draw this card."));
     allRules.add(new Rule("INK CARD","When you play this card, every colored card on the next player’s hand turns the color of your ink card."));
   */}
 
@@ -136,6 +139,9 @@ public class Game{
     for(int x=0; x<num; x++){
       //chooses a random card from the deck and adds it to the player's hand
       Card toAdd = deck.get(Math.abs(randgen.nextInt(deck.size())));
+      if(rules.contains("BOMB CARD") && toAdd.getValue().equals("BOMB")){
+        players.remove(person);
+      }
       person.addCard(toAdd);
       //removes card from deck and adds it to "discard" pile
       discard.add(toAdd);

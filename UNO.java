@@ -85,7 +85,7 @@ public class UNO{
     for (int i=0;i<game.getPlayers().size();i++) {
       Player person = game.getPlayers().get(i);
       String temp = ": ";
-      if(person.getCards().size() == 0){
+      if(person.getCards().size() == 0 || game.getPlayers().size() == 1){
         putString(50,0,terminal,"Player "+i+" won the game! Congratulations!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
       }
       if(game.getRules().contains("CAMOUFLAGE")){
