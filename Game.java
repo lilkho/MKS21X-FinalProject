@@ -4,13 +4,13 @@ import java.util.Random;
 public class Game{
   private boolean order;
   private Player turn;
-  private int turnIndex;
   private ArrayList<Player> players;
   private Card topCard;
   private ArrayList<Rule> allRules = new ArrayList<Rule>();
   private ArrayList<Card> deck = new ArrayList<Card>();
   private ArrayList<Card> discard = new ArrayList<Card>();
   private ArrayList<String> rules = new ArrayList<String>();
+  private ArrayList<Rule> ruleInfo = new ArrayList<Rule>();
   private Random randgen = new Random();
   private int index;
   private int combo = 0;
@@ -34,12 +34,12 @@ public class Game{
     play(players.get(numPlayers),test,test.getColor());
     players.remove(numPlayers);
     //selects a player to "start" game
-    turnIndex = Math.abs(randgen.nextInt(numPlayers));
-    turn = players.get(turnIndex);
+    turn = players.get(Math.abs(randgen.nextInt(numPlayers)));
     if(numRules!=0){
       setRules();
       for(int y=0; y<numRules; y++){
         Rule toAdd = allRules.get(Math.abs(randgen.nextInt(allRules.size())));
+        ruleInfo.add(toAdd);
         String name = toAdd.getName();
         rules.add(name);
         allRules.remove(toAdd);
@@ -96,6 +96,33 @@ public class Game{
     allRules.add(new Rule("INK CARD","When you play this card, every colored card on the next player’s hand turns the color of your ink card."));
   */}
 
+  public void setTurn(int num){
+    if(num == -1){
+      index= index-1%players.size();
+    }else if(order){
+      //loops around like a circle
+      index = (index+num)%players.size();
+    }else{
+      if(index == 0){
+        index = players.size() - num;
+      }else if(index == 1 && num == 1){
+        index = 0;
+      }else if(index == 1 && num == 2){
+        index = players.size()-1;
+      }else{
+        index -= num;
+      }
+    }
+    turn = players.get(index);
+  }
+
+  public void refresh(){
+    //copies discard to deck
+    for(int x=0; x<discard.size(); x++){
+      deck.add(discard.get(x));
+    }
+    discard.clear();
+  }
 
   public void draw(Player person, int num){
     boolean play = false;
@@ -117,14 +144,6 @@ public class Game{
     if(num!=1){
       setTurn(1);
     }
-  }
-
-  public void refresh(){
-    //copies discard to deck
-    for(int x=0; x<discard.size(); x++){
-      deck.add(discard.get(x));
-    }
-    discard.clear();
   }
 
   public void play(Player person, Card toPlay, String color){
@@ -185,24 +204,8 @@ public class Game{
     }
   }
 
-  public void setTurn(int num){
-    if(num == -1){
-      index= index-1%players.size();
-    }else if(order){
-      //loops around like a circle
-      index = (index+num)%players.size();
-    }else{
-      if(index == 0){
-        index = players.size() - num;
-      }else if(index == 1 && num == 1){
-        index = 0;
-      }else if(index == 1 && num == 2){
-        index = players.size()-1;
-      }else{
-        index -= num;
-      }
-    }
-    turn = players.get(index);
+  public void setCombo(int num){
+    combo = num;
   }
 
   public String toString(){
@@ -248,6 +251,7 @@ public class Game{
     return res;
   }
 
+///GET METHODS///
   public Card getTopCard(){
     return topCard;
   }
@@ -268,6 +272,10 @@ public class Game{
     return rules;
   }
 
+  public ArrayList<Rule> getRuleInfo(){
+    return ruleInfo;
+  }
+
   public int getIndex(){
     return index;
   }
@@ -286,10 +294,6 @@ public class Game{
 
   public int getCombo(){
     return combo;
-  }
-
-  public void setCombo(int num){
-    combo = num;
   }
 
   public static void main(String[] args) {

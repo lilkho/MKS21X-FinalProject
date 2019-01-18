@@ -74,7 +74,11 @@ public class UNO{
     putString(0,1,terminal,"COMBO: "+game.getCombo(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
     putString(25,0,terminal,"PLAYER | #CARDS",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
     putString(0,3,terminal,"TOP CARD:",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
-    putString(50,0,terminal,"Rules: "+game.getRules(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+    putString(50,9,terminal,"Rules: "+game.getRules(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+    for(int x=0; x<game.getRules().size(); x++){
+      Rule r = game.getRuleInfo().get(x);
+      putString(50,10+x,terminal,r.getName()+": "+r.getDescription());
+    }
     Card topCard = game.getTopCard();
     determineColor(terminal, topCard);
     putString(10,3,terminal,topCard.getValue());
@@ -173,11 +177,11 @@ public class UNO{
             Player playing = game.getTurn();
             if(game.getCombo()!=0){
               game.draw(playing,game.getCombo());
-              putString(50,9,terminal,"Player "+playing.getName()+" drew "+game.getCombo()+" cards!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+              putString(50,0,terminal,"Player "+playing.getName()+" drew "+game.getCombo()+" cards!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
               game.setCombo(0);
             }else{
               game.draw(playing,1);
-              putString(50,9,terminal,"Player "+playing.getName()+" drew 1 card!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+              putString(50,0,terminal,"Player "+playing.getName()+" drew 1 card!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
             }
             printInfo(terminal, game);
             reset(terminal);
@@ -191,7 +195,7 @@ public class UNO{
             terminal.clearScreen();
             game.setTurn(1);
             printInfo(terminal, game);
-            putString(50,9,terminal,"Player "+game.getTurn().getName()+" passed!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+            putString(50,0,terminal,"Player "+game.getTurn().getName()+" passed!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
           }
         }
       }
@@ -210,7 +214,7 @@ public class UNO{
             game.play(playing,toPlay,toPlay.getColor());
             terminal.clearScreen();
             printInfo(terminal, game);
-            putString(50,9,terminal,"Player "+playing.getName()+" played "+toPlay+"!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+            putString(50,0,terminal,"Player "+playing.getName()+" played "+toPlay+"!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
             reset(terminal);
           }
         }catch(NullPointerException e){
