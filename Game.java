@@ -76,7 +76,7 @@ public class Game{
       }
     }
     //4 wilds and 4 +4's
-    for (int i=0;i<10;i++) {
+    for (int i=0;i<4;i++) {
       deck.add(new Card("BLACK","WILD"));
       if(!rules.contains("NO ACTION")){
         deck.add(new Card("BLACK","+4"));
@@ -88,10 +88,10 @@ public class Game{
   }
 
   public void setRules(){
-  //  allRules.add(new Rule("NO ACTION","There are only numerical and wild cards in the deck."));
-//    allRules.add(new Rule("CAMOUFLAGE","You cannot see anyone’s number of cards until they only have 1 card left."));
+//working  allRules.add(new Rule("NO ACTION","There are only numerical and wild cards in the deck."));
+//working    allRules.add(new Rule("CAMOUFLAGE","You cannot see anyone’s number of cards until they only have 1 card left."));
 //    allRules.add(new Rule("PERFECTION","If you play a card whose numerical value is equal to the number of cards in your hand, you can play again."));
-    allRules.add(new Rule("NO COMBO","You cannot block combos."));
+//working    allRules.add(new Rule("NO COMBO","You cannot block combos."));
 //working    allRules.add(new Rule("CLEAN FINISH","You can only win if your last card is a numerical card."));
 //working    allRules.add(new Rule("BOMB CARD","You are eliminated if you draw this card."));
 //working    allRules.add(new Rule("SUPER COMBO","You can block a combo with any + card"));
