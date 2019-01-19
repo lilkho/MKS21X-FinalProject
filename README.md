@@ -107,3 +107,8 @@ java -Djava.awt.headless=true -cp "lanterna.jar;." UNO
 - No Action, Camouflage, No Combo, Clean Finish, Bomb Card, and Super Combo rules are all working
 - Will continue testing Stacking and Perfection rules
 - Added rule info to the game for reference
+
+**1/19/19**
+- Completely changed how playing works.
+- Have to use a cursor that goes only up or down and is restricted by how many cards there are.
+- Pressing space plays the card the cursor is on.
