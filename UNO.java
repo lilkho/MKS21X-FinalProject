@@ -234,36 +234,17 @@ public class UNO{
             }
           }
           if (key.getCharacter()==' ') {
-            mode=0;
-            Card toPlay = playing.getCards().get(y-7);
-            game.play(playing,toPlay,toPlay.getColor());
-            terminal.clearScreen();
-            printInfo(terminal, game);
-            reset(terminal);
+            if (y-7<playing.getCards().size()) {
+              mode=0;
+              Card toPlay = playing.getCards().get(y-7);
+              game.play(playing,toPlay,toPlay.getColor());
+              terminal.clearScreen();
+              printInfo(terminal, game);
+              reset(terminal);
+            }
           }
-        /*
-        try{
-          Player playing = game.getTurn();
-          putString(50,9,terminal,"Choose index of card to play!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
-          printInfo(terminal, game);
-          printCards(terminal, game, game.getPlayers().indexOf(playing));
-          if (Character.getNumericValue(key.getCharacter()) < playing.getCards().size()) {
-            mode = 0;
-            Card toPlay = playing.getCards().get(Character.getNumericValue(key.getCharacter()));
-            game.play(playing,toPlay,toPlay.getColor());
-            terminal.clearScreen();
-            printInfo(terminal, game);
-            putString(50,0,terminal,"Player "+playing.getName()+" played "+toPlay+"!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
-            reset(terminal);
-          }
-        }catch(NullPointerException e){
-          System.out.println("");
-        }catch(ArrayIndexOutOfBoundsException e){
-          System.out.println("");
         }
-        */
       }
     }
   }
-}
 }
