@@ -88,13 +88,13 @@ public class Game{
   }
 
   public void setRules(){
-//working  allRules.add(new Rule("NO ACTION","There are only numerical and wild cards in the deck."));
-//working    allRules.add(new Rule("CAMOUFLAGE","You cannot see anyone’s number of cards until they only have 1 card left."));
+    allRules.add(new Rule("NO ACTION","There are only numerical and wild cards in the deck."));
+    allRules.add(new Rule("CAMOUFLAGE","You cannot see anyone’s number of cards until they only have 1 card left."));
 //    allRules.add(new Rule("PERFECTION","If you play a card whose numerical value is equal to the number of cards in your hand, you can play again."));
-//working    allRules.add(new Rule("NO COMBO","You cannot block combos."));
-//working    allRules.add(new Rule("CLEAN FINISH","You can only win if your last card is a numerical card."));
-//working    allRules.add(new Rule("BOMB CARD","You are eliminated if you draw this card."));
-//working    allRules.add(new Rule("SUPER COMBO","You can block a combo with any + card"));
+    allRules.add(new Rule("NO COMBO","You cannot block combos."));
+    allRules.add(new Rule("CLEAN FINISH","You can only win if your last card is a numerical card."));
+    allRules.add(new Rule("BOMB CARD","You are eliminated if you draw this card."));
+    allRules.add(new Rule("SUPER COMBO","You can block a combo with any + card"));
 //IGNORE FOR NOW  allRules.add(new Rule("STACKING","add description!!!"));
     /*allRules.add(new Rule("SUDDEN DEATH CARD","You are eliminated if you are unable to play a card."));
     allRules.add(new Rule("INK CARD","When you play this card, every colored card on the next player’s hand turns the color of your ink card."));
@@ -156,7 +156,6 @@ public class Game{
   }
 
   public void play(Player person, Card toPlay, String color){
-<<<<<<< HEAD
     if(topCard == null){
       topCard = toPlay;
     }
@@ -203,8 +202,7 @@ public class Game{
         } else{
             //System.out.println(color+" is an invalid color!");
         }
-
-=======
+      }
     try{
       if(topCard == null){
         topCard = toPlay;
@@ -215,7 +213,6 @@ public class Game{
         (topCard.getValue().equals("+2") || topCard.getValue().equals("+4")) &&
         (topCard.getValue().equals("+2") || topCard.getValue().equals("+4"))){
         combo+=Integer.parseInt(toPlay.getValue());
->>>>>>> 0d0a7dfdcb05d147ad0ab544e0ba6cd8ed39490e
         person.removeCard(toPlay);
         discard.add(toPlay);
         topCard = toPlay;
@@ -289,6 +286,7 @@ public class Game{
       System.out.println("Invalid card!");
     }
   }
+}
 
   public void setCombo(int num){
     combo = num;
