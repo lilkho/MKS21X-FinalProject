@@ -23,11 +23,11 @@ javac -cp "lanterna.jar;." UNO.java
 ```
 4. Run the UNO game
 ```
-java -Djava.awt.headless=true -cp lanterna.jar:. UNO
+java -cp lanterna.jar:. UNO
 ```
 For git bash:
 ```
-java -Djava.awt.headless=true -cp "lanterna.jar;." UNO
+java -cp "lanterna.jar;." UNO
 ```
 
 
