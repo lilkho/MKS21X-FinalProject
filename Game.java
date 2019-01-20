@@ -110,7 +110,8 @@ public class Game{
     allRules.add(new Rule("SUPER COMBO","You can block a combo with any + card"));
     allRules.add(new Rule("SUDDEN DEATH CARD","You are eliminated if you are unable to play a card."));
     allRules.add(new Rule("INK CARD","When you play this card, every colored card on the next player’s hand turns the color of your ink card."));
-*/  allRules.add(new Rule("MESS","add description!"));
+    allRules.add(new Rule("MESS","add description!"));
+    */allRules.add(new Rule("HELL","add description!"));
 //IGNORE FOR NOW  allRules.add(new Rule("STACKING","add description!!!"));
     }
 
@@ -202,67 +203,76 @@ public class Game{
             check.setColor(c);
           }
         }
+      }else if(rules.contains("HELL") && topCard.getType(topCard).equals("ACTION") &&
+        topCard.getType(topCard).equals(toPlay.getType(toPlay))){
+        person.removeCard(toPlay);
+        discard.add(toPlay);
+        topCard = toPlay;
+        setCombo(0);
+        setTurn(1);
       }else if(topCard.playable(toPlay)){
-      /*  }else if(rules.contains("STACKING") && !(toPlay.getValue().equals("+2") || toPlay.getValue().equals("+4") ||
-        toPlay.getValue().equals("WILD") || toPlay.getValue().equals("SKIP") ||
-        toPlay.getValue().equals("REVERSE")) && checkStack(person, toPlay) == true){
-          person.removeCard(toPlay);
-          discard.add(toPlay);
-          topCard = toPlay;
-          setTurn(-1);*/
-        if(combo != 0 && !topCard.getValue().equals(toPlay.getValue())){
-          System.out.println("Invalid card!");
-        }else{
-          //if card is a reverse, switch order & turn = next player
-          if(players.size() > 2 && toPlay.getValue().equals("REVERSE")){
-            if(order){
-              order = false;
-            } else{
-              order = true;
-            }
-          }
-          //if card is a skip, turn = 2 indecies after
-          //player size = 2, reverse works like a skip
-          if(toPlay.getValue().equals("SKIP") || toPlay.getValue().equals("REVERSE")){
-            setTurn(1);
-          }
-          //if +2, add 2 to combo
-          if(toPlay.getValue().equals("+2")){
-            combo+=2;
-          }
-          if(toPlay.getValue().equals("SUDDEN DEATH")){
-            sudden = true;
-          }
-          if(rules.contains("PERFECTION")){
-            String size = person.getCards().size()+"";
-            if(size.equals(toPlay.getValue())){
-              person.removeCard(toPlay);
-              discard.add(toPlay);
-              topCard = toPlay;
-              setTurn(-1);
-            }
-          }
-          if(toPlay.getColor().equals("BLACK")){
-            //add 4 to combo if +4
-            if(toPlay.getValue().equals("+4")){
-              combo+=4;
-            }
-            //wild & +4 choose a color
-            String colors[] = {"RED","BLUE","YELLOW","GREEN"};
-            toPlay.setColor(colors[Math.abs(randgen.nextInt(colors.length))]);
-          } else{
-            //  System.out.println(color+" is an invalid color!");
-          }
-          person.removeCard(toPlay);
-          discard.add(toPlay);
-          topCard = toPlay;
-          setTurn(1);
-        }
-      } else {
-        System.out.println("Invalid card!");
+        effectCheck(person,toPlay,color);
       }
     }catch(NumberFormatException e){
       System.out.println("Invalid card!");
+    }
+  }
+
+  public void effectCheck(Player person, Card toPlay, String color) {
+    /*  }else if(rules.contains("STACKING") && !(toPlay.getValue().equals("+2") || toPlay.getValue().equals("+4") ||
+      toPlay.getValue().equals("WILD") || toPlay.getValue().equals("SKIP") ||
+      toPlay.getValue().equals("REVERSE")) && checkStack(person, toPlay) == true){
+        person.removeCard(toPlay);
+        discard.add(toPlay);
+        topCard = toPlay;
+        setTurn(-1); */
+    if(combo != 0 && !topCard.getValue().equals(toPlay.getValue())){
+      System.out.println("Invalid card!");
+    }else{
+      //if card is a reverse, switch order & turn = next player
+      if(players.size() > 2 && toPlay.getValue().equals("REVERSE")){
+        if(order){
+          order = false;
+        } else{
+          order = true;
+        }
+      }
+      //if card is a skip, turn = 2 indecies after
+      //player size = 2, reverse works like a skip
+      if(toPlay.getValue().equals("SKIP") || toPlay.getValue().equals("REVERSE")){
+        setTurn(1);
+      }
+      //if +2, add 2 to combo
+      if(toPlay.getValue().equals("+2")){
+        combo+=2;
+      }
+      if(toPlay.getValue().equals("SUDDEN DEATH")){
+        sudden = true;
+      }
+      if(rules.contains("PERFECTION")){
+        String size = person.getCards().size()+"";
+        if(size.equals(toPlay.getValue())){
+          person.removeCard(toPlay);
+          discard.add(toPlay);
+          topCard = toPlay;
+          setTurn(-1);
+        }
+      }
+      if(toPlay.getColor().equals("BLACK")){
+        //add 4 to combo if +4
+        if(toPlay.getValue().equals("+4")){
+          combo+=4;
+        }
+        //wild & +4 choose a color
+        String colors[] = {"RED","BLUE","YELLOW","GREEN"};
+        toPlay.setColor(colors[Math.abs(randgen.nextInt(colors.length))]);
+      } else{
+        //  System.out.println(color+" is an invalid color!");
+      }
+      person.removeCard(toPlay);
+      discard.add(toPlay);
+      topCard = toPlay;
+      setTurn(1);
     }
   }
 
