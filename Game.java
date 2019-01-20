@@ -112,7 +112,16 @@ public class Game{
     allRules.add(new Rule("INK CARD","When you play this card, every colored card on the next player’s hand turns the color of your ink card."));
     allRules.add(new Rule("MESS","add description!"));
     */allRules.add(new Rule("HELL","add description!"));
-//IGNORE FOR NOW  allRules.add(new Rule("STACKING","add description!!!"));
+  /*  allRules.add(new Rule("EQUALITY CARD","add description!"));
+    allRules.add(new Rule("OVERLOAD","add description!"));
+    allRules.add(new Rule("RAIN CARD","add description!"));
+    allRules.add(new Rule("MYSTERIOUS CARD","add description!"));
+    allRules.add(new Rule("GIFT CARD","add description!"));
+    allRules.add(new Rule("THUNDER CARD","add description!"));
+    allRules.add(new Rule("CLONE CARD","add description!"));
+    allRules.add(new Rule("MAGNET CARD","add description!"));
+    allRules.add(new Rule("JUSTICE CARD","add description!"));
+*///IGNORE FOR NOW  allRules.add(new Rule("STACKING","add description!!!"));
     }
 
   public void setTurn(int num){
