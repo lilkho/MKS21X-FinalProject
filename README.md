@@ -112,3 +112,5 @@ java -cp "lanterna.jar;." UNO
 - Completely changed how playing works.
 - Have to use a cursor that goes only up or down and is restricted by how many cards there are.
 - Pressing space plays the card the cursor is on.
+- Fixed flickering problem with rules
+- Ink, Sudden Death, Mess, and Hell rules are all working
