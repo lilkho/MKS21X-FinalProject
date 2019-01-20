@@ -90,7 +90,7 @@ public class Game{
   public void setRules(){
 //working  allRules.add(new Rule("NO ACTION","There are only numerical and wild cards in the deck."));
 //working    allRules.add(new Rule("CAMOUFLAGE","You cannot see anyone’s number of cards until they only have 1 card left."));
-//    allRules.add(new Rule("PERFECTION","If you play a card whose numerical value is equal to the number of cards in your hand, you can play again."));
+    allRules.add(new Rule("PERFECTION","If you play a card whose numerical value is equal to the number of cards in your hand, you can play again."));
 //working    allRules.add(new Rule("NO COMBO","You cannot block combos."));
 //working    allRules.add(new Rule("CLEAN FINISH","You can only win if your last card is a numerical card."));
 //working    allRules.add(new Rule("BOMB CARD","You are eliminated if you draw this card."));
@@ -133,10 +133,7 @@ public class Game{
   public void draw(Player person, int num){
     boolean play = false;
     //if deck is empty, "shuffle" by making the discard pile the draw pile
-    if(deck.size() == 0){
-      refresh();
-    }
-    if(num > deck.size()){
+    if(deck.size() == 0 || num > deck.size()){
       refresh();
     }
     for(int x=0; x<num; x++){
@@ -156,55 +153,6 @@ public class Game{
   }
 
   public void play(Player person, Card toPlay, String color){
-<<<<<<< HEAD
-    if(topCard == null){
-      topCard = toPlay;
-    }
-    //if card is playable, remove from player's hand, add to discard pile,
-    //set it as top card, and set turn to next player
-    if(topCard.playable(toPlay)){
-      if(combo != 0 && !topCard.getValue().equals(toPlay.getValue())){
-        System.out.println("Invalid card!");
-      }else{
-        //if card is a reverse, switch order & turn = next player
-        if(players.size() > 2 && toPlay.getValue().equals("REVERSE")){
-          if(order){
-            order = false;
-          } else{
-            order = true;
-          }
-        }
-        //if card is a skip, turn = 2 indecies after
-        //player size = 2, reverse works like a skip
-        if(toPlay.getValue().equals("SKIP") || toPlay.getValue().equals("REVERSE")){
-          setTurn(1);
-        }
-        //if +2, add 2 to combo
-        if(toPlay.getValue().equals("+2")){
-          combo+=2;
-        }
-        if(rules.contains("PERFECTION")){
-          String size = person.getCards().size()+"";
-          if(size.equals(toPlay.getValue())){
-            person.removeCard(toPlay);
-            discard.add(toPlay);
-            topCard = toPlay;
-            setTurn(-1);
-          }
-        }
-        if(toPlay.getColor().equals("BLACK")){
-          //add 4 to combo if +4
-          if(toPlay.getValue().equals("+4")){
-            combo+=4;
-          }
-          //wild & +4 choose a color
-          String colors[] = {"RED","BLUE","YELLOW","GREEN"};
-          toPlay.setColor(colors[Math.abs(randgen.nextInt(colors.length))]);
-        } else{
-            //System.out.println(color+" is an invalid color!");
-        }
-
-=======
     try{
       if(topCard == null){
         topCard = toPlay;
@@ -215,7 +163,6 @@ public class Game{
         (topCard.getValue().equals("+2") || topCard.getValue().equals("+4")) &&
         (topCard.getValue().equals("+2") || topCard.getValue().equals("+4"))){
         combo+=Integer.parseInt(toPlay.getValue());
->>>>>>> 0d0a7dfdcb05d147ad0ab544e0ba6cd8ed39490e
         person.removeCard(toPlay);
         discard.add(toPlay);
         topCard = toPlay;

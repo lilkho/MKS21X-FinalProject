@@ -106,4 +106,4 @@ java -Djava.awt.headless=true -cp "lanterna.jar;." UNO
 - Found out why No Action (and other rules related to the deck, such as bomb card) weren't working. Fixed!
 - No Action, Camouflage, No Combo, Clean Finish, Bomb Card, and Super Combo rules are all working
 - Will continue testing Stacking and Perfection rules
-- Added rule info to the game for reference
+- Added rule info to the game for reference 

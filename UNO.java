@@ -204,6 +204,10 @@ public class UNO{
         }
       }
 
+      if(mode == 1){
+
+      }
+
       //to play cards
       if(mode == 2){
         try{
@@ -221,13 +225,9 @@ public class UNO{
             reset(terminal);
           }
         }catch(NullPointerException e){
-<<<<<<< HEAD
-          System.out.println(" ");
-=======
           System.out.println("");
         }catch(ArrayIndexOutOfBoundsException e){
           System.out.println("");
->>>>>>> 0d0a7dfdcb05d147ad0ab544e0ba6cd8ed39490e
         }
       }
     }
