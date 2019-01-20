@@ -45,7 +45,7 @@ public class UNO{
     for(int i=0; i<game.getPlayers().get(x).getCards().size(); i++){
       Card card = game.getPlayers().get(x).getCards().get(i);
       determineColor(terminal, card);
-      putString(0,7+i,terminal,""+i+": "+card.getValue());
+      putString(1,7+i,terminal,""+card.getValue());
     }
     terminal.applyBackgroundColor(Terminal.Color.BLACK);
     terminal.applyForegroundColor(Terminal.Color.DEFAULT);
@@ -137,7 +137,7 @@ public class UNO{
 
     //setting up terminal
     int x = 0;
-    int y = 0;
+    int y = 7;
     Terminal terminal = TerminalFacade.createTextTerminal();
     terminal.enterPrivateMode();
     TerminalSize size = terminal.getTerminalSize();
@@ -210,19 +210,42 @@ public class UNO{
 
       //to play cards
       if(mode == 2){
-        try{
-          Player playing = game.getTurn();
-          putString(50,9,terminal,"Choose index of card to play!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
-          printInfo(terminal, game);
-          printCards(terminal, game, game.getPlayers().indexOf(playing));
-          if (Character.getNumericValue(key.getCharacter()) < playing.getCards().size()) {
-            mode = 0;
-            Card toPlay = playing.getCards().get(Character.getNumericValue(key.getCharacter()));
-            game.play(playing,toPlay,toPlay.getColor());
-            terminal.clearScreen();
-            printInfo(terminal, game);
-            putString(50,0,terminal,"Player "+playing.getName()+" played "+toPlay+"!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
-            reset(terminal);
+        Player playing = game.getTurn();
+        putString(50,10,terminal,"Move cursor up or down",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+        putString(50,11,terminal,"and press space to",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+        putString(50,12,terminal,"choose a card.",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+        printInfo(terminal, game);
+        printCards(terminal, game, game.getPlayers().indexOf(playing));
+        terminal.moveCursor(x,y);
+  			terminal.applyBackgroundColor(Terminal.Color.WHITE);
+  			terminal.applyForegroundColor(Terminal.Color.BLACK);
+  			terminal.putCharacter(' ');
+  			terminal.applyBackgroundColor(Terminal.Color.DEFAULT);
+  			terminal.applyForegroundColor(Terminal.Color.DEFAULT);
+        if (key!=null) {
+          if (key.getKind() == Key.Kind.ArrowUp) {
+            if (y>7) {
+              terminal.moveCursor(x,y);
+      			  terminal.putCharacter(' ');
+              y--;
+            }
+          }
+    			if (key.getKind() == Key.Kind.ArrowDown) {
+            if (y<playing.getCards().size()+6) {
+              terminal.moveCursor(x,y);
+              terminal.putCharacter(' ');
+    				  y++;
+            }
+          }
+          if (key.getCharacter()==' ') {
+            if (y-7<playing.getCards().size()) {
+              mode=0;
+              Card toPlay = playing.getCards().get(y-7);
+              game.play(playing,toPlay,toPlay.getColor());
+              terminal.clearScreen();
+              printInfo(terminal, game);
+              reset(terminal);
+            }
           }
         }catch(NullPointerException e){
           System.out.println("");

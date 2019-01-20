@@ -236,6 +236,7 @@ public class Game{
       System.out.println("Invalid card!");
     }
   }
+}
 
   public void setCombo(int num){
     combo = num;
