@@ -16,6 +16,11 @@ public class Game{
   private int combo = 0;
   private boolean sudden = false;
 
+  /**
+  * Constructor to start an UNO game
+  * @param numPlayers number of players in the game
+  * @param numRules number of rules in the game
+  */
   public Game(int numPlayers, int numRules){
     //clears discard pile, sets the deck, chooses top card randomly
     discard.clear();
@@ -34,13 +39,13 @@ public class Game{
     players = new ArrayList<Player>(numPlayers+1);
     //makes a Player for each player && everyone draws 7 Cards
     for(int x=0; x<numPlayers; x++){
-      Player person = new Player(""+x, 7);
+      Player person = new Player(""+x);
       players.add(person);
       draw(person,7);
     }
     //this is needed bc if the first card chosen is an action card,
     //the action must be carried out
-    players.add(new Player(""+numPlayers, 1));
+    players.add(new Player(""+numPlayers));
     Card test = deck.get(Math.abs(randgen.nextInt(deck.size())));
     play(players.get(numPlayers),test,test.getColor());
     players.remove(numPlayers);
@@ -48,6 +53,9 @@ public class Game{
     turn = players.get(Math.abs(randgen.nextInt(numPlayers)));
   }
 
+  /**
+  * Sets the deck for the game based on the rules in the game
+  */
   public void setDeck(){
     String[] colors = {"BLUE","RED","YELLOW","GREEN"};
     //1-9 has 4 colors each + a duplicate, 0 does not have a duplicate
@@ -100,6 +108,9 @@ public class Game{
     }
   }
 
+  /**
+  * Sets the rules in the games
+  */
   public void setRules(){
 /*  allRules.add(new Rule("NO ACTION","There are only numerical and wild cards in the deck."));
     allRules.add(new Rule("CAMOUFLAGE","You cannot see anyone’s number of cards until they only have 1 card left."));
@@ -124,6 +135,11 @@ public class Game{
 *///IGNORE FOR NOW  allRules.add(new Rule("STACKING","add description!!!"));
     }
 
+    /**
+    *
+    * @param
+    * @param
+    */
   public void setTurn(int num){
     if(num == 0){
       index = index;
@@ -146,6 +162,9 @@ public class Game{
     turn = players.get(index);
   }
 
+  /**
+  * Refreshes the deck if it is empty
+  */
   public void refresh(){
     //copies discard to deck
     for(int x=0; x<discard.size(); x++){
@@ -154,6 +173,11 @@ public class Game{
     discard.clear();
   }
 
+  /**
+  * Player draws a number of cards and sets the turn to the next player
+  * @param person Player drawing
+  * @param num number of cards being drawn
+  */
   public void draw(Player person, int num){
     boolean play = false;
     //if deck is empty, "shuffle" by making the discard pile the draw pile
@@ -179,6 +203,12 @@ public class Game{
     }
   }
 
+  /**
+  * Player plays a card and sets the turn to the next player
+  * @param person Player playing the card
+  * @param toPlay Card being played
+  * @param color color of card if playing a wild or +4
+  */
   public void play(Player person, Card toPlay, String color){
     try{
       if(topCard == null){
@@ -227,6 +257,12 @@ public class Game{
     }
   }
 
+  /**
+  * Checks the effects of action cards (skip, reverse, +2) based on the rules of UNO!
+  * @param person Player playing the card
+  * @param toPlay Card being played
+  * @param color color of card if playing a wild or +4
+  */
   public void effectCheck(Player person, Card toPlay, String color) {
     /*  }else if(rules.contains("STACKING") && !(toPlay.getValue().equals("+2") || toPlay.getValue().equals("+4") ||
       toPlay.getValue().equals("WILD") || toPlay.getValue().equals("SKIP") ||
@@ -285,10 +321,15 @@ public class Game{
     }
   }
 
+  /**
+  * Sets the combo to a certain number
+  * @param num number that the combo should be set to
+  */
   public void setCombo(int num){
     combo = num;
   }
 
+  //not really working
   public boolean checkStack(Player person, Card toPlay){
     for(int x=0; x<person.getCards().size(); x++){
       if(toPlay.getValue().equals(person.getCards().get(x).getValue())){
@@ -298,18 +339,19 @@ public class Game{
     return false;
   }
 
+  /**
+  * Prints game info (players, turn, top card, combo, rules)
+  * @return String of game info
+  */
   public String toString(){
     /*format:
     Players: [Player 0: 7, Player 1: 7]
     Turn: Player 1
     Top Card: BLUE3
-    Combo: 2 (only if not 0)
+    Combo: 2
     Rules: [Perfection] (only if not empty) */
     //String res = players+"\nTurn: Player "+players.get(index).getName()+"\nTop Card: "+topCard;
-    String res = "";
-    if(combo!=0){
-      res+="\nCombo: "+combo;
-    }
+    String res = "\nCombo: "+combo;
     if(!rules.isEmpty()){
       res+="\nRules: ";
       for(int x=0; x<rules.size(); x++){
@@ -322,7 +364,10 @@ public class Game{
     return res;
   }
 
-
+  /**
+  * Prints players info (name, #cards)
+  * @return String of players info
+  */
   public String printPlayers(){
     //format: Player 1: 7
     //Player 2: 7
@@ -341,7 +386,7 @@ public class Game{
     return res;
   }
 
-///GET METHODS///
+  ///GET METHODS///
   public Card getTopCard(){
     return topCard;
   }
