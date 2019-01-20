@@ -14,7 +14,13 @@ import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.input.KeyMappingProfile;
 
 public class UNO{
-
+  /**
+  * Puts a string on the terminal at a given location
+  * @param r starting row to put the string
+  * @param c starting column to put the string
+  * @param t terminal to put the string
+  * @param s String to put
+  */
   public static void putString(int r, int c,Terminal t, String s){
 		t.moveCursor(r,c);
 		for(int i = 0; i < s.length();i++){
@@ -22,6 +28,15 @@ public class UNO{
 		}
 	}
 
+  /**
+  * Puts a string on the terminal at a given location
+  * @param r starting row to put the string
+  * @param c starting column to put the string
+  * @param t terminal to put the string
+  * @param s String to put
+  * @param forg foreground color of the string
+  * @param back background color of the string
+  */
   public static void putString(int r, int c,Terminal t,
         String s, Terminal.Color forg, Terminal.Color back ){
     t.moveCursor(r,c);
@@ -35,11 +50,21 @@ public class UNO{
     t.applyForegroundColor(Terminal.Color.DEFAULT);
   }
 
+  /**
+  * Resets the terminal's colors
+  * @param terminal terminal to reset
+  */
   public static void reset(Terminal terminal){
     terminal.applyBackgroundColor(Terminal.Color.BLACK);
     terminal.applyForegroundColor(Terminal.Color.DEFAULT);
   }
 
+  /**
+  * Prints the cards of the player
+  * @param terminal terminal to put the cards
+  * @param game game being played
+  * @param x index of player
+  */
   public static void printCards(Terminal terminal, Game game, int x){
     putString(0,5,terminal,"Player "+game.getPlayers().get(x).getName()+"'s Cards:",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
     for(int i=0; i<game.getPlayers().get(x).getCards().size(); i++){
@@ -51,6 +76,11 @@ public class UNO{
     terminal.applyForegroundColor(Terminal.Color.DEFAULT);
   }
 
+  /**
+  * Determines the color of a card
+  * @param terminal terminal to apply the color
+  * @param card card to check
+  */
   public static void determineColor(Terminal terminal, Card card){
     if (card.getColor()=="RED") {
       terminal.applyBackgroundColor(Terminal.Color.RED);
@@ -69,6 +99,11 @@ public class UNO{
     }
   }
 
+  /**
+  * Prints the game info, including turn, combo, players, top card, rules, and commands
+  * @param terminal terminal to put the game info
+  * @param game game to print info of
+  */
   public static void printInfo(Terminal terminal, Game game){
     try{
       putString(0,0,terminal,"TURN: Player "+game.getTurn().getName(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
