@@ -53,8 +53,8 @@ public class Player {
   }
 
   /**
-  * Adds card to player's deck
-  * @param toAdd card to add
+  * Remove n random card(s) from the player's deck
+  * @param num number of cards to remove
   */
   public void remove(int num){
     Random randgen = new Random();
