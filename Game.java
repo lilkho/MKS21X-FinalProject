@@ -106,6 +106,13 @@ public class Game{
         deck.add(new Card(colors[x],"SUDDEN DEATH"));
       }
     }
+    if(rules.contains("EQUALITY CARD") || rules.contains("MESS")){
+      for(int y=0; y<20; y++){
+      for(int x=0; x<4; x++){
+        deck.add(new Card(colors[x],"EQUALITY"));
+      }
+    }
+    }
   }
 
   /**
@@ -122,9 +129,9 @@ public class Game{
     allRules.add(new Rule("SUDDEN DEATH CARD","You are eliminated if you are unable to play a card."));
     allRules.add(new Rule("INK CARD","When you play this card, every colored card on the next player’s hand turns the color of your ink card."));
     allRules.add(new Rule("MESS","add description!"));
-    */allRules.add(new Rule("HELL","add description!"));
-  /*  allRules.add(new Rule("EQUALITY CARD","add description!"));
-    allRules.add(new Rule("OVERLOAD","add description!"));
+//NOT WORKING    allRules.add(new Rule("HELL","add description!"));
+*/   allRules.add(new Rule("EQUALITY CARD","add description!"));
+/*     allRules.add(new Rule("OVERLOAD","add description!"));
     allRules.add(new Rule("RAIN CARD","add description!"));
     allRules.add(new Rule("MYSTERIOUS CARD","add description!"));
     allRules.add(new Rule("GIFT CARD","add description!"));
@@ -242,13 +249,24 @@ public class Game{
             check.setColor(c);
           }
         }
-      }else if(rules.contains("HELL") && topCard.getType(topCard).equals("ACTION") &&
-        topCard.getType(topCard).equals(toPlay.getType(toPlay))){
-        person.removeCard(toPlay);
-        discard.add(toPlay);
-        topCard = toPlay;
-        setCombo(0);
-        setTurn(1);
+      }else if(rules.contains("EQUALITY CARD") && toPlay.getValue().equals("EQUALITY")){
+        if(topCard.getColor().equals(toPlay.getColor()) ||
+          topCard.getValue().equals(toPlay.getValue())){
+          person.removeCard(toPlay);
+          discard.add(toPlay);
+          topCard = toPlay;
+          setTurn(1);
+          for(int x=0; x<players.size(); x++){
+            Player check = players.get(x);
+            int size = check.getCards().size();
+            if(size<3){
+              draw(check,3-size);
+            }
+            if(size>3){
+              check.remove(size-3);
+            }
+          }
+        }
       }else if(topCard.playable(toPlay)){
         effectCheck(person,toPlay,color);
       }
@@ -284,7 +302,7 @@ public class Game{
       }
       //if card is a skip, turn = 2 indecies after
       //player size = 2, reverse works like a skip
-      if(toPlay.getValue().equals("SKIP")){
+      if(toPlay.getValue().equals("SKIP") || toPlay.getValue().equals("REVERSE")){
         setTurn(1);
       }
       //if +2, add 2 to combo

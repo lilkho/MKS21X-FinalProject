@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Player {
   private String name;
@@ -49,6 +50,18 @@ public class Player {
   */
   public void addCard(Card toAdd){
     cards.add(toAdd);
+  }
+
+  /**
+  * Adds card to player's deck
+  * @param toAdd card to add
+  */
+  public void remove(int num){
+    Random randgen = new Random();
+    for(int i=0; i<num; i++){
+      int rand = Math.abs(randgen.nextInt(getNumCards()));
+      cards.remove(rand);
+    }
   }
 
   //GET METHODS//
