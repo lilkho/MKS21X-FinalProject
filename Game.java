@@ -116,6 +116,11 @@ public class Game{
         deck.add(new Card(colors[x],"RAIN"));
       }
     }
+    if(rules.contains("CLONE CARD") || rules.contains("MESS")){
+      for(int x=0; x<4; x++){
+        deck.add(new Card("BLACK","CLONE"));
+      }
+    }
   }
 
   /**
@@ -133,16 +138,17 @@ public class Game{
     allRules.add(new Rule("INK CARD","When you play this card, every colored card on the next player’s hand turns the color of your ink card."));
     allRules.add(new Rule("MESS","add description!"));
 //NOT WORKING    allRules.add(new Rule("HELL","add description!"));
-   allRules.add(new Rule("EQUALITY CARD","add description!"));
+    allRules.add(new Rule("EQUALITY CARD","add description!"));
     allRules.add(new Rule("OVERLOAD","add description!"));
-*/     allRules.add(new Rule("RAIN CARD","add description!"));
-/*    allRules.add(new Rule("MYSTERIOUS CARD","add description!"));
+    allRules.add(new Rule("RAIN CARD","add description!"));
+//    allRules.add(new Rule("MYSTERIOUS CARD","add description!"));
     allRules.add(new Rule("GIFT CARD","add description!"));
     allRules.add(new Rule("THUNDER CARD","add description!"));
-    allRules.add(new Rule("CLONE CARD","add description!"));
+
     allRules.add(new Rule("MAGNET CARD","add description!"));
     allRules.add(new Rule("JUSTICE CARD","add description!"));
-*///IGNORE FOR NOW  allRules.add(new Rule("STACKING","add description!!!"));
+//IGNORE FOR NOW  allRules.add(new Rule("STACKING","add description!!!"));*/
+    allRules.add(new Rule("CLONE CARD","add description!"));
     }
 
     /**
@@ -282,6 +288,10 @@ public class Game{
         for(int x=0; x<players.size() && x!=index; x++){
           draw(players.get(x),1);
         }
+      }else if(rules.contains("CLONE CARD") && toPlay.getValue().equals("CLONE")){
+        person.removeCard(toPlay);
+        discard.add(toPlay);
+        setTurn(1);
       }else if(topCard.playable(toPlay)){
         effectCheck(person,toPlay,color);
       }
