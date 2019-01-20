@@ -75,10 +75,10 @@ public class UNO{
       putString(0,1,terminal,"COMBO: "+game.getCombo(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
       putString(25,0,terminal,"PLAYER | #CARDS",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
       putString(0,3,terminal,"TOP CARD:",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
-      putString(50,9,terminal,"Rules: "+game.getRules(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+      putString(50,11,terminal,"Rules: "+game.getRules(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
       for(int x=0; x<game.getRules().size(); x++){
         Rule r = game.getRuleInfo().get(x);
-        putString(50,10+x,terminal,r.getName()+": "+r.getDescription());
+        putString(50,12+x,terminal,r.getName()+": "+r.getDescription());
       }
       Card topCard = game.getTopCard();
       determineColor(terminal, topCard);
@@ -96,6 +96,14 @@ public class UNO{
         }
 
       }
+      putString(50,2,terminal,"d to draw card(s)");
+      putString(50,3,terminal,"h to hide your cards");
+      putString(50,4,terminal,"n to pass turn");
+      putString(50,5,terminal,"p to play a card");
+      putString(50,6,terminal,"arrow up/down to move cursor");
+      putString(50,7,terminal,"space to play the card");
+      putString(50,8,terminal,"(player) # to get cards");
+      putString(50,9,terminal,"escape to exit");
     }catch(ArrayIndexOutOfBoundsException e){
       System.out.println("Player does not exist!");
     }
@@ -150,12 +158,6 @@ public class UNO{
         //commands
         printInfo(terminal, game);
         reset(terminal);
-        putString(50,2,terminal,"d to draw card(s)");
-        putString(50,3,terminal,"h to hide your cards");
-        putString(50,4,terminal,"n to pass turn");
-        putString(50,5,terminal,"p to play a card");
-        putString(50,6,terminal,"(player) # to get cards");
-        putString(50,7,terminal,"escape to exit");
 
       }
 
@@ -211,9 +213,6 @@ public class UNO{
       //to play cards
       if(mode == 2){
         Player playing = game.getTurn();
-        putString(50,10,terminal,"Move cursor up or down",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
-        putString(50,11,terminal,"and press space to",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
-        putString(50,12,terminal,"choose a card.",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
         printInfo(terminal, game);
         printCards(terminal, game, game.getPlayers().indexOf(playing));
         terminal.moveCursor(x,y);
@@ -247,10 +246,6 @@ public class UNO{
               reset(terminal);
             }
           }
-        }catch(NullPointerException e){
-          System.out.println("");
-        }catch(ArrayIndexOutOfBoundsException e){
-          System.out.println("");
         }
       }
     }
