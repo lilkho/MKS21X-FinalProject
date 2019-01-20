@@ -117,7 +117,7 @@ public class Game{
       }
     }
     if(rules.contains("CLONE CARD") || rules.contains("MESS")){
-      for(int x=0; x<4; x++){
+      for(int x=0; x<50; x++){
         deck.add(new Card("BLACK","CLONE"));
       }
     }
@@ -289,9 +289,24 @@ public class Game{
           draw(players.get(x),1);
         }
       }else if(rules.contains("CLONE CARD") && toPlay.getValue().equals("CLONE")){
-        person.removeCard(toPlay);
-        discard.add(toPlay);
-        setTurn(1);
+        if(topCard.getValue().equals("WILD")){
+          String colors[] = {"RED","BLUE","YELLOW","GREEN"};
+          topCard.setColor(colors[Math.abs(randgen.nextInt(colors.length))]);
+          person.removeCard(toPlay);
+          discard.add(toPlay);
+          setTurn(1);
+        }else if(topCard.getValue().equals("+2") || topCard.getValue().equals("+4")){
+          if(combo==0){
+            combo+=Integer.parseInt(topCard.getValue());
+            person.removeCard(toPlay);
+            discard.add(toPlay);
+            setTurn(1);
+          }
+        }else{
+          person.removeCard(toPlay);
+          discard.add(toPlay);
+          setTurn(1);
+        }
       }else if(topCard.playable(toPlay)){
         effectCheck(person,toPlay,color);
       }
