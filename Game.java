@@ -117,8 +117,15 @@ public class Game{
       }
     }
     if(rules.contains("CLONE CARD") || rules.contains("MESS")){
-      for(int x=0; x<50; x++){
+      for(int x=0; x<4; x++){
         deck.add(new Card("BLACK","CLONE"));
+      }
+    }
+    if(rules.contains("MAGNET CARD") || rules.contains("MESS")){
+      for(int x=0; x<4; x++){
+        for(int y=0; y<50; y++){
+        deck.add(new Card(colors[x],"MAGNET"));
+      }
       }
     }
   }
@@ -141,14 +148,14 @@ public class Game{
     allRules.add(new Rule("EQUALITY CARD","add description!"));
     allRules.add(new Rule("OVERLOAD","add description!"));
     allRules.add(new Rule("RAIN CARD","add description!"));
+    allRules.add(new Rule("CLONE CARD","add description!"));
 //    allRules.add(new Rule("MYSTERIOUS CARD","add description!"));
     allRules.add(new Rule("GIFT CARD","add description!"));
     allRules.add(new Rule("THUNDER CARD","add description!"));
 
-    allRules.add(new Rule("MAGNET CARD","add description!"));
     allRules.add(new Rule("JUSTICE CARD","add description!"));
 //IGNORE FOR NOW  allRules.add(new Rule("STACKING","add description!!!"));*/
-    allRules.add(new Rule("CLONE CARD","add description!"));
+    allRules.add(new Rule("MAGNET CARD","add description!"));
     }
 
     /**
@@ -307,6 +314,20 @@ public class Game{
           discard.add(toPlay);
           setTurn(1);
         }
+      }else if(rules.contains("MAGNET CARD") && toPlay.getValue().equals("MAGNET") && toPlay.getColor().equals(topCard.getColor()) && combo==0){
+        person.removeCard(toPlay);
+        discard.add(toPlay);
+        String c = toPlay.getColor();
+        int count = turn.getCards().size();
+        for(int x=0; x<count; x++){
+          if(turn.getCards().get(x).getColor().equals(c)){
+            turn.getCards().remove(x);
+            --x;
+          }
+          count--;
+        }
+        topCard = toPlay;
+        setTurn(1);
       }else if(topCard.playable(toPlay)){
         effectCheck(person,toPlay,color);
       }
