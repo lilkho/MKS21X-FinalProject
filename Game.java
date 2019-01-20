@@ -51,18 +51,20 @@ public class Game{
   public void setDeck(){
     String[] colors = {"BLUE","RED","YELLOW","GREEN"};
     //1-9 has 4 colors each + a duplicate, 0 does not have a duplicate
-    for (int i=0;i<10;i++) {
-      if(i==0){
-        deck.add(new Card("RED",""+i));
-        deck.add(new Card("BLUE",""+i));
-        deck.add(new Card("YELLOW",""+i));
-        deck.add(new Card("GREEN",""+i));
-      }else{
-        for(int x=0; x<2; x++){
+    if(!rules.contains("MESS")){
+      for (int i=0;i<10;i++) {
+        if(i==0){
           deck.add(new Card("RED",""+i));
           deck.add(new Card("BLUE",""+i));
           deck.add(new Card("YELLOW",""+i));
           deck.add(new Card("GREEN",""+i));
+        }else{
+          for(int x=0; x<2; x++){
+            deck.add(new Card("RED",""+i));
+            deck.add(new Card("BLUE",""+i));
+            deck.add(new Card("YELLOW",""+i));
+            deck.add(new Card("GREEN",""+i));
+          }
         }
       }
     }
@@ -83,15 +85,15 @@ public class Game{
         deck.add(new Card("BLACK","+4"));
       }
     }
-    if(rules.contains("BOMB CARD")){
+    if(rules.contains("BOMB CARD") || rules.contains("MESS")){
       deck.add(new Card("BLACK","BOMB"));
     }
-    if(rules.contains("INK CARD")){
+    if(rules.contains("INK CARD") || rules.contains("MESS")){
       for(int x=0; x<4; x++){
         deck.add(new Card(colors[x],"INK"));
       }
     }
-    if(rules.contains("SUDDEN DEATH CARD")){
+    if(rules.contains("SUDDEN DEATH CARD") || rules.contains("MESS")){
       for(int x=0; x<4; x++){
         deck.add(new Card(colors[x],"SUDDEN DEATH"));
       }
@@ -106,10 +108,11 @@ public class Game{
     allRules.add(new Rule("CLEAN FINISH","You can only win if your last card is a numerical card."));
     allRules.add(new Rule("BOMB CARD","You are eliminated if you draw this card."));
     allRules.add(new Rule("SUPER COMBO","You can block a combo with any + card"));
-*///IGNORE FOR NOW  allRules.add(new Rule("STACKING","add description!!!"));
     allRules.add(new Rule("SUDDEN DEATH CARD","You are eliminated if you are unable to play a card."));
-//    allRules.add(new Rule("INK CARD","When you play this card, every colored card on the next player’s hand turns the color of your ink card."));
-  }
+    allRules.add(new Rule("INK CARD","When you play this card, every colored card on the next player’s hand turns the color of your ink card."));
+*/  allRules.add(new Rule("MESS","add description!"));
+//IGNORE FOR NOW  allRules.add(new Rule("STACKING","add description!!!"));
+    }
 
   public void setTurn(int num){
     if(num == 0){
