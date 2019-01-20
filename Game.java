@@ -107,11 +107,14 @@ public class Game{
       }
     }
     if(rules.contains("EQUALITY CARD") || rules.contains("MESS")){
-      for(int y=0; y<20; y++){
       for(int x=0; x<4; x++){
         deck.add(new Card(colors[x],"EQUALITY"));
       }
     }
+    if(rules.contains("RAIN CARD") || rules.contains("MESS")){
+      for(int x=0; x<4; x++){
+        deck.add(new Card(colors[x],"RAIN"));
+      }
     }
   }
 
@@ -130,10 +133,10 @@ public class Game{
     allRules.add(new Rule("INK CARD","When you play this card, every colored card on the next player’s hand turns the color of your ink card."));
     allRules.add(new Rule("MESS","add description!"));
 //NOT WORKING    allRules.add(new Rule("HELL","add description!"));
-*/   allRules.add(new Rule("EQUALITY CARD","add description!"));
-/*     allRules.add(new Rule("OVERLOAD","add description!"));
-    allRules.add(new Rule("RAIN CARD","add description!"));
-    allRules.add(new Rule("MYSTERIOUS CARD","add description!"));
+   allRules.add(new Rule("EQUALITY CARD","add description!"));
+    allRules.add(new Rule("OVERLOAD","add description!"));
+*/     allRules.add(new Rule("RAIN CARD","add description!"));
+/*    allRules.add(new Rule("MYSTERIOUS CARD","add description!"));
     allRules.add(new Rule("GIFT CARD","add description!"));
     allRules.add(new Rule("THUNDER CARD","add description!"));
     allRules.add(new Rule("CLONE CARD","add description!"));
@@ -205,6 +208,10 @@ public class Game{
       discard.add(toAdd);
       deck.remove(toAdd);
     }
+    if(rules.contains("OVERLOAD") && person.getCards().size()>10){
+      players.remove(person);
+      setTurn(1);
+    }
     if(num!=1){
       setTurn(1);
     }
@@ -266,6 +273,14 @@ public class Game{
               check.remove(size-3);
             }
           }
+        }
+      }else if(rules.contains("RAIN CARD") && toPlay.getValue().equals("RAIN")){
+        person.removeCard(toPlay);
+        discard.add(toPlay);
+        topCard = toPlay;
+        setTurn(1);
+        for(int x=0; x<players.size() && x!=index; x++){
+          draw(players.get(x),1);
         }
       }else if(topCard.playable(toPlay)){
         effectCheck(person,toPlay,color);
