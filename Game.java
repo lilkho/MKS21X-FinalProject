@@ -248,7 +248,7 @@ public class Game{
       }
       //if card is a skip, turn = 2 indecies after
       //player size = 2, reverse works like a skip
-      if(toPlay.getValue().equals("SKIP") || toPlay.getValue().equals("REVERSE")){
+      if(toPlay.getValue().equals("SKIP")){
         setTurn(1);
       }
       //if +2, add 2 to combo
