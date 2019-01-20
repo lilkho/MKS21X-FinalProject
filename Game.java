@@ -85,20 +85,25 @@ public class Game{
     if(rules.contains("BOMB CARD")){
       deck.add(new Card("BLACK","BOMB"));
     }
+    if(rules.contains("INK CARD")){
+      for(int x=0; x<4; x++){
+        deck.add(new Card(colors[x],"INK"));
+      }
+    }
   }
 
   public void setRules(){
 //working  allRules.add(new Rule("NO ACTION","There are only numerical and wild cards in the deck."));
 //working    allRules.add(new Rule("CAMOUFLAGE","You cannot see anyone’s number of cards until they only have 1 card left."));
-    allRules.add(new Rule("PERFECTION","If you play a card whose numerical value is equal to the number of cards in your hand, you can play again."));
+//working    allRules.add(new Rule("PERFECTION","If you play a card whose numerical value is equal to the number of cards in your hand, you can play again."));
 //working    allRules.add(new Rule("NO COMBO","You cannot block combos."));
 //working    allRules.add(new Rule("CLEAN FINISH","You can only win if your last card is a numerical card."));
 //working    allRules.add(new Rule("BOMB CARD","You are eliminated if you draw this card."));
 //working    allRules.add(new Rule("SUPER COMBO","You can block a combo with any + card"));
 //IGNORE FOR NOW  allRules.add(new Rule("STACKING","add description!!!"));
-    /*allRules.add(new Rule("SUDDEN DEATH CARD","You are eliminated if you are unable to play a card."));
+    //allRules.add(new Rule("SUDDEN DEATH CARD","You are eliminated if you are unable to play a card."));
     allRules.add(new Rule("INK CARD","When you play this card, every colored card on the next player’s hand turns the color of your ink card."));
-  */}
+  }
 
   public void setTurn(int num){
     if(num == 0){
@@ -176,6 +181,15 @@ public class Game{
         topCard.getValue().equals("+4"))){
         draw(person,Integer.parseInt(topCard.getValue()));
         setCombo(0);
+      }else if(rules.contains("INK CARD")){
+        String c = toPlay.getColor();
+        setTurn(1);
+        for(int x=0; x<turn.getCards().size(); x++){
+          Card check = turn.getCards().get(x);
+          if(!check.getColor().equals("BLACK")){
+            check.setColor(c);
+          }
+        }
       }else if(topCard.playable(toPlay)){
       /*  }else if(rules.contains("STACKING") && !(toPlay.getValue().equals("+2") || toPlay.getValue().equals("+4") ||
         toPlay.getValue().equals("WILD") || toPlay.getValue().equals("SKIP") ||
