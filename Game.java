@@ -39,13 +39,13 @@ public class Game{
     players = new ArrayList<Player>(numPlayers+1);
     //makes a Player for each player && everyone draws 7 Cards
     for(int x=0; x<numPlayers; x++){
-      Player person = new Player(""+x, 7);
+      Player person = new Player(""+x);
       players.add(person);
       draw(person,7);
     }
     //this is needed bc if the first card chosen is an action card,
     //the action must be carried out
-    players.add(new Player(""+numPlayers, 1));
+    players.add(new Player(""+numPlayers));
     Card test = deck.get(Math.abs(randgen.nextInt(deck.size())));
     play(players.get(numPlayers),test,test.getColor());
     players.remove(numPlayers);
