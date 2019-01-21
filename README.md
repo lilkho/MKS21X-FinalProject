@@ -126,3 +126,5 @@ java -cp "lanterna.jar;." UNO
 - Added methods to print rules in sets of 10
 - Added getType method for rule
 - Updated Game so that contradicting rules cannot appear in the same game
+- Fixed bug where first player would have 2 turns
+- Fixed bug where adding and removing a new player would crash the game
