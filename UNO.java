@@ -248,6 +248,9 @@ public class UNO{
             terminal.clearScreen();
             reset(terminal);
           }
+          if (key.getKind() == Key.Kind.Tab) {
+            mode = 3;
+          }
         }
       }
 
@@ -279,15 +282,22 @@ public class UNO{
     				  y++;
             }
           }
+
           if (key.getKind()==Key.Kind.Enter) {
             if (y-7<playing.getCards().size()) {
               mode=0;
               count = 0;
               Card toPlay = playing.getCards().get(y-7);
-              game.play(playing,toPlay,toPlay.getColor());
-              terminal.clearScreen();
-              printInfo(terminal, game);
-              reset(terminal);
+              if(toPlay.getValue().equals("+4")){
+                mode = 3;
+              }else if(toPlay.getValue().equals("WILD")){
+                mode = 4;
+              }else{
+                game.play(playing,toPlay);
+                terminal.clearScreen();
+                printInfo(terminal, game);
+                reset(terminal);
+              }
             }
           }
         }
@@ -328,6 +338,72 @@ public class UNO{
             count++;
           }
           putString(50,0,terminal,"Player "+playing.getName()+" drew 1 card!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+        }
+        printInfo(terminal, game);
+      }
+
+      if(mode == 3){
+        mode = 0;
+        Player playing = game.getTurn();
+        putString(50,2,terminal,"player # to get cards");
+        putString(50,3,terminal,"r for red");
+        if(key!=null){
+          if(Character.getNumericValue(key.getCharacter()) < game.getPlayers().size() &&
+            Character.getNumericValue(key.getCharacter()) >= 0 &&
+            Character.getNumericValue(key.getCharacter()) == Integer.parseInt(game.getTurn().getName())){
+            terminal.clearScreen();
+            printInfo(terminal, game);
+            printCards(terminal, game, Character.getNumericValue(key.getCharacter()));
+          }
+          if(key.getCharacter() == 'r'){
+            game.play(playing,"RED",true);
+            putString(50,0,terminal,"Player "+playing.getName()+" played RED+4!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+          }
+          if(key.getCharacter() == 'b'){
+            game.play(playing,"BLUE",true);
+            putString(50,0,terminal,"Player "+playing.getName()+" played BLUE+4!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+          }
+          if(key.getCharacter() == 'y'){
+            game.play(playing,"YELLOW",true);
+            putString(50,0,terminal,"Player "+playing.getName()+" played YELLOW+4!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+          }
+          if(key.getCharacter() == 'g'){
+            game.play(playing,"GREEN",true);
+            putString(50,0,terminal,"Player "+playing.getName()+" played GREEN+4!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+          }
+        }
+        printInfo(terminal, game);
+      }
+
+      if(mode == 4){
+        mode = 0;
+        Player playing = game.getTurn();
+        putString(50,2,terminal,"player # to get cards");
+        putString(50,3,terminal,"r for red");
+        if(key!=null){
+          if(Character.getNumericValue(key.getCharacter()) < game.getPlayers().size() &&
+            Character.getNumericValue(key.getCharacter()) >= 0 &&
+            Character.getNumericValue(key.getCharacter()) == Integer.parseInt(game.getTurn().getName())){
+            terminal.clearScreen();
+            printInfo(terminal, game);
+            printCards(terminal, game, Character.getNumericValue(key.getCharacter()));
+          }
+          if(key.getCharacter() == 'r'){
+            game.play(playing,"RED");
+            putString(50,0,terminal,"Player "+playing.getName()+" played REDWILD!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+          }
+          if(key.getCharacter() == 'b'){
+            game.play(playing,"BLUE");
+            putString(50,0,terminal,"Player "+playing.getName()+" played BLUEWILD!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+          }
+          if(key.getCharacter() == 'y'){
+            game.play(playing,"YELLOW");
+            putString(50,0,terminal,"Player "+playing.getName()+" played YELLOWWILD!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+          }
+          if(key.getCharacter() == 'g'){
+            game.play(playing,"GREEN");
+            putString(50,0,terminal,"Player "+playing.getName()+" played GREENWILD!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+          }
         }
         printInfo(terminal, game);
       }

@@ -76,7 +76,7 @@ public class Game{
     //this is needed bc if the first card chosen is an action card,
     //the action must be carried out
     Card test = deck.get(Math.abs(randgen.nextInt(deck.size())));
-    play(new Player(""),test,test.getColor());
+    play(new Player(""),test);
     //selects a player to "start" game
     turn = players.get(Math.abs(randgen.nextInt(numPlayers)));
     setTurn(1);
@@ -274,13 +274,33 @@ public class Game{
     }
   }
 
+  public void play(Player person, String color){
+    int i = person.getCards().indexOf(new Card("BLACK","WILD"));
+    Card toPlay = person.getCards().get(i);
+    person.removeCard(toPlay);
+    discard.add(toPlay);
+    toPlay.setColor(color);
+    topCard = toPlay;
+    setTurn(1);
+  }
+
+  public void play(Player person, String color, boolean add){
+    combo+=4;
+    int i = person.getCards().indexOf(new Card("BLACK","+4"));
+    Card toPlay = person.getCards().get(i);
+    person.removeCard(toPlay);
+    discard.add(toPlay);
+    toPlay.setColor(color);
+    topCard = toPlay;
+    setTurn(1);
+  }
   /**
   * Player plays a card and sets the turn to the next player
   * @param person Player playing the card
   * @param toPlay Card being played
   * @param color color of card if playing a wild or +4
   */
-  public void play(Player person, Card toPlay, String color){
+  public void play(Player person, Card toPlay){
     try{
       if(topCard == null){
         topCard = toPlay;
@@ -407,7 +427,7 @@ public class Game{
           setTurn(1);
         }
       }else if(topCard.playable(toPlay)){
-        effectCheck(person,toPlay,color);
+        effectCheck(person,toPlay);
       }
     }catch(NumberFormatException e){
       System.out.println("Invalid card!");
@@ -420,7 +440,7 @@ public class Game{
   * @param toPlay Card being played
   * @param color color of card if playing a wild or +4
   */
-  public void effectCheck(Player person, Card toPlay, String color) {
+  public void effectCheck(Player person, Card toPlay) {
     /*  }else if(rules.contains("STACKING") && !(toPlay.getValue().equals("+2") || toPlay.getValue().equals("+4") ||
       toPlay.getValue().equals("WILD") || toPlay.getValue().equals("SKIP") ||
       toPlay.getValue().equals("REVERSE")) && checkStack(person, toPlay) == true){
@@ -459,17 +479,6 @@ public class Game{
           topCard = toPlay;
           setTurn(-1);
         }
-      }
-      if(toPlay.getColor().equals("BLACK")){
-        //add 4 to combo if +4
-        if(toPlay.getValue().equals("+4")){
-          combo+=4;
-        }
-        //wild & +4 choose a color
-        String colors[] = {"RED","BLUE","YELLOW","GREEN"};
-        toPlay.setColor(colors[Math.abs(randgen.nextInt(colors.length))]);
-      } else{
-        //  System.out.println(color+" is an invalid color!");
       }
       person.removeCard(toPlay);
       discard.add(toPlay);
