@@ -14,7 +14,7 @@ public class Game{
   private Random randgen = new Random();
   private int index;
   private int combo = 0;
-  private boolean sudden = false;
+  private static boolean sudden = false;
 
   /**
   * Constructor to start an UNO game
@@ -29,10 +29,40 @@ public class Game{
       setRules();
       for(int y=0; y<numRules; y++){
         Rule toAdd = allRules.get(Math.abs(randgen.nextInt(allRules.size())));
-        ruleInfo.add(toAdd);
-        String name = toAdd.getName();
-        rules.add(name);
-        allRules.remove(toAdd);
+        if(toAdd.getName().equals("MESS")){
+          y=numRules;
+          rules.clear();
+          ruleInfo.clear();
+          ruleInfo.add(toAdd);
+          String name = toAdd.getName();
+          rules.add(name);
+          allRules.remove(toAdd);
+        }else if(toAdd.getName().equals("NO ACTION")){
+          boolean checked = false;
+          for(int i=ruleInfo.size()-1; i>0; i--){
+            Rule r = ruleInfo.get(i);
+            if(r.getType(r).equals("ACTION") || r.getName().equals("SUPER COMBO")){
+              allRules.remove(toAdd);
+              i=0;
+            }
+
+          }
+          checked = true;
+          if(checked){
+            allRules.remove(toAdd);
+          }
+        }else if(rules.contains("NO ACTION") && toAdd.getType(toAdd).equals("ACTION")){
+          allRules.remove(toAdd);
+        }else if(rules.contains("NO COMBO") && toAdd.getName().equals("SUPER COMBO")){
+          allRules.remove(toAdd);
+        }else if(rules.contains("SUPER COMBO") && (toAdd.getName().equals("NO COMBO") || toAdd.getName().equals("NO ACTION"))){
+          allRules.remove(toAdd);
+        }else{
+          ruleInfo.add(toAdd);
+          String name = toAdd.getName();
+          rules.add(name);
+          allRules.remove(toAdd);
+        }
       }
     }
     setDeck();
@@ -45,12 +75,11 @@ public class Game{
     }
     //this is needed bc if the first card chosen is an action card,
     //the action must be carried out
-    players.add(new Player(""+numPlayers));
     Card test = deck.get(Math.abs(randgen.nextInt(deck.size())));
-    play(players.get(numPlayers),test,test.getColor());
-    players.remove(numPlayers);
+    play(new Player(""),test,test.getColor());
     //selects a player to "start" game
     turn = players.get(Math.abs(randgen.nextInt(numPlayers)));
+    setTurn(1);
   }
 
   /**
@@ -117,16 +146,40 @@ public class Game{
       }
     }
     if(rules.contains("CLONE CARD") || rules.contains("MESS")){
-      for(int x=0; x<50; x++){
+      for(int x=0; x<4; x++){
         deck.add(new Card("BLACK","CLONE"));
       }
     }
+    if(rules.contains("MAGNET CARD") || rules.contains("MESS")){
+      for(int x=0; x<4; x++){
+        deck.add(new Card(colors[x],"MAGNET"));
+      }
+    }
+    if(rules.contains("JUSTICE CARD") || rules.contains("MESS")){
+      for(int x=0; x<4; x++){
+        deck.add(new Card(colors[x],"JUSTICE"));
+      }
+    }
+    if(rules.contains("THUNDER CARD") || rules.contains("MESS")){
+      for(int x=0; x<4; x++){
+        deck.add(new Card(colors[x],"THUNDER"));
+      }
+    }/*
+    if(rules.contains("MYSTERIOUS CARD") || rules.contains("MESS")){
+      for(int x=0; x<4; x++){
+        deck.add(new Card("BLACK","MYSTERIOUS"));
+      }
+    }*/
   }
 
   /**
   * Sets the rules in the games
   */
   public void setRules(){
+<<<<<<< HEAD
+=======
+
+>>>>>>> bde9c8bb1fd73fc73eb8917d559980a52614036e
     allRules.add(new Rule("NO ACTION","There are only numerical and wild cards in the deck."));
     allRules.add(new Rule("CAMOUFLAGE","You cannot see anyone’s number of cards until they only have 1 card left."));
     allRules.add(new Rule("PERFECTION","If you play a card whose numerical value is equal to the number of cards in your hand, you can play again."));
@@ -136,25 +189,26 @@ public class Game{
     allRules.add(new Rule("SUPER COMBO","You can block a combo with any + card"));
     allRules.add(new Rule("SUDDEN DEATH CARD","You are eliminated if you are unable to play a card."));
     allRules.add(new Rule("INK CARD","When you play this card, every colored card on the next player’s hand turns the color of your ink card."));
-    allRules.add(new Rule("MESS","add description!"));
-//NOT WORKING    allRules.add(new Rule("HELL","add description!"));
-    allRules.add(new Rule("EQUALITY CARD","add description!"));
-    allRules.add(new Rule("OVERLOAD","add description!"));
-    allRules.add(new Rule("RAIN CARD","add description!"));
-//    allRules.add(new Rule("MYSTERIOUS CARD","add description!"));
+    allRules.add(new Rule("MESS","The deck consists only of action cards."));
+    allRules.add(new Rule("EQUALITY CARD","When you play this card, every player either draws or discards cards until everyone has 3 cards."));
+    allRules.add(new Rule("OVERLOAD","Players with more than 10 cards get eliminated."));
+    allRules.add(new Rule("RAIN CARD","When you play this card, every other player draws 1 card."));
+    allRules.add(new Rule("CLONE CARD","The card activates the same effect as the previous card."));
+    allRules.add(new Rule("JUSTICE CARD","When you play this card, discard 1 card for each player with fewer cards than you."));
+    allRules.add(new Rule("THUNDER CARD","When you play this card, two random players draw 1-5 cards."));
+    allRules.add(new Rule("MAGNET CARD","When you play this card, discard every card that has your magnet's color."));
+//EVERYTHING UP TO THIS POINT WORKS//
+/*
+    allRules.add(new Rule("HELL","add description!"));
     allRules.add(new Rule("GIFT CARD","add description!"));
-    allRules.add(new Rule("THUNDER CARD","add description!"));
-
-    allRules.add(new Rule("MAGNET CARD","add description!"));
-    allRules.add(new Rule("JUSTICE CARD","add description!"));
-//IGNORE FOR NOW  allRules.add(new Rule("STACKING","add description!!!"));*/
-    allRules.add(new Rule("CLONE CARD","add description!"));
+    allRules.add(new Rule("STACKING","add description!!!"));
+    allRules.add(new Rule("MYSTERIOUS CARD","add description!"));
+*/
     }
 
     /**
-    *
-    * @param
-    * @param
+    * Sets the turn given how many people are skipped
+    * @param num the number of people to skip
     */
   public void setTurn(int num){
     if(num == 0){
@@ -253,7 +307,7 @@ public class Game{
         topCard.getValue().equals("+4"))){
         draw(person,Integer.parseInt(topCard.getValue()));
         setCombo(0);
-      }else if(rules.contains("INK CARD")){
+      }else if(toPlay.getValue().equals("INK")){
         String c = toPlay.getColor();
         setTurn(1);
         for(int x=0; x<turn.getCards().size(); x++){
@@ -262,7 +316,7 @@ public class Game{
             check.setColor(c);
           }
         }
-      }else if(rules.contains("EQUALITY CARD") && toPlay.getValue().equals("EQUALITY")){
+      }else if(toPlay.getValue().equals("EQUALITY")){
         if(topCard.getColor().equals(toPlay.getColor()) ||
           topCard.getValue().equals(toPlay.getValue())){
           person.removeCard(toPlay);
@@ -280,31 +334,79 @@ public class Game{
             }
           }
         }
-      }else if(rules.contains("RAIN CARD") && toPlay.getValue().equals("RAIN")){
-        person.removeCard(toPlay);
-        discard.add(toPlay);
-        topCard = toPlay;
-        setTurn(1);
-        for(int x=0; x<players.size() && x!=index; x++){
-          draw(players.get(x),1);
-        }
-      }else if(rules.contains("CLONE CARD") && toPlay.getValue().equals("CLONE")){
-        if(topCard.getValue().equals("WILD")){
-          String colors[] = {"RED","BLUE","YELLOW","GREEN"};
-          topCard.setColor(colors[Math.abs(randgen.nextInt(colors.length))]);
+      }else if(toPlay.getValue().equals("RAIN")){
+        if(topCard.getColor().equals(toPlay.getColor()) ||
+          topCard.getValue().equals(toPlay.getValue())){
           person.removeCard(toPlay);
           discard.add(toPlay);
+          topCard = toPlay;
           setTurn(1);
-        }else if(topCard.getValue().equals("+2") || topCard.getValue().equals("+4")){
-          if(combo==0){
-            combo+=Integer.parseInt(topCard.getValue());
+          for(int x=0; x<players.size() && x!=index; x++){
+            draw(players.get(x),1);
+          }
+        }
+      }else if(toPlay.getValue().equals("CLONE")){
+        if(combo!=0){
+          if(topCard.getValue().equals("WILD")){
+            String colors[] = {"RED","BLUE","YELLOW","GREEN"};
+            topCard.setColor(colors[Math.abs(randgen.nextInt(colors.length))]);
+            person.removeCard(toPlay);
+            discard.add(toPlay);
+            setTurn(1);
+          }else if(topCard.getValue().equals("+2") || topCard.getValue().equals("+4")){
+            if(combo==0){
+              combo+=Integer.parseInt(topCard.getValue());
+              person.removeCard(toPlay);
+              discard.add(toPlay);
+              setTurn(1);
+            }
+          }else{
             person.removeCard(toPlay);
             discard.add(toPlay);
             setTurn(1);
           }
-        }else{
+        }
+      }else if(toPlay.getValue().equals("JUSTICE")){
+        if(topCard.getColor().equals(toPlay.getColor()) ||
+          topCard.getValue().equals(toPlay.getValue())){
+          int count = 0;
+          int test = turn.getCards().size();
+          for(int x=0; x<players.size(); x++){
+            if(players.get(x).getCards().size() < test){
+              count++;
+            }
+          }
+          turn.remove(count);
           person.removeCard(toPlay);
           discard.add(toPlay);
+          topCard = toPlay;
+          setTurn(1);
+        }
+      }else if(toPlay.getValue().equals("MAGNET")){
+        if(topCard.getColor().equals(toPlay.getColor()) ||
+          topCard.getValue().equals(toPlay.getValue())){
+          person.removeCard(toPlay);
+          discard.add(toPlay);
+          topCard = toPlay;
+          String c = toPlay.getColor();
+          for(int x=turn.getCards().size()-1; x>=0; x--){
+            if(turn.getCards().get(x).getColor().equals(c)){
+              turn.getCards().remove(x);
+            }
+          }
+          setTurn(1);
+        }
+      }else if(toPlay.getValue().equals("THUNDER")){
+        if(topCard.getColor().equals(toPlay.getColor()) ||
+          topCard.getValue().equals(toPlay.getValue())){
+          for(int x=0; x<2; x++){
+            Player chosen = players.get(Math.abs(randgen.nextInt(players.size())));
+            int num = Math.abs(randgen.nextInt(5))+1;
+            draw(chosen,num);
+          }
+          person.removeCard(toPlay);
+          discard.add(toPlay);
+          topCard = toPlay;
           setTurn(1);
         }
       }else if(topCard.playable(toPlay)){
@@ -444,6 +546,33 @@ public class Game{
     return res;
   }
 
+  /**
+  * Prints rules in arraylist-like format, but separated into intervals of 10
+  * @return String of rules
+  */
+  public String printRules1(){
+    String res = "[";
+    for(int i=0; i<10; i++){
+      res+=rules.get(i)+", ";
+    }
+    return res;
+  }
+
+  /**
+  * Prints rules in arraylist-like format, but separated into intervals of 10
+  * @return String of rules
+  */
+  public String printRules2(){
+    String res = "";
+    for(int i=10; i<rules.size(); i++){
+      res+=rules.get(i);
+      if(i!=rules.size()-1){
+        res+=", ";
+      }
+    }
+    return res+"]";
+  }
+
   ///GET METHODS///
   public Card getTopCard(){
     return topCard;
@@ -453,16 +582,16 @@ public class Game{
     return deck;
   }
 
+  public ArrayList<String> getRules(){
+    return rules;
+  }
+
   public ArrayList<Card> getDiscard(){
     return discard;
   }
 
   public ArrayList<Player> getPlayers(){
     return players;
-  }
-
-  public ArrayList<String> getRules(){
-    return rules;
   }
 
   public ArrayList<Rule> getRuleInfo(){
@@ -487,6 +616,10 @@ public class Game{
 
   public int getCombo(){
     return combo;
+  }
+
+  public static boolean getSudden(){
+    return sudden;
   }
 
   public static void main(String[] args) {
