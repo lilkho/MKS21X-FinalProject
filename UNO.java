@@ -233,18 +233,21 @@ public class UNO{
             printInfo(terminal, game);
             printCards(terminal, game, Character.getNumericValue(key.getCharacter()));
           }
+          //to hide cards
           if(key.getCharacter() == 'h'){
             terminal.clearScreen();
             printInfo(terminal, game);
             reset(terminal);
           }
-          if(key.getCharacter() == 'd'){
-            mode = 2;
+          //to play cards
+          if(key.getCharacter() == 'p'){
+            mode = 1;
             terminal.clearScreen();
             reset(terminal);
           }
-          if(key.getCharacter() == 'p'){
-            mode = 1;
+          // to draw cards
+          if(key.getCharacter() == 'd'){
+            mode = 2;
             terminal.clearScreen();
             reset(terminal);
           }
@@ -265,6 +268,11 @@ public class UNO{
   			terminal.applyBackgroundColor(Terminal.Color.DEFAULT);
   			terminal.applyForegroundColor(Terminal.Color.DEFAULT);
         if (key!=null) {
+          if (key.getKind() == Key.Kind.Escape) {
+            terminal.exitPrivateMode();
+            running = false;
+          }
+          //player is limited going above the cards
           if (key.getKind() == Key.Kind.ArrowUp) {
             if (y>7) {
               terminal.moveCursor(x,y);
@@ -272,6 +280,7 @@ public class UNO{
               y--;
             }
           }
+          //player is limited going below how many cards there are
     			if (key.getKind() == Key.Kind.ArrowDown) {
             if (y<playing.getCards().size()+6) {
               terminal.moveCursor(x,y);
@@ -298,6 +307,10 @@ public class UNO{
         putString(50,3,terminal,"p to play a card");
         putString(50,4,terminal,"player # to get cards");
         if(key!=null){
+          if (key.getKind() == Key.Kind.Escape) {
+            terminal.exitPrivateMode();
+            running = false;
+          }
           if(key.getCharacter() == 'n'){
             terminal.clearScreen();
             count = 0;
