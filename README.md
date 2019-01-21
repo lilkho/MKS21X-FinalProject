@@ -2,23 +2,23 @@
 ## UNO!
 Game rules [here](https://www.unorules.com/)
 This is UNO! with extra rules.
-[ ] NO ACTION
-[ ] CAMOUFLAGE
-[ ] PERFECTION
-[ ] NO COMBO
-[ ] CLEAN FINISH
-[ ] BOMB CARD
-[ ] SUPER COMBO
-[ ] SUDDEN DEATH CARD
-[ ] INK CARD
-[ ] MESS
-[ ] EQUALITY CARD
-[ ] OVERLOAD
-[ ] RAIN CARD
-[ ] CLONE CARD
-[ ] JUSTICE CARD
-[ ] THUNDER CARD
-[ ] MAGNET CARD
+- NO ACTION
+- CAMOUFLAGE
+- PERFECTION
+- NO COMBO
+- CLEAN FINISH
+- BOMB CARD
+- SUPER COMBO
+- SUDDEN DEATH CARD
+- INK CARD
+- MESS
+- EQUALITY CARD
+- OVERLOAD
+- RAIN CARD
+- CLONE CARD
+- JUSTICE CARD
+- THUNDER CARD
+- MAGNET CARD
 
 #### **Note**
 Players are not required to say "UNO!" when they have one card.
