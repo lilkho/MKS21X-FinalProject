@@ -149,14 +149,16 @@ public class UNO{
           putString(25,i+2,terminal,person.toString(),x,y);
         }
       }
+      /*
       putString(50,2,terminal,"d to draw card(s)");
       putString(50,3,terminal,"h to hide your cards");
       putString(50,4,terminal,"n to pass turn");
       putString(50,5,terminal,"p to play a card");
       putString(50,6,terminal,"arrow up/down to move cursor");
       putString(50,7,terminal,"space to play the card");
-      putString(50,8,terminal,"(player) # to get cards");
+      putString(50,8,terminal,"player # to get cards");
       putString(50,9,terminal,"escape to exit");
+      */
     }catch(ArrayIndexOutOfBoundsException e){
       System.out.println("Player does not exist!");
     }
@@ -211,6 +213,10 @@ public class UNO{
         //commands
         printInfo(terminal, game);
         reset(terminal);
+        putString(50,2,terminal,"d to draw card(s)");
+        putString(50,3,terminal,"h to hide your cards");
+        putString(50,4,terminal,"p to play a card");
+        putString(50,5,terminal,"escape to exit");
       }
 
       Key key = terminal.readInput();
@@ -233,20 +239,8 @@ public class UNO{
             reset(terminal);
           }
           if(key.getCharacter() == 'd'){
+            mode = 2;
             terminal.clearScreen();
-            Player playing = game.getTurn();
-            if(game.getCombo()!=0){
-              game.draw(playing,game.getCombo());
-              putString(50,0,terminal,"Player "+playing.getName()+" drew "+game.getCombo()+" cards!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
-              game.setCombo(0);
-            }else{
-              if(count==0){
-                game.draw(playing,1);
-                count++;
-              }
-              putString(50,0,terminal,"Player "+playing.getName()+" drew 1 card!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
-            }
-            printInfo(terminal, game);
             reset(terminal);
           }
           if(key.getCharacter() == 'p'){
@@ -254,18 +248,13 @@ public class UNO{
             terminal.clearScreen();
             reset(terminal);
           }
-          if(key.getCharacter() == 'n'){
-            terminal.clearScreen();
-            count = 0;
-            game.setTurn(1);
-            printInfo(terminal, game);
-            putString(50,0,terminal,"Player "+game.getTurn().getName()+" passed!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
-          }
         }
       }
 
       //to play cards
       if(mode == 1){
+        putString(50,2,terminal,"arrow up/down to move cursor");
+        putString(50,3,terminal,"enter to play the card");
         Player playing = game.getTurn();
         printInfo(terminal, game);
         printCards(terminal, game, game.getPlayers().indexOf(playing));
@@ -302,6 +291,45 @@ public class UNO{
             }
           }
         }
+      }
+
+      if(mode == 2){
+        putString(50,2,terminal,"n to pass turn");
+        putString(50,3,terminal,"p to play a card");
+        putString(50,4,terminal,"player # to get cards");
+        if(key!=null){
+          if(key.getCharacter() == 'n'){
+            terminal.clearScreen();
+            count = 0;
+            mode = 0;
+            game.setTurn(1);
+            printInfo(terminal, game);
+            putString(50,0,terminal,"Player "+game.getTurn().getName()+" passed!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+          }
+          if(key.getCharacter() == 'p'){
+            mode = 1;
+          }
+          if(Character.getNumericValue(key.getCharacter()) < game.getPlayers().size() &&
+            Character.getNumericValue(key.getCharacter()) >= 0 &&
+            Character.getNumericValue(key.getCharacter()) == Integer.parseInt(game.getTurn().getName())){
+            terminal.clearScreen();
+            printInfo(terminal, game);
+            printCards(terminal, game, Character.getNumericValue(key.getCharacter()));
+          }
+        }
+        Player playing = game.getTurn();
+        if(game.getCombo()!=0){
+          game.draw(playing,game.getCombo());
+          putString(50,0,terminal,"Player "+playing.getName()+" drew "+game.getCombo()+" cards!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+          game.setCombo(0);
+        }else{
+          if(count==0){
+            game.draw(playing,1);
+            count++;
+          }
+          putString(50,0,terminal,"Player "+playing.getName()+" drew 1 card!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+        }
+        printInfo(terminal, game);
       }
     }
   }
