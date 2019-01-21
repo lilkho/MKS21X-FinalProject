@@ -15,6 +15,7 @@ import com.googlecode.lanterna.input.KeyMappingProfile;
 
 public class UNO{
   public static int count = 0;
+  public static boolean win = false;
 
   /**
   * Puts a string on the terminal at a given location
@@ -141,6 +142,7 @@ public class UNO{
         Player person = game.getPlayers().get(i);
         String temp = ": ";
         if(person.getCards().size() == 0 || game.getPlayers().size() == 1){
+          win = true;
           putString(50,0,terminal,"Player "+i+" won the game! Congratulations!",x,y);
         }
         if(game.getRules().contains("CAMOUFLAGE")){
@@ -209,6 +211,10 @@ public class UNO{
     int mode = 0;
 
     while(running){
+      if(win){
+        terminal.exitPrivateMode();
+        running = false;
+      }
       if(mode == 0){
         //commands
         printInfo(terminal, game);
@@ -222,6 +228,7 @@ public class UNO{
       Key key = terminal.readInput();
       if(key != null){
         if(mode == 0){
+
           if (key.getKind() == Key.Kind.Escape) {
             terminal.exitPrivateMode();
             running = false;
@@ -255,6 +262,7 @@ public class UNO{
       if(mode == 1){
         putString(50,2,terminal,"arrow up/down to move cursor");
         putString(50,3,terminal,"enter to play the card");
+        putString(50,4,terminal,"escape to go back");
         Player playing = game.getTurn();
         printInfo(terminal, game);
         printCards(terminal, game, game.getPlayers().indexOf(playing));
@@ -265,6 +273,9 @@ public class UNO{
   			terminal.applyBackgroundColor(Terminal.Color.DEFAULT);
   			terminal.applyForegroundColor(Terminal.Color.DEFAULT);
         if (key!=null) {
+          if (key.getKind() == Key.Kind.Escape) {
+            mode = 0;
+          }
           if (key.getKind() == Key.Kind.ArrowUp) {
             if (y>7) {
               terminal.moveCursor(x,y);
@@ -281,9 +292,13 @@ public class UNO{
           }
           if (key.getKind()==Key.Kind.Enter) {
             if (y-7<playing.getCards().size()) {
-              mode=0;
-              count = 0;
               Card toPlay = playing.getCards().get(y-7);
+              if(game.getTopCard().playable(toPlay) || count==1){
+                mode = 0;
+                count = 0;
+              }else{
+                mode = 2;
+              }
               game.play(playing,toPlay,toPlay.getColor());
               terminal.clearScreen();
               printInfo(terminal, game);
@@ -330,6 +345,11 @@ public class UNO{
           putString(50,0,terminal,"Player "+playing.getName()+" drew 1 card!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
         }
         printInfo(terminal, game);
+      }
+
+      if(mode == 3){
+        terminal.clearScreen();
+        putString(0,0,terminal,"Player "+game.getTurn()+" won the game! Congratulations!",Terminal.Color.DEFAULT,Terminal.Color.DEFAULT);
       }
     }
   }
