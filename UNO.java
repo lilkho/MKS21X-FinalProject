@@ -150,7 +150,7 @@ public class UNO{
     int r = 0;
     try{
       if(args.length==0){
-        System.out.println("Welcome to UNO! Enter the number of players to start a game.");
+        System.out.println("Welcome to UNO! Enter the number of players and/or rules to start a game.");
         System.exit(1);
       }
       if(args.length==1){
@@ -167,8 +167,8 @@ public class UNO{
           System.out.println("Please enter 2-4 players");
           System.exit(1);
         }
-        if(r<0 || r>7){
-          System.out.println("Please enter 0-7 rules");
+        if(r<0 || r>17){
+          System.out.println("Please enter 0-17 rules");
           System.exit(1);
         }
       }
