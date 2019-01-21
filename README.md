@@ -128,3 +128,4 @@ java -cp "lanterna.jar;." UNO
 - Updated Game so that contradicting rules cannot appear in the same game
 - Fixed bug where first player would have 2 turns
 - Fixed bug where adding and removing a new player would crash the game
+- Fixed bug where players could continuously draw
