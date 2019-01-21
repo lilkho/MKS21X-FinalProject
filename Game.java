@@ -138,6 +138,16 @@ public class Game{
         deck.add(new Card(colors[x],"THUNDER"));
       }
     }
+    if(rules.contains("THUNDER CARD") || rules.contains("MESS")){
+      for(int x=0; x<4; x++){
+        deck.add(new Card(colors[x],"THUNDER"));
+      }
+    }
+    if(rules.contains("MYSTERIOUS CARD") || rules.contains("MESS")){
+      for(int x=0; x<4; x++){
+        deck.add(new Card("BLACK","MYSTERIOUS"));
+      }
+    }
   }
 
   /**
@@ -160,17 +170,17 @@ public class Game{
     allRules.add(new Rule("CLONE CARD","The card activates the same effect as the previous card."));
     allRules.add(new Rule("JUSTICE CARD","When you play this card, discard 1 card for each player with fewer cards than you."));
     allRules.add(new Rule("THUNDER CARD","When you play this card, two random players draw 1-5 cards."));
+    allRules.add(new Rule("MAGNET CARD","When you play this card, discard every card that has your magnet's color."));
 //EVERYTHING UP TO THIS POINT WORKS    allRules.add(new Rule("HELL","add description!"));
-    allRules.add(new Rule("MYSTERIOUS CARD","add description!"));
+
     allRules.add(new Rule("GIFT CARD","add description!"));
     allRules.add(new Rule("STACKING","add description!!!"));*/
-    allRules.add(new Rule("MAGNET CARD","When you play this card, discard every card that has your magnet's color."));
+    allRules.add(new Rule("MYSTERIOUS CARD","add description!"));
     }
 
     /**
-    *
-    * @param
-    * @param
+    * Sets the turn given how many people are skipped
+    * @param num the number of people to skip
     */
   public void setTurn(int num){
     if(num == 0){
