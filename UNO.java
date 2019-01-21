@@ -306,6 +306,7 @@ public class UNO{
       }
       //to draw cards
       if(mode == 2){
+        Player playing = game.getTurn();
         putString(50,2,terminal,"n to pass turn");
         putString(50,3,terminal,"p to play a card");
         putString(50,4,terminal,"player # to get cards");
@@ -317,8 +318,8 @@ public class UNO{
           //pass turn
           if(key.getCharacter() == 'n'){
             terminal.clearScreen();
-            count = 0;
             mode = 0;
+            count = 0;
             game.setTurn(1);
             printInfo(terminal, game);
             putString(50,0,terminal,"Player "+game.getTurn().getName()+" passed!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
@@ -336,7 +337,7 @@ public class UNO{
             printCards(terminal, game, Character.getNumericValue(key.getCharacter()));
           }
         }
-        Player playing = game.getTurn();
+        //Player playing = game.getTurn();
         if(game.getCombo()!=0){
           game.draw(playing,game.getCombo());
           putString(50,0,terminal,"Player "+playing.getName()+" drew "+game.getCombo()+" cards!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
