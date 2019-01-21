@@ -227,12 +227,14 @@ public class UNO{
 
       Key key = terminal.readInput();
       if(key != null){
+        //DEFAULT GAME MODE
         if(mode == 0){
 
           if (key.getKind() == Key.Kind.Escape) {
             terminal.exitPrivateMode();
             running = false;
           }
+          //seeing a certain player's cards, and only can choose based on how many players there are.
           if(Character.getNumericValue(key.getCharacter()) < game.getPlayers().size() &&
             Character.getNumericValue(key.getCharacter()) >= 0 &&
             Character.getNumericValue(key.getCharacter()) == Integer.parseInt(game.getTurn().getName())){
@@ -240,18 +242,21 @@ public class UNO{
             printInfo(terminal, game);
             printCards(terminal, game, Character.getNumericValue(key.getCharacter()));
           }
+          //to hide cards
           if(key.getCharacter() == 'h'){
             terminal.clearScreen();
             printInfo(terminal, game);
             reset(terminal);
           }
-          if(key.getCharacter() == 'd'){
-            mode = 2;
+          //to play cards
+          if(key.getCharacter() == 'p'){
+            mode = 1;
             terminal.clearScreen();
             reset(terminal);
           }
-          if(key.getCharacter() == 'p'){
-            mode = 1;
+          // to draw cards
+          if(key.getCharacter() == 'd'){
+            mode = 2;
             terminal.clearScreen();
             reset(terminal);
           }
@@ -283,6 +288,7 @@ public class UNO{
               y--;
             }
           }
+          //player is limited going below how many cards there are
     			if (key.getKind() == Key.Kind.ArrowDown) {
             if (y<playing.getCards().size()+6) {
               terminal.moveCursor(x,y);
@@ -290,6 +296,7 @@ public class UNO{
     				  y++;
             }
           }
+          //play card
           if (key.getKind()==Key.Kind.Enter) {
             if (y-7<playing.getCards().size()) {
               Card toPlay = playing.getCards().get(y-7);
@@ -307,23 +314,31 @@ public class UNO{
           }
         }
       }
-
+      //to draw cards
       if(mode == 2){
+        Player playing = game.getTurn();
         putString(50,2,terminal,"n to pass turn");
         putString(50,3,terminal,"p to play a card");
         putString(50,4,terminal,"player # to get cards");
         if(key!=null){
+          if (key.getKind() == Key.Kind.Escape) {
+            terminal.exitPrivateMode();
+            running = false;
+          }
+          //pass turn
           if(key.getCharacter() == 'n'){
             terminal.clearScreen();
-            count = 0;
             mode = 0;
+            count = 0;
             game.setTurn(1);
             printInfo(terminal, game);
             putString(50,0,terminal,"Player "+game.getTurn().getName()+" passed!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
           }
+          //play card
           if(key.getCharacter() == 'p'){
             mode = 1;
           }
+          //seeing a certain player's cards, and only can choose based on how many players there are.
           if(Character.getNumericValue(key.getCharacter()) < game.getPlayers().size() &&
             Character.getNumericValue(key.getCharacter()) >= 0 &&
             Character.getNumericValue(key.getCharacter()) == Integer.parseInt(game.getTurn().getName())){
@@ -332,7 +347,7 @@ public class UNO{
             printCards(terminal, game, Character.getNumericValue(key.getCharacter()));
           }
         }
-        Player playing = game.getTurn();
+        //Player playing = game.getTurn();
         if(game.getCombo()!=0){
           game.draw(playing,game.getCombo());
           putString(50,0,terminal,"Player "+playing.getName()+" drew "+game.getCombo()+" cards!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
