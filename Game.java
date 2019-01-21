@@ -120,15 +120,22 @@ public class Game{
       for(int x=0; x<4; x++){
         deck.add(new Card("BLACK","CLONE"));
       }
-    }/*
+    }
     if(rules.contains("MAGNET CARD") || rules.contains("MESS")){
+      for(int y=0; y<50; y++){
       for(int x=0; x<4; x++){
         deck.add(new Card(colors[x],"MAGNET"));
       }
-    }*/
+      }
+    }
     if(rules.contains("JUSTICE CARD") || rules.contains("MESS")){
       for(int x=0; x<4; x++){
         deck.add(new Card(colors[x],"JUSTICE"));
+      }
+    }
+    if(rules.contains("THUNDER CARD") || rules.contains("MESS")){
+      for(int x=0; x<4; x++){
+        deck.add(new Card(colors[x],"THUNDER"));
       }
     }
   }
@@ -146,19 +153,18 @@ public class Game{
     allRules.add(new Rule("SUPER COMBO","You can block a combo with any + card"));
     allRules.add(new Rule("SUDDEN DEATH CARD","You are eliminated if you are unable to play a card."));
     allRules.add(new Rule("INK CARD","When you play this card, every colored card on the next player’s hand turns the color of your ink card."));
-    allRules.add(new Rule("MESS","add description!"));
-//NOT WORKING    allRules.add(new Rule("HELL","add description!"));
-    allRules.add(new Rule("EQUALITY CARD","add description!"));
-    allRules.add(new Rule("OVERLOAD","add description!"));
-    allRules.add(new Rule("RAIN CARD","add description!"));
-    allRules.add(new Rule("CLONE CARD","add description!"));
-//    allRules.add(new Rule("MYSTERIOUS CARD","add description!"));
+    allRules.add(new Rule("MESS","The deck consists only of action cards."));
+    allRules.add(new Rule("EQUALITY CARD","When you play this card, every player either draws or discards cards until everyone has 3 cards."));
+    allRules.add(new Rule("OVERLOAD","Players with more than 10 cards get eliminated."));
+    allRules.add(new Rule("RAIN CARD","When you play this card, every other player draws 1 card."));
+    allRules.add(new Rule("CLONE CARD","The card activates the same effect as the previous card."));
+    allRules.add(new Rule("JUSTICE CARD","When you play this card, discard 1 card for each player with fewer cards than you."));
+    allRules.add(new Rule("THUNDER CARD","When you play this card, two random players draw 1-5 cards."));
+//EVERYTHING UP TO THIS POINT WORKS    allRules.add(new Rule("HELL","add description!"));
+    allRules.add(new Rule("MYSTERIOUS CARD","add description!"));
     allRules.add(new Rule("GIFT CARD","add description!"));
-    allRules.add(new Rule("THUNDER CARD","add description!"));
-    allRules.add(new Rule("MAGNET CARD","add description!"));
-
-//IGNORE FOR NOW  allRules.add(new Rule("STACKING","add description!!!"));*/
-    allRules.add(new Rule("JUSTICE CARD","add description!"));
+    allRules.add(new Rule("STACKING","add description!!!"));*/
+    allRules.add(new Rule("MAGNET CARD","When you play this card, discard every card that has your magnet's color."));
     }
 
     /**
@@ -318,14 +324,20 @@ public class Game{
           setTurn(1);
         }
       }else if(rules.contains("JUSTICE CARD") && toPlay.getValue().equals("JUSTICE")){
-        int count = 0;
-        int test = turn.getCards().size();
-        for(int x=0; x<players.size(); x++){
-          if(players.get(x).getCards().size() < test){
-            count++;
+        if(toPlay.getColor().equals(topCard.getColor())){
+          int count = 0;
+          int test = turn.getCards().size();
+          for(int x=0; x<players.size(); x++){
+            if(players.get(x).getCards().size() < test){
+              count++;
+            }
           }
+          turn.remove(count);
+          person.removeCard(toPlay);
+          discard.add(toPlay);
+          topCard = toPlay;
+          setTurn(1);
         }
-        turn.remove(count);
       /*
       }else if(rules.contains("MAGNET CARD") && toPlay.getValue().equals("MAGNET") && toPlay.getColor().equals(topCard.getColor()) && combo==0){
         person.removeCard(toPlay);
@@ -341,6 +353,16 @@ public class Game{
         }
         topCard = toPlay;
         setTurn(1);*/
+      }else if(toPlay.getValue().equals("THUNDER")){
+        for(int x=0; x<2; x++){
+          Player chosen = players.get(Math.abs(randgen.nextInt(players.size())));
+          int num = Math.abs(randgen.nextInt(5))+1;
+          draw(chosen,num);
+        }
+        person.removeCard(toPlay);
+        discard.add(toPlay);
+        topCard = toPlay;
+        setTurn(1);
       }else if(topCard.playable(toPlay)){
         effectCheck(person,toPlay,color);
       }
