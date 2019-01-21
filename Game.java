@@ -38,17 +38,19 @@ public class Game{
           rules.add(name);
           allRules.remove(toAdd);
         }else if(toAdd.getName().equals("NO ACTION")){
+          boolean checked = false;
           for(int i=ruleInfo.size()-1; i>0; i--){
             Rule r = ruleInfo.get(i);
             if(r.getType(r).equals("ACTION") || r.getName().equals("SUPER COMBO")){
-              i=0;
               allRules.remove(toAdd);
+              i=0;
             }
+
           }
-          ruleInfo.add(toAdd);
-          String name = toAdd.getName();
-          rules.add(name);
-          allRules.remove(toAdd);
+          checked = true;
+          if(checked){
+            allRules.remove(toAdd);
+          }
         }else if(rules.contains("NO ACTION") && toAdd.getType(toAdd).equals("ACTION")){
           allRules.remove(toAdd);
         }else if(rules.contains("NO COMBO") && toAdd.getName().equals("SUPER COMBO")){
@@ -73,12 +75,11 @@ public class Game{
     }
     //this is needed bc if the first card chosen is an action card,
     //the action must be carried out
-    players.add(new Player(""+numPlayers));
     Card test = deck.get(Math.abs(randgen.nextInt(deck.size())));
-    play(players.get(numPlayers),test,test.getColor());
-    players.remove(numPlayers);
+    play(new Player(""),test,test.getColor());
     //selects a player to "start" game
     turn = players.get(Math.abs(randgen.nextInt(numPlayers)));
+    setTurn(1);
   }
 
   /**
@@ -185,7 +186,7 @@ public class Game{
     allRules.add(new Rule("SUPER COMBO","You can block a combo with any + card"));
     allRules.add(new Rule("SUDDEN DEATH CARD","You are eliminated if you are unable to play a card."));
     allRules.add(new Rule("INK CARD","When you play this card, every colored card on the next player’s hand turns the color of your ink card."));
-    allRules.add(new Rule("MESS","The deck consists only of action cards."));
+  //  allRules.add(new Rule("MESS","The deck consists only of action cards."));
     allRules.add(new Rule("EQUALITY CARD","When you play this card, every player either draws or discards cards until everyone has 3 cards."));
     allRules.add(new Rule("OVERLOAD","Players with more than 10 cards get eliminated."));
     allRules.add(new Rule("RAIN CARD","When you play this card, every other player draws 1 card."));
@@ -342,8 +343,7 @@ public class Game{
           }
         }
       }else if(toPlay.getValue().equals("CLONE")){
-        if(topCard.getColor().equals(toPlay.getColor()) ||
-          topCard.getValue().equals(toPlay.getValue())){
+        if(combo!=0){
           if(topCard.getValue().equals("WILD")){
             String colors[] = {"RED","BLUE","YELLOW","GREEN"};
             topCard.setColor(colors[Math.abs(randgen.nextInt(colors.length))]);
