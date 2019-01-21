@@ -140,3 +140,4 @@ java -cp "lanterna.jar;." UNO
 - Added gitignore file
 - Added method to Player to remove N random cards
 - Equality, rain, clone, magnet, and justice rules are all working
+- Added rules to README
