@@ -427,8 +427,13 @@ public class Game{
       }else if(toPlay.getValue().equals("THUNDER") && combo==0){
         if(topCard.getColor().equals(toPlay.getColor()) ||
           topCard.getValue().equals(toPlay.getValue())){
+          ArrayList<Player> test = new ArrayList<Player>();
+          for(int i=0; i<players.size(); i++){
+            test.add(players.get(i));
+          }
           for(int x=0; x<2; x++){
-            Player chosen = players.get(Math.abs(randgen.nextInt(players.size())));
+            Player chosen = test.get(Math.abs(randgen.nextInt(players.size())));
+            test.remove(chosen);
             int num = Math.abs(randgen.nextInt(5))+1;
             draw(chosen,num);
           }
