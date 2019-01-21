@@ -14,8 +14,8 @@ import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.input.KeyMappingProfile;
 
 public class UNO{
-  public static int count = 0;
-  public static boolean win = false;
+  public static int count = 0; //to count how many times a player has drawn a
+  public static boolean win = false; //to keep track of if sudden death effect is activated
 
   /**
   * Puts a string on the terminal at a given location
@@ -71,6 +71,7 @@ public class UNO{
   public static void printCards(Terminal terminal, Game game, int num){
     Terminal.Color x = Terminal.Color.WHITE;
     Terminal.Color y = Terminal.Color.DEFAULT;
+    //if sudden death effect, game info will have a magenta background
     if(Game.getSudden()){
       x = Terminal.Color.MAGENTA;
       y = Terminal.Color.WHITE;
@@ -114,8 +115,10 @@ public class UNO{
   */
   public static void printInfo(Terminal terminal, Game game){
     try{
+      //default colors of game info
       Terminal.Color x = Terminal.Color.WHITE;
       Terminal.Color y = Terminal.Color.DEFAULT;
+      //if sudden death effect, game info will have a magenta background
       if(Game.getSudden()){
         x = Terminal.Color.MAGENTA;
         y = Terminal.Color.WHITE;
@@ -141,10 +144,12 @@ public class UNO{
       for (int i=0;i<game.getPlayers().size();i++) {
         Player person = game.getPlayers().get(i);
         String temp = ": ";
+        //win message
         if(person.getCards().size() == 0 || game.getPlayers().size() == 1){
           win = true;
-          putString(50,0,terminal,"Player "+i+" won the game! Congratulations!",x,y);
+          putString(0,0,terminal,"Player "+i+" won the game! Congratulations!",x,y);
         }
+        //if camouflage rule, # of cards will be displayed as "?" instead
         if(game.getRules().contains("CAMOUFLAGE")){
           putString(25,i+2,terminal,person.getName()+temp+"?",x,y);
         }else{
@@ -212,9 +217,11 @@ public class UNO{
 
     while(running){
       if(win){
+        //exits terminal if someone wins
         terminal.exitPrivateMode();
         running = false;
       }
+
       if(mode == 0){
         //commands
         printInfo(terminal, game);
@@ -222,14 +229,13 @@ public class UNO{
         putString(50,2,terminal,"d to draw card(s)");
         putString(50,3,terminal,"h to hide your cards");
         putString(50,4,terminal,"p to play a card");
-        putString(50,5,terminal,"escape to exit");
+        putString(50,5,terminal,"escape to exit game");
       }
 
       Key key = terminal.readInput();
       if(key != null){
         //DEFAULT GAME MODE
         if(mode == 0){
-
           if (key.getKind() == Key.Kind.Escape) {
             terminal.exitPrivateMode();
             running = false;
@@ -265,12 +271,14 @@ public class UNO{
 
       //to play cards
       if(mode == 1){
+        //commands
         putString(50,2,terminal,"arrow up/down to move cursor");
         putString(50,3,terminal,"enter to play the card");
-        putString(50,4,terminal,"escape to go back");
+        //print player's cards
         Player playing = game.getTurn();
         printInfo(terminal, game);
         printCards(terminal, game, game.getPlayers().indexOf(playing));
+        //cursor
         terminal.moveCursor(x,y);
   			terminal.applyBackgroundColor(Terminal.Color.WHITE);
   			terminal.applyForegroundColor(Terminal.Color.BLACK);
@@ -278,9 +286,7 @@ public class UNO{
   			terminal.applyBackgroundColor(Terminal.Color.DEFAULT);
   			terminal.applyForegroundColor(Terminal.Color.DEFAULT);
         if (key!=null) {
-          if (key.getKind() == Key.Kind.Escape) {
-            mode = 0;
-          }
+          //player is limited going above the cards
           if (key.getKind() == Key.Kind.ArrowUp) {
             if (y>7) {
               terminal.moveCursor(x,y);
@@ -314,6 +320,7 @@ public class UNO{
           }
         }
       }
+
       //to draw cards
       if(mode == 2){
         Player playing = game.getTurn();
@@ -321,10 +328,6 @@ public class UNO{
         putString(50,3,terminal,"p to play a card");
         putString(50,4,terminal,"player # to get cards");
         if(key!=null){
-          if (key.getKind() == Key.Kind.Escape) {
-            terminal.exitPrivateMode();
-            running = false;
-          }
           //pass turn
           if(key.getCharacter() == 'n'){
             terminal.clearScreen();
@@ -347,17 +350,21 @@ public class UNO{
             printCards(terminal, game, Character.getNumericValue(key.getCharacter()));
           }
         }
-        //Player playing = game.getTurn();
+        //draws the combo number of cards
         if(game.getCombo()!=0){
           game.draw(playing,game.getCombo());
+          //to display correct message
           game.setTurn(-1);
           putString(50,0,terminal,"Player "+playing.getName()+" drew "+game.getCombo()+" cards!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
           game.setTurn(1);
           game.setCombo(0);
+          //prevents next player from drawing 1 card bc count = 0
           mode = 0;
         }else{
           if(count==0){
+            //draws 1 card bc havent drawn before
             game.draw(playing,1);
+            //prevents player from drawing again
             count++;
             putString(50,0,terminal,"Player "+playing.getName()+" drew 1 card!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
             mode = 0;
@@ -366,10 +373,6 @@ public class UNO{
         printInfo(terminal, game);
       }
 
-      if(mode == 3){
-        terminal.clearScreen();
-        putString(0,0,terminal,"Player "+game.getTurn()+" won the game! Congratulations!",Terminal.Color.DEFAULT,Terminal.Color.DEFAULT);
-      }
     }
   }
 }
