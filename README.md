@@ -1,10 +1,13 @@
 # MKS21X-FinalProject
 ## UNO!
 Game rules [here](https://www.unorules.com/)
+
 This is UNO! with extra rules.
 
 #### **Note**
-Players are not required to say "UNO!" when they have one card.
+- Players are not required to say "UNO!" when they have one card.
+- If you draw and attempt to play a card, choosing the wrong card will automatically force you to draw.
+- Playing a WILD or +4 chooses a random color.
 
 #### **Instructions**
 1. Clone this repo
@@ -19,19 +22,14 @@ cd MKS21X-FinalProject/
 ```
 javac -cp lanterna.jar:. UNO.java
 ```
-For git bash:
-```
-javac -cp "lanterna.jar;." UNO.java
-```
 4. Run the UNO game
 ```
 java -cp lanterna.jar:. UNO
 ```
-For git bash:
-```
-java -cp "lanterna.jar;." UNO
-```
+5. For best gameplay, play in full screen.
 
+#### **Bugs**
+- 
 
 ---
 
@@ -129,3 +127,12 @@ java -cp "lanterna.jar;." UNO
 - Fixed bug where first player would have 2 turns
 - Fixed bug where adding and removing a new player would crash the game
 - Fixed bug where players could continuously draw
+- Added function to change background color if sudden death effect is activated
+- Added mode for drawing
+- Added different commands for different modes
+
+**1/21/19**
+- Changed win message to automatically exit out of private mode
+- Fixed bug where next player draws 1 card if current player draws
+- Added comments to all code
+- Removed useless methods
