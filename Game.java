@@ -127,7 +127,7 @@ public class Game{
   * Sets the rules in the games
   */
   public void setRules(){
-/*  allRules.add(new Rule("NO ACTION","There are only numerical and wild cards in the deck."));
+    allRules.add(new Rule("NO ACTION","There are only numerical and wild cards in the deck."));
     allRules.add(new Rule("CAMOUFLAGE","You cannot see anyone’s number of cards until they only have 1 card left."));
     allRules.add(new Rule("PERFECTION","If you play a card whose numerical value is equal to the number of cards in your hand, you can play again."));
     allRules.add(new Rule("NO COMBO","You cannot block combos."));
