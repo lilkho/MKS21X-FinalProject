@@ -14,7 +14,7 @@ public class Game{
   private Random randgen = new Random();
   private int index;
   private int combo = 0;
-  private boolean sudden = false;
+  private static boolean sudden = false;
 
   /**
   * Constructor to start an UNO game
@@ -131,9 +131,11 @@ public class Game{
       }
     }
     if(rules.contains("SUDDEN DEATH CARD") || rules.contains("MESS")){
+      for(int i=0; i<50; i++){
       for(int x=0; x<4; x++){
         deck.add(new Card(colors[x],"SUDDEN DEATH"));
       }
+    }
     }
     if(rules.contains("EQUALITY CARD") || rules.contains("MESS")){
       for(int x=0; x<4; x++){
@@ -177,23 +179,23 @@ public class Game{
   */
   public void setRules(){
 
-    allRules.add(new Rule("NO ACTION","There are only numerical and wild cards in the deck."));
+/*    allRules.add(new Rule("NO ACTION","There are only numerical and wild cards in the deck."));
     allRules.add(new Rule("CAMOUFLAGE","You cannot see anyone’s number of cards until they only have 1 card left."));
     allRules.add(new Rule("PERFECTION","If you play a card whose numerical value is equal to the number of cards in your hand, you can play again."));
     allRules.add(new Rule("NO COMBO","You cannot block combos."));
     allRules.add(new Rule("CLEAN FINISH","You can only win if your last card is a numerical card."));
     allRules.add(new Rule("BOMB CARD","You are eliminated if you draw this card."));
     allRules.add(new Rule("SUPER COMBO","You can block a combo with any + card"));
-    allRules.add(new Rule("SUDDEN DEATH CARD","You are eliminated if you are unable to play a card."));
-    allRules.add(new Rule("INK CARD","When you play this card, every colored card on the next player’s hand turns the color of your ink card."));
-  //  allRules.add(new Rule("MESS","The deck consists only of action cards."));
+  */  allRules.add(new Rule("SUDDEN DEATH CARD","You are eliminated if you are unable to play a card."));
+    /*allRules.add(new Rule("INK CARD","When you play this card, every colored card on the next player’s hand turns the color of your ink card."));
+    allRules.add(new Rule("MESS","The deck consists only of action cards."));
     allRules.add(new Rule("EQUALITY CARD","When you play this card, every player either draws or discards cards until everyone has 3 cards."));
     allRules.add(new Rule("OVERLOAD","Players with more than 10 cards get eliminated."));
     allRules.add(new Rule("RAIN CARD","When you play this card, every other player draws 1 card."));
     allRules.add(new Rule("CLONE CARD","The card activates the same effect as the previous card."));
     allRules.add(new Rule("JUSTICE CARD","When you play this card, discard 1 card for each player with fewer cards than you."));
     allRules.add(new Rule("THUNDER CARD","When you play this card, two random players draw 1-5 cards."));
-    allRules.add(new Rule("MAGNET CARD","When you play this card, discard every card that has your magnet's color."));
+    allRules.add(new Rule("MAGNET CARD","When you play this card, discard every card that has your magnet's color."));*/
 //EVERYTHING UP TO THIS POINT WORKS//
 /*
     allRules.add(new Rule("HELL","add description!"));
@@ -613,6 +615,10 @@ public class Game{
 
   public int getCombo(){
     return combo;
+  }
+
+  public static boolean getSudden(){
+    return sudden;
   }
 
   public static void main(String[] args) {

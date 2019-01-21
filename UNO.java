@@ -28,6 +28,7 @@ public class UNO{
 		for(int i = 0; i < s.length();i++){
 			t.putCharacter(s.charAt(i));
 		}
+    reset(t);
 	}
 
   /**
@@ -48,8 +49,7 @@ public class UNO{
     for(int i = 0; i < s.length();i++){
       t.putCharacter(s.charAt(i));
     }
-    t.applyBackgroundColor(Terminal.Color.DEFAULT);
-    t.applyForegroundColor(Terminal.Color.DEFAULT);
+    reset(t);
   }
 
   /**
@@ -57,7 +57,7 @@ public class UNO{
   * @param terminal terminal to reset
   */
   public static void reset(Terminal terminal){
-    terminal.applyBackgroundColor(Terminal.Color.BLACK);
+    terminal.applyBackgroundColor(Terminal.Color.DEFAULT);
     terminal.applyForegroundColor(Terminal.Color.DEFAULT);
   }
 
@@ -65,17 +65,22 @@ public class UNO{
   * Prints the cards of the player
   * @param terminal terminal to put the cards
   * @param game game being played
-  * @param x index of player
+  * @param num index of player
   */
-  public static void printCards(Terminal terminal, Game game, int x){
-    putString(0,5,terminal,"Player "+game.getPlayers().get(x).getName()+"'s Cards:",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
-    for(int i=0; i<game.getPlayers().get(x).getCards().size(); i++){
-      Card card = game.getPlayers().get(x).getCards().get(i);
+  public static void printCards(Terminal terminal, Game game, int num){
+    Terminal.Color x = Terminal.Color.WHITE;
+    Terminal.Color y = Terminal.Color.DEFAULT;
+    if(Game.getSudden()){
+      x = Terminal.Color.MAGENTA;
+      y = Terminal.Color.WHITE;
+    }
+    putString(0,5,terminal,"Player "+game.getPlayers().get(num).getName()+"'s Cards:",x,y);
+    for(int i=0; i<game.getPlayers().get(num).getCards().size(); i++){
+      Card card = game.getPlayers().get(num).getCards().get(i);
       determineColor(terminal, card);
       putString(1,7+i,terminal,""+card.getValue());
     }
-    terminal.applyBackgroundColor(Terminal.Color.BLACK);
-    terminal.applyForegroundColor(Terminal.Color.DEFAULT);
+    reset(terminal);
   }
 
   /**
@@ -108,20 +113,26 @@ public class UNO{
   */
   public static void printInfo(Terminal terminal, Game game){
     try{
-      putString(0,0,terminal,"TURN: Player "+game.getTurn().getName(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
-      putString(0,1,terminal,"COMBO: "+game.getCombo(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
-      putString(25,0,terminal,"PLAYER | #CARDS",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
-      putString(0,3,terminal,"TOP CARD:",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+      Terminal.Color x = Terminal.Color.WHITE;
+      Terminal.Color y = Terminal.Color.DEFAULT;
+      if(Game.getSudden()){
+        x = Terminal.Color.MAGENTA;
+        y = Terminal.Color.WHITE;
+      }
+      putString(0,0,terminal,"TURN: Player "+game.getTurn().getName(),x,y);
+      putString(0,1,terminal,"COMBO: "+game.getCombo(),x,y);
+      putString(25,0,terminal,"PLAYER | #CARDS",x,y);
+      putString(0,3,terminal,"TOP CARD:",x,y);
       if(game.getRules().size()>10){
-        putString(50,11,terminal,"Rules: "+game.printRules1(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
-        putString(50,12,terminal,game.printRules2(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+        putString(50,11,terminal,"Rules: "+game.printRules1(),x,y);
+        putString(50,12,terminal,game.printRules2(),x,y);
       }else{
-        putString(50,11,terminal,"Rules: "+game.getRules(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+        putString(50,11,terminal,"Rules: "+game.getRules(),x,y);
       }
 
-      for(int x=0; x<game.getRules().size(); x++){
-        Rule r = game.getRuleInfo().get(x);
-        putString(50,13+x,terminal,r.getName()+": "+r.getDescription());
+      for(int c=0; c<game.getRules().size(); c++){
+        Rule r = game.getRuleInfo().get(c);
+        putString(50,13+c,terminal,r.getName()+": "+r.getDescription());
       }
       Card topCard = game.getTopCard();
       determineColor(terminal, topCard);
@@ -130,12 +141,12 @@ public class UNO{
         Player person = game.getPlayers().get(i);
         String temp = ": ";
         if(person.getCards().size() == 0 || game.getPlayers().size() == 1){
-          putString(50,0,terminal,"Player "+i+" won the game! Congratulations!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+          putString(50,0,terminal,"Player "+i+" won the game! Congratulations!",x,y);
         }
         if(game.getRules().contains("CAMOUFLAGE")){
-          putString(25,i+2,terminal,person.getName()+temp+"?",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+          putString(25,i+2,terminal,person.getName()+temp+"?",x,y);
         }else{
-          putString(25,i+2,terminal,person.toString(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+          putString(25,i+2,terminal,person.toString(),x,y);
         }
       }
       putString(50,2,terminal,"d to draw card(s)");
@@ -200,7 +211,6 @@ public class UNO{
         //commands
         printInfo(terminal, game);
         reset(terminal);
-
       }
 
       Key key = terminal.readInput();
@@ -210,7 +220,9 @@ public class UNO{
             terminal.exitPrivateMode();
             running = false;
           }
-          if(Character.getNumericValue(key.getCharacter()) < game.getPlayers().size() && Character.getNumericValue(key.getCharacter()) >= 0){
+          if(Character.getNumericValue(key.getCharacter()) < game.getPlayers().size() &&
+            Character.getNumericValue(key.getCharacter()) >= 0 &&
+            Character.getNumericValue(key.getCharacter()) == Integer.parseInt(game.getTurn().getName())){
             terminal.clearScreen();
             printInfo(terminal, game);
             printCards(terminal, game, Character.getNumericValue(key.getCharacter()));
@@ -238,7 +250,7 @@ public class UNO{
             reset(terminal);
           }
           if(key.getCharacter() == 'p'){
-            mode = 2;
+            mode = 1;
             terminal.clearScreen();
             reset(terminal);
           }
@@ -252,12 +264,8 @@ public class UNO{
         }
       }
 
-      if(mode == 1){
-
-      }
-
       //to play cards
-      if(mode == 2){
+      if(mode == 1){
         Player playing = game.getTurn();
         printInfo(terminal, game);
         printCards(terminal, game, game.getPlayers().indexOf(playing));
