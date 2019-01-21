@@ -271,7 +271,7 @@ public class UNO{
     				  y++;
             }
           }
-          if (key.getCharacter()==' ') {
+          if (key.getKind()==Key.Kind.Enter) {
             if (y-7<playing.getCards().size()) {
               mode=0;
               Card toPlay = playing.getCards().get(y-7);
