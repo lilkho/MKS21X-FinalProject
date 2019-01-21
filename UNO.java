@@ -350,14 +350,18 @@ public class UNO{
         //Player playing = game.getTurn();
         if(game.getCombo()!=0){
           game.draw(playing,game.getCombo());
+          game.setTurn(-1);
           putString(50,0,terminal,"Player "+playing.getName()+" drew "+game.getCombo()+" cards!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+          game.setTurn(1);
           game.setCombo(0);
+          mode = 0;
         }else{
           if(count==0){
             game.draw(playing,1);
             count++;
+            putString(50,0,terminal,"Player "+playing.getName()+" drew 1 card!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+            mode = 0;
           }
-          putString(50,0,terminal,"Player "+playing.getName()+" drew 1 card!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
         }
         printInfo(terminal, game);
       }
