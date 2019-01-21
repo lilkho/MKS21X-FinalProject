@@ -29,10 +29,38 @@ public class Game{
       setRules();
       for(int y=0; y<numRules; y++){
         Rule toAdd = allRules.get(Math.abs(randgen.nextInt(allRules.size())));
-        ruleInfo.add(toAdd);
-        String name = toAdd.getName();
-        rules.add(name);
-        allRules.remove(toAdd);
+        if(toAdd.getName().equals("MESS")){
+          y=numRules;
+          rules.clear();
+          ruleInfo.clear();
+          ruleInfo.add(toAdd);
+          String name = toAdd.getName();
+          rules.add(name);
+          allRules.remove(toAdd);
+        }else if(toAdd.getName().equals("NO ACTION")){
+          for(int i=ruleInfo.size()-1; i>0; i--){
+            Rule r = ruleInfo.get(i);
+            if(r.getType(r).equals("ACTION") || r.getName().equals("SUPER COMBO")){
+              i=0;
+              allRules.remove(toAdd);
+            }
+          }
+          ruleInfo.add(toAdd);
+          String name = toAdd.getName();
+          rules.add(name);
+          allRules.remove(toAdd);
+        }else if(rules.contains("NO ACTION") && toAdd.getType(toAdd).equals("ACTION")){
+          allRules.remove(toAdd);
+        }else if(rules.contains("NO COMBO") && toAdd.getName().equals("SUPER COMBO")){
+          allRules.remove(toAdd);
+        }else if(rules.contains("SUPER COMBO") && (toAdd.getName().equals("NO COMBO") || toAdd.getName().equals("NO ACTION"))){
+          allRules.remove(toAdd);
+        }else{
+          ruleInfo.add(toAdd);
+          String name = toAdd.getName();
+          rules.add(name);
+          allRules.remove(toAdd);
+        }
       }
     }
     setDeck();
@@ -122,10 +150,8 @@ public class Game{
       }
     }
     if(rules.contains("MAGNET CARD") || rules.contains("MESS")){
-      for(int y=0; y<50; y++){
       for(int x=0; x<4; x++){
         deck.add(new Card(colors[x],"MAGNET"));
-      }
       }
     }
     if(rules.contains("JUSTICE CARD") || rules.contains("MESS")){
@@ -137,12 +163,12 @@ public class Game{
       for(int x=0; x<4; x++){
         deck.add(new Card(colors[x],"THUNDER"));
       }
-    }
+    }/*
     if(rules.contains("MYSTERIOUS CARD") || rules.contains("MESS")){
       for(int x=0; x<4; x++){
         deck.add(new Card("BLACK","MYSTERIOUS"));
       }
-    }
+    }*/
   }
 
   /**
