@@ -14,6 +14,8 @@ import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.input.KeyMappingProfile;
 
 public class UNO{
+  public static int count = 0;
+
   /**
   * Puts a string on the terminal at a given location
   * @param r starting row to put the string
@@ -226,7 +228,10 @@ public class UNO{
               putString(50,0,terminal,"Player "+playing.getName()+" drew "+game.getCombo()+" cards!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
               game.setCombo(0);
             }else{
-              game.draw(playing,1);
+              if(count==0){
+                game.draw(playing,1);
+                count++;
+              }
               putString(50,0,terminal,"Player "+playing.getName()+" drew 1 card!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
             }
             printInfo(terminal, game);
@@ -239,6 +244,7 @@ public class UNO{
           }
           if(key.getCharacter() == 'n'){
             terminal.clearScreen();
+            count = 0;
             game.setTurn(1);
             printInfo(terminal, game);
             putString(50,0,terminal,"Player "+game.getTurn().getName()+" passed!",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
@@ -279,6 +285,7 @@ public class UNO{
           if (key.getKind()==Key.Kind.Enter) {
             if (y-7<playing.getCards().size()) {
               mode=0;
+              count = 0;
               Card toPlay = playing.getCards().get(y-7);
               game.play(playing,toPlay,toPlay.getColor());
               terminal.clearScreen();
