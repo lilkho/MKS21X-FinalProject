@@ -149,7 +149,8 @@ public class Game{
   * Sets the rules in the games
   */
   public void setRules(){
-/*  allRules.add(new Rule("NO ACTION","There are only numerical and wild cards in the deck."));
+
+    allRules.add(new Rule("NO ACTION","There are only numerical and wild cards in the deck."));
     allRules.add(new Rule("CAMOUFLAGE","You cannot see anyone’s number of cards until they only have 1 card left."));
     allRules.add(new Rule("PERFECTION","If you play a card whose numerical value is equal to the number of cards in your hand, you can play again."));
     allRules.add(new Rule("NO COMBO","You cannot block combos."));
@@ -167,10 +168,12 @@ public class Game{
     allRules.add(new Rule("THUNDER CARD","When you play this card, two random players draw 1-5 cards."));
     allRules.add(new Rule("MAGNET CARD","When you play this card, discard every card that has your magnet's color."));
 //EVERYTHING UP TO THIS POINT WORKS//
+/*
     allRules.add(new Rule("HELL","add description!"));
     allRules.add(new Rule("GIFT CARD","add description!"));
-    allRules.add(new Rule("STACKING","add description!!!"));*/
+    allRules.add(new Rule("STACKING","add description!!!"));
     allRules.add(new Rule("MYSTERIOUS CARD","add description!"));
+*/
     }
 
     /**
@@ -514,6 +517,33 @@ public class Game{
     return res;
   }
 
+  /**
+  * Prints rules in arraylist-like format, but separated into intervals of 10
+  * @return String of rules
+  */
+  public String printRules1(){
+    String res = "[";
+    for(int i=0; i<10; i++){
+      res+=rules.get(i)+", ";
+    }
+    return res;
+  }
+
+  /**
+  * Prints rules in arraylist-like format, but separated into intervals of 10
+  * @return String of rules
+  */
+  public String printRules2(){
+    String res = "";
+    for(int i=10; i<rules.size(); i++){
+      res+=rules.get(i);
+      if(i!=rules.size()-1){
+        res+=", ";
+      }
+    }
+    return res+"]";
+  }
+
   ///GET METHODS///
   public Card getTopCard(){
     return topCard;
@@ -523,16 +553,16 @@ public class Game{
     return deck;
   }
 
+  public ArrayList<String> getRules(){
+    return rules;
+  }
+
   public ArrayList<Card> getDiscard(){
     return discard;
   }
 
   public ArrayList<Player> getPlayers(){
     return players;
-  }
-
-  public ArrayList<String> getRules(){
-    return rules;
   }
 
   public ArrayList<Rule> getRuleInfo(){

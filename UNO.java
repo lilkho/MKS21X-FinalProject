@@ -110,10 +110,16 @@ public class UNO{
       putString(0,1,terminal,"COMBO: "+game.getCombo(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
       putString(25,0,terminal,"PLAYER | #CARDS",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
       putString(0,3,terminal,"TOP CARD:",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
-      putString(50,11,terminal,"Rules: "+game.getRules(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+      if(game.getRules().size()>10){
+        putString(50,11,terminal,"Rules: "+game.printRules1(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+        putString(50,12,terminal,game.printRules2(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+      }else{
+        putString(50,11,terminal,"Rules: "+game.getRules(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+      }
+
       for(int x=0; x<game.getRules().size(); x++){
         Rule r = game.getRuleInfo().get(x);
-        putString(50,12+x,terminal,r.getName()+": "+r.getDescription());
+        putString(50,13+x,terminal,r.getName()+": "+r.getDescription());
       }
       Card topCard = game.getTopCard();
       determineColor(terminal, topCard);
@@ -129,7 +135,6 @@ public class UNO{
         }else{
           putString(25,i+2,terminal,person.toString(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
         }
-
       }
       putString(50,2,terminal,"d to draw card(s)");
       putString(50,3,terminal,"h to hide your cards");
@@ -155,16 +160,16 @@ public class UNO{
       }
       if(args.length==1){
         p = Integer.parseInt(args[0]);
-        if(p<2 || p>4){
-          System.out.println("Please enter 2-4 players");
+        if(p<2 || p>10){
+          System.out.println("Please enter 2-10 players");
           System.exit(1);
         }
       }
       if(args.length>=2){
         p = Integer.parseInt(args[0]);
         r = Integer.parseInt(args[1]);
-        if(p<2 || p>4){
-          System.out.println("Please enter 2-4 players");
+        if(p<2 || p>10){
+          System.out.println("Please enter 2-10 players");
           System.exit(1);
         }
         if(r<0 || r>17){
