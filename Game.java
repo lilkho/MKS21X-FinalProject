@@ -269,7 +269,7 @@ public class Game{
         topCard.getValue().equals("+4"))){
         draw(person,Integer.parseInt(topCard.getValue()));
         setCombo(0);
-      }else if(rules.contains("INK CARD")){
+      }else if(toPlay.getValue().equals("INK")){
         String c = toPlay.getColor();
         setTurn(1);
         for(int x=0; x<turn.getCards().size(); x++){
@@ -278,7 +278,7 @@ public class Game{
             check.setColor(c);
           }
         }
-      }else if(rules.contains("EQUALITY CARD") && toPlay.getValue().equals("EQUALITY")){
+      }else if(toPlay.getValue().equals("EQUALITY")){
         if(topCard.getColor().equals(toPlay.getColor()) ||
           topCard.getValue().equals(toPlay.getValue())){
           person.removeCard(toPlay);
@@ -296,35 +296,42 @@ public class Game{
             }
           }
         }
-      }else if(rules.contains("RAIN CARD") && toPlay.getValue().equals("RAIN")){
-        person.removeCard(toPlay);
-        discard.add(toPlay);
-        topCard = toPlay;
-        setTurn(1);
-        for(int x=0; x<players.size() && x!=index; x++){
-          draw(players.get(x),1);
-        }
-      }else if(rules.contains("CLONE CARD") && toPlay.getValue().equals("CLONE")){
-        if(topCard.getValue().equals("WILD")){
-          String colors[] = {"RED","BLUE","YELLOW","GREEN"};
-          topCard.setColor(colors[Math.abs(randgen.nextInt(colors.length))]);
+      }else if(toPlay.getValue().equals("RAIN")){
+        if(topCard.getColor().equals(toPlay.getColor()) ||
+          topCard.getValue().equals(toPlay.getValue())){
           person.removeCard(toPlay);
           discard.add(toPlay);
+          topCard = toPlay;
           setTurn(1);
-        }else if(topCard.getValue().equals("+2") || topCard.getValue().equals("+4")){
-          if(combo==0){
-            combo+=Integer.parseInt(topCard.getValue());
+          for(int x=0; x<players.size() && x!=index; x++){
+            draw(players.get(x),1);
+          }
+        }
+      }else if(toPlay.getValue().equals("CLONE")){
+        if(topCard.getColor().equals(toPlay.getColor()) ||
+          topCard.getValue().equals(toPlay.getValue())){
+          if(topCard.getValue().equals("WILD")){
+            String colors[] = {"RED","BLUE","YELLOW","GREEN"};
+            topCard.setColor(colors[Math.abs(randgen.nextInt(colors.length))]);
+            person.removeCard(toPlay);
+            discard.add(toPlay);
+            setTurn(1);
+          }else if(topCard.getValue().equals("+2") || topCard.getValue().equals("+4")){
+            if(combo==0){
+              combo+=Integer.parseInt(topCard.getValue());
+              person.removeCard(toPlay);
+              discard.add(toPlay);
+              setTurn(1);
+            }
+          }else{
             person.removeCard(toPlay);
             discard.add(toPlay);
             setTurn(1);
           }
-        }else{
-          person.removeCard(toPlay);
-          discard.add(toPlay);
-          setTurn(1);
         }
-      }else if(rules.contains("JUSTICE CARD") && toPlay.getValue().equals("JUSTICE")){
-        if(toPlay.getColor().equals(topCard.getColor())){
+      }else if(toPlay.getValue().equals("JUSTICE")){
+        if(topCard.getColor().equals(toPlay.getColor()) ||
+          topCard.getValue().equals(toPlay.getValue())){
           int count = 0;
           int test = turn.getCards().size();
           for(int x=0; x<players.size(); x++){
@@ -338,31 +345,33 @@ public class Game{
           topCard = toPlay;
           setTurn(1);
         }
-      /*
-      }else if(rules.contains("MAGNET CARD") && toPlay.getValue().equals("MAGNET") && toPlay.getColor().equals(topCard.getColor()) && combo==0){
-        person.removeCard(toPlay);
-        discard.add(toPlay);
-        String c = toPlay.getColor();
-        int count = turn.getCards().size();
-        for(int x=0; x<count; x++){
-          if(turn.getCards().get(x).getColor().equals(c)){
-            turn.getCards().remove(x);
-            --x;
+      }else if(toPlay.getValue().equals("MAGNET")){
+        if(topCard.getColor().equals(toPlay.getColor()) ||
+          topCard.getValue().equals(toPlay.getValue())){
+          person.removeCard(toPlay);
+          discard.add(toPlay);
+          topCard = toPlay;
+          String c = toPlay.getColor();
+          for(int x=turn.getCards().size()-1; x>=0; x--){
+            if(turn.getCards().get(x).getColor().equals(c)){
+              turn.getCards().remove(x);
+            }
           }
-          count--;
+          setTurn(1);
         }
-        topCard = toPlay;
-        setTurn(1);*/
       }else if(toPlay.getValue().equals("THUNDER")){
-        for(int x=0; x<2; x++){
-          Player chosen = players.get(Math.abs(randgen.nextInt(players.size())));
-          int num = Math.abs(randgen.nextInt(5))+1;
-          draw(chosen,num);
+        if(topCard.getColor().equals(toPlay.getColor()) ||
+          topCard.getValue().equals(toPlay.getValue())){
+          for(int x=0; x<2; x++){
+            Player chosen = players.get(Math.abs(randgen.nextInt(players.size())));
+            int num = Math.abs(randgen.nextInt(5))+1;
+            draw(chosen,num);
+          }
+          person.removeCard(toPlay);
+          discard.add(toPlay);
+          topCard = toPlay;
+          setTurn(1);
         }
-        person.removeCard(toPlay);
-        discard.add(toPlay);
-        topCard = toPlay;
-        setTurn(1);
       }else if(topCard.playable(toPlay)){
         effectCheck(person,toPlay,color);
       }
