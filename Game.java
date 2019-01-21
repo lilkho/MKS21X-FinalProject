@@ -427,6 +427,7 @@ public class Game{
       }else if(toPlay.getValue().equals("THUNDER") && combo==0){
         if(topCard.getColor().equals(toPlay.getColor()) ||
           topCard.getValue().equals(toPlay.getValue())){
+          //same player cannot be chosen twice
           ArrayList<Player> test = new ArrayList<Player>();
           for(int i=0; i<players.size(); i++){
             test.add(players.get(i));

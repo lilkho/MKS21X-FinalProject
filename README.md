@@ -29,7 +29,7 @@ java -cp lanterna.jar:. UNO
 5. For best gameplay, play in full screen.
 
 #### **Bugs**
-- 
+-
 
 ---
 
@@ -136,3 +136,4 @@ java -cp lanterna.jar:. UNO
 - Fixed bug where next player draws 1 card if current player draws
 - Added comments to all code
 - Removed useless methods
+- Added function so that same player cannot be chosen twice when thunder card is played
