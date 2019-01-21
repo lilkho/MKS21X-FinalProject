@@ -114,3 +114,9 @@ java -cp "lanterna.jar;." UNO
 - Pressing space plays the card the cursor is on.
 - Fixed flickering problem with rules
 - Ink, Sudden Death, Mess, and Hell rules are all working
+
+**1/20/19**
+- Added javadoc
+- Added gitignore file
+- Added method to Player to remove N random cards
+- Equality, rain, clone, magnet, and justice rules are all working
