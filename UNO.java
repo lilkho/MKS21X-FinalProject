@@ -127,7 +127,7 @@ public class UNO{
         if(game.getRules().contains("CAMOUFLAGE")){
           putString(25,i+2,terminal,person.getName()+temp+"?",Terminal.Color.WHITE,Terminal.Color.DEFAULT);
         }else{
-          putString(25,i+2,terminal,person.getName()+temp+person.getCards().size(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
+          putString(25,i+2,terminal,person.toString(),Terminal.Color.WHITE,Terminal.Color.DEFAULT);
         }
 
       }
