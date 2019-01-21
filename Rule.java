@@ -37,17 +37,13 @@ public class Rule {
       r.getName().equals("MAGNET CARD")){
       return "ACTION";
     }else{
-      return "INACTION";
+      return "NOT ACTION";
     }
   }
 
   //GET METHODS//
   public String getName() {
     return name;
-  }
-
-  public String getDescription() {
-    return description;
   }
 
 }

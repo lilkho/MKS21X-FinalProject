@@ -29,14 +29,6 @@ public class Player {
   }
 
   /**
-  * Sets name of player to given name
-  * @param name name to be set
-  */
-  public void setName(String name){
-    this.name = name;
-  }
-
-  /**
   * Removes card from player's deck
   * @param toRemove card to remove
   */
@@ -59,7 +51,7 @@ public class Player {
   public void remove(int num){
     Random randgen = new Random();
     for(int i=0; i<num; i++){
-      int rand = Math.abs(randgen.nextInt(getNumCards()));
+      int rand = Math.abs(randgen.nextInt(cards.size()));
       cards.remove(rand);
     }
   }
@@ -68,10 +60,6 @@ public class Player {
 
   public String getName() {
     return name;
-  }
-
-  public int getNumCards() {
-    return cards.size();
   }
 
   public ArrayList<Card> getCards() {

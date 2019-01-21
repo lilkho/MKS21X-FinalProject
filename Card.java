@@ -43,11 +43,6 @@ public class Card{
   *         false otherwise
   */
   public boolean playable(Card compare){
-    //to prevent other cards to be placed on +2 or +4 bc they share the same color
-    /*if(this.getValue().equals("+2") && !compare.getValue().equals("+2") ||
-      this.getValue().equals("+4") && !compare.getValue().equals("+4")){
-        return false;
-    }*/
     //black can be placed on any card, same color or value is playable
     if (this.getColor().equals("BLACK")) {return true;}
     return compare.getColor().equals("BLACK") ||

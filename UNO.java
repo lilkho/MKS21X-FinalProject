@@ -135,8 +135,7 @@ public class UNO{
       }
 
       for(int c=0; c<game.getRules().size(); c++){
-        Rule r = game.getRuleInfo().get(c);
-        putString(50,13+c,terminal,r.getName()+": "+r.getDescription());
+        putString(50,13+c,terminal,game.getRuleInfo().get(c).toString());
       }
       Card topCard = game.getTopCard();
       determineColor(terminal, topCard);
